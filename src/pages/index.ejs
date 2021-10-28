@@ -1,0 +1,29 @@
+<% const data = {
+	title: 'Список страниц вёрстки',
+	flowContainerClass: '',
+	breadcrumbs: {
+		data: {
+			items: [
+				{
+					name: 'Главная',
+					link: '/'
+				},
+				{
+					name: 'Список страниц вёрстки'
+				}
+			]
+		}
+	}
+} %>
+
+<%- require('../layouts/head.ejs')(data) %>
+
+<div class="content__sections">
+	<div class="content__top">
+		<div class="container">
+			<%- require('../components/breadcrumbs/template.ejs')(data.breadcrumbs) %>
+		</div>
+	</div>
+</div>
+
+<%- require('../layouts/foot.ejs')() %>

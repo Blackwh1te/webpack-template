@@ -1,0 +1,25 @@
+<% const data = {
+	title: 'Главная страница',
+	flowContainerClass: '',
+	breadcrumbs: {
+		data: {
+			items: [
+				{
+					name: 'Главная',
+					link: '/'
+				},
+				{
+					name: 'Список страниц вёрстки'
+				}
+			]
+		}
+	}
+} %>
+
+<%- require('../layouts/head.ejs')(data) %>
+
+<div class="main-page page">
+
+</div>
+
+<%- require('../layouts/foot.ejs')() %>

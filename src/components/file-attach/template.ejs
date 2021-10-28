@@ -1,0 +1,30 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {multiple, name, filter, label} = params
+%>
+
+<div class="file-attach" data-js-file-attach>
+	<input
+		class="file-attach__input"
+		id="<%= name %>"
+		name="<%= name %>"
+		<%= multiple ? 'multiple' : '' %>
+		autocomplete="off"
+		type="file"
+		data-js-file-attach-filter="<%= filter %>"
+		data-js-file-attach-input
+	>
+	<label class="file-attach__btn btn btn--blank"
+	       data-js-file-attach-add-btn
+	       for="<%= name %>"
+	>
+		<svg class="file-attach__icon i-icon">
+			<use href="#icon-attachment"></use>
+		</svg>
+		<span class="file-attach__label">
+      <%= label %>
+    </span>
+	</label>
+	<div class="file-attach__list" data-js-file-attach-file-list></div>
+</div>

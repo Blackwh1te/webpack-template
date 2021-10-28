@@ -1,0 +1,9 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {text} = params
+%>
+
+<div class="example">
+	<%= text %>
+</div>

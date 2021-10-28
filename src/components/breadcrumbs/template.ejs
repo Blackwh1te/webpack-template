@@ -1,0 +1,27 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {items} = params
+%>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ul class="breadcrumb__list">
+    <% items.forEach((item, index) => { %>
+      <% if (item.link) { %>
+        <li class="breadcrumb__item" title="<%= item.name %>" itemprop="itemListElement" itemscope
+            itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb__link" href="<%= item.link %>" itemprop="item">
+            <span itemprop="name">
+              <%= item.name %>
+            </span>
+          </a>
+          <meta itemprop="position" content="<%= index + 1 %>"/>
+        </li>
+      <% } else { %>
+        <li class="breadcrumb__item" title="<%= item.name %>">
+          <%= item.name %>
+        </li>
+      <% } %>
+    <% }) %>
+  </ul>
+</nav>
