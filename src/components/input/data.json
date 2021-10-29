@@ -1,0 +1,23 @@
+{
+  "data": {
+    "name": "form-input",
+    "type": "text",
+    "label": {
+      "text": "Название поля",
+      "isHidden": false
+    },
+    "placeholder": "",
+    "required": false,
+    "disabled": false,
+    "readonly": false,
+    "isShowError": false,
+    "autocomplete": "off",
+    "maxlength": false,
+    "value": false,
+    "tabindex": false,
+    "inputMode": false,
+    "form": "",
+    "extraClasses": "",
+    "extraAttrs": ""
+  }
+}

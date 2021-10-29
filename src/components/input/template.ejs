@@ -1,0 +1,114 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+  name,
+  type,
+  label,
+  placeholder,
+  required,
+  disabled,
+  readonly,
+  isShowError,
+  autocomplete,
+  maxlength,
+  value,
+  tabindex,
+  inputMode,
+  form,
+  extraClasses,
+  extraAttrs,
+} = params
+%>
+
+<label class="form-item" for="<%= name %>">
+  <% if (type === 'textarea') { %>
+    <textarea
+      class="form-input <%= extraClasses %>"
+      id="<%= name %>"
+      <%- extraAttrs %>
+
+      <% if (form) { %>
+        form="<%= form %>"
+      <% } %>
+
+      <% if (tabindex) { %>
+        tabindex="<%= tabindex %>"
+      <% } %>
+
+      <% if (placeholder) { %>
+        placeholder="<%= placeholder %>"
+      <% } %>
+
+      <% if (maxlength) { %>
+        maxlength="<%= maxlength %>"
+      <% } %>
+
+      <% if (required) { %>
+        data-js-input-required="<%= required %>"
+        required
+      <% } %>
+
+      <%= disabled ? 'disabled' : '' %>
+      <%= readonly ? 'readonly' : '' %>
+    >
+      <% if (value) { %>
+        <%= value %>
+      <% } %>
+    </textarea>
+  <% } else { %>
+    <input
+      class="form-input <%= extraClasses %>"
+      id="<%= name %>"
+      type="<%= type %>"
+      <%- extraAttrs %>
+
+      <% if (form) { %>
+        form="<%= form %>"
+      <% } %>
+
+      <% if (tabindex) { %>
+        tabindex="<%= tabindex %>"
+      <% } %>
+
+      <% if (placeholder) { %>
+        placeholder="<%= placeholder %>"
+      <% } %>
+
+      <% if (maxlength) { %>
+        maxlength="<%= maxlength %>"
+      <% } %>
+
+      <% if (autocomplete) { %>
+        autocomplete="<%= autocomplete %>"
+      <% } %>
+
+      <% if (value) { %>
+        value="<%= value %>"
+      <% } %>
+
+      <% if (required) { %>
+        data-js-input-required="<%= required %>"
+        required
+      <% } %>
+
+      <%= disabled ? 'disabled' : '' %>
+      <%= readonly ? 'readonly' : '' %>
+    >
+  <% } %>
+
+  <span
+    class="form-label <%= label.isHidden ? 'visually-hidden' : '' %>"
+  >
+    <%= label.text %>
+  </span>
+
+  <% if (isShowError) { %>
+    <span
+      class="form-error"
+      data-js-form-error-msg="<%= isShowError %>"
+    >
+      Некорректные данные
+    </span>
+  <% } %>
+</label>

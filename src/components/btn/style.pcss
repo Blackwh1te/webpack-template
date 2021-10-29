@@ -1,0 +1,68 @@
+@import '../../styles/mixins.pcss';
+
+.btn {
+  --paddingX: 32px;
+  --textColor: var(--c-light);
+  --bgColor: var(--c-main);
+
+  --hoverTextColor: var(--c-gray-2);
+  --hoverBgColor: var(--c-brand);
+
+  --iconOffset: 12px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--inputHeight);
+  padding-left: var(--paddingX);
+  padding-right: var(--paddingX);
+  font-size: 100%;
+  color: var(--c-light);
+  background-color: var(--bgColor);
+  border-radius: var(--border-radius);
+  will-change: transform;
+
+  &:hover {
+    color: var(--hoverTextColor);
+    background-color: var(--hoverBgColor);
+  }
+
+  &:active {
+    transform: scale(1.025) translateZ(0);
+  }
+
+  &--icon-only {
+    --paddingX: 0;
+    --iconOffset: 0;
+    --textColor: var(--c-dark);
+    --bgColor: transparent;
+    --hoverBgColor: transparent;
+
+    height: auto;
+    border-radius: 0;
+  }
+
+  &[disabled] {
+    --bgColor: var(--c-gray);
+    --hoverTextColor: var(--c-light);
+    --hoverBgColor: var(--c-gray);
+
+    cursor: not-allowed;
+  }
+
+  &__icon-wrapper {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-right: var(--iconOffset);
+    }
+
+    &:not(:first-child) {
+      margin-left: var(--iconOffset);
+    }
+
+    .i-icon * {
+      fill: var(--textColor);
+    }
+  }
+}

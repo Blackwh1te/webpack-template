@@ -1,4 +1,4 @@
-import 'ress'
+import 'reset-css'
 
 import('./vars.pcss')
 import('./media.pcss')
@@ -8,10 +8,10 @@ import('./icons.pcss')
 import('./globals.pcss')
 import('./fonts.pcss')
 import('./forms.pcss')
-import('./typo.pcss')
 
 const requireAll = (requireContext) => {
   return requireContext.keys().map(requireContext)
 }
 
+requireAll(require.context('./typo', false, /.css$/))
 requireAll(require.context('./blocks', false, /.css$/))

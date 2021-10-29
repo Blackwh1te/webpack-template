@@ -1,3 +1,91 @@
-<header class="header">
+<%
+const navData = [
+	{
+		caption: 'Main page',
+		href: '/',
+		isCurrent: true,
+		isBlank: false
+	},
+	{
+		caption: 'Page 2',
+		href: '/',
+		isCurrent: false,
+		isBlank: false
+	},
+	{
+		caption: 'Page 3',
+		href: '/',
+		isCurrent: false,
+		isBlank: false
+	},
+]
+%>
 
+<header class="header">
+	<div class="header__inner container">
+		<div class="header__logo">
+			<%- require('../logo/template.ejs')() %>
+		</div>
+		<nav class="header__nav">
+			<ul class="header__nav-list">
+				<% navData.forEach(item => { %>
+					<% const {caption, href, isCurrent, isBlank} = item %>
+					<li class="header__nav-item">
+						<a
+							class="header__nav-link <%= isCurrent ? 'is-current' : '' %>"
+							href="<%= href %>"
+							<%= isBlank ? 'target="_blank"' : '' %>
+						>
+							<%= caption %>
+						</a>
+					</li>
+				<% }) %>
+			</ul>
+		</nav>
+		<div class="header__actions">
+			<ul class="header__actions-list flow">
+				<li class="header__actions-item">
+					<%- require('../btn/template.ejs')({
+						data: {
+              type: 'button',
+							icon: {
+                name: 'search'
+							},
+							caption: {
+                text: 'Поиск',
+								isHidden: true
+							}
+						}
+					}) %>
+				</li>
+				<li class="header__actions-item">
+					<%- require('../btn/template.ejs')({
+						data: {
+							type: 'a',
+							href: '/',
+							icon: {
+								name: 'person',
+								position: 'after'
+							},
+							caption: {
+								text: 'Войти'
+							}
+						}
+					}) %>
+				</li>
+				<li class="header__actions-item">
+					<%- require('../btn/template.ejs')({
+						data: {
+							type: 'a',
+							href: '/',
+							icon: false,
+							caption: {
+								text: 'Выйти'
+							}
+						}
+					}) %>
+				</li>
+			</ul>
+		</div>
+	</div>
 </header>

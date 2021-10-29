@@ -88,10 +88,11 @@
     "yargs": "^17.2.1"
   },
   "dependencies": {
-    "@fancyapps/ui": "^4.0.8",
+    "@fancyapps/ui": "^4.0.6",
     "custom-select": "^1.1.15",
     "imask": "^6.2.2",
-    "ress": "^4.0.0",
+    "reset-css": "^5.0.1",
+    "scrollmagic": "^2.0.8",
     "svg4everybody": "^2.1.9",
     "swiper": "^7.2.0"
   },

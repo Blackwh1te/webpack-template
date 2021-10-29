@@ -1,0 +1,28 @@
+@import '../../styles/mixins.pcss';
+
+.form-input {
+  --textColor: var(--c-light);
+  --bgColor: var(--c-main);
+
+  --placeholderColor: var(--textColor);
+
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--inputPadding);
+  height: var(--inputHeight);
+  font-size: 100%;
+  color: var(--textColor);
+  background-color: var(--bgColor);
+  border-radius: var(--border-radius);
+
+  &::placeholder {
+    color: var(--placeholderColor);
+  }
+
+  &[disabled] {
+    --bgColor: var(--c-gray);
+
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,186 @@
+@import '../mixins.pcss';
+
+.modal {
+  --bg: var(--c-light);
+  --color: var(--c-dark);
+  --maxWidth: 574px;
+  --padding: 60px;
+  --contentMargin: 40px;
+  --textAlign: center;
+  --textWeight: 400;
+  --modalAlign: middle;
+  --titlePadding: 0 10%;
+  --margin: 40px;
+  --transformOrigin: 50% 50%;
+
+  transform-origin: var(--transformOrigin);
+  align-self: center;
+  animation-fill-mode: backwards;
+  cursor: default;
+  display: none;
+  max-width: var(--maxWidth);
+  width: 100%;
+  padding: var(--padding);
+  background: var(--bg);
+  color: var(--color);
+  text-align: var(--textAlign);
+  position: relative;
+  vertical-align: var(--modalAlign);
+  margin: auto var(--margin);
+
+  &.fancybox__content,
+  .carousel__slide & {
+    display: block;
+  }
+
+  &--auth {
+    --maxWidth: 640px;
+  }
+
+  &--confirm {
+
+    .modal__closer {
+
+      .btn {
+        --btnWidth: 180px;
+      }
+    }
+  }
+
+  &-show {
+    animation: show-modal 0.15s ease;
+  }
+
+  &-hide {
+    animation: hide-modal 0.15s ease;
+  }
+
+  &__closer {
+    margin-top: var(--contentMargin);
+    display: flex;
+    justify-content: center;
+
+    .btn {
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+
+  }
+
+  &__heading {
+    --marginBottom: 20px;
+
+    padding: var(--titlePadding);
+
+    & + .modal__closer {
+      margin-top: 0;
+    }
+
+  }
+
+  &__text {
+    font-weight: var(--textWeight);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+}
+
+.fancybox {
+
+  &__counter {
+    display: none;
+  }
+
+  &__button {
+    &--fullscreen,
+    &--slideshow {
+      display: none;
+    }
+  }
+
+  &-error {
+    width: 420px;
+    height: 160px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 125%;
+    max-width: 90vw;
+  }
+
+  &__slide {
+
+    &.has-error {
+      animation: show-modal .25s;
+    }
+
+  }
+
+}
+
+.carousel {
+  &__button {
+    --carousel-button-width: 60px;
+    --carousel-button-height: 60px;
+    --carousel-button-border-radius: 0;
+
+    &.is-close svg {
+      --carousel-button-svg-stroke-width: 0;
+    }
+
+    svg {
+      --carousel-button-svg-width: 50%;
+      --carousel-button-svg-height: 50%;
+      --carousel-button-svg-stroke-width: 1px;
+      --carousel-button-border-radius: 0;
+      --carousel-button-svg-filter: none;
+
+      .fancybox__nav & {
+        transform: scaleX(0.6);
+
+        * {
+          stroke: var(--c-dark);
+        }
+      }
+    }
+  }
+}
+
+[data-fancybox-close] * {
+  pointer-events: none;
+}
+
+.fancybox__container {
+  html.safari :focus,
+  :focus-visible {
+    outline: 1px dashed var(--c-light);
+  }
+
+  html.safari :focus {
+    @media (--mobile) {
+      outline: none;
+    }
+  }
+
+  :focus {
+    outline: none;
+  }
+}
+
+.fancybox__button--zoom {
+  display: none;
+}
+
+.fancybox__container.is-animated[aria-hidden=false] .fancybox__backdrop,
+.fancybox__container.is-animated[aria-hidden=false] .fancybox__caption,
+.fancybox__container.is-animated[aria-hidden=false] .fancybox__nav,
+.fancybox__container.is-animated[aria-hidden=false] .carousel__dots,
+.fancybox__container.is-animated[aria-hidden=false] .carousel__button.is-close {
+  @mixin transition;
+}

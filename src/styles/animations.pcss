@@ -1,4 +1,29 @@
-@keyframes fancybox-rotate {
+@keyframes show-modal {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateZ(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+
+@keyframes hide-modal {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.5) translateZ(0);
+  }
+}
+
+@keyframes rotate {
   0% {
     transform: rotate(0deg);
   }

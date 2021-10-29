@@ -1,5 +1,5 @@
 <% const data = {
-	title: 'Список страниц вёрстки',
+	title: 'Типографика',
 	flowContainerClass: '',
 	breadcrumbs: {
 		data: {
@@ -9,8 +9,9 @@
 					link: '/'
 				},
 				{
-					name: 'Список страниц вёрстки'
-				}
+					name: 'Типографика',
+					link: '/'
+				},
 			]
 		}
 	}
@@ -19,7 +20,416 @@
 <%- require('../layouts/head.ejs')(data) %>
 
 <div class="content__sections">
+	<div class="page-header container">
+		<div class="page-header__breadcrumbs">
+			<%- require('../components/breadcrumbs/template.ejs')(data.breadcrumbs) %>
+		</div>
+		<h1 class="page-header__title">
+			<%= data.title %>
+		</h1>
+	</div>
 
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Headings
+			</h2>
+		</header>
+		<div class="section__body">
+			<h2 class="h1">H1 - Arial, bold, 42 px</h2>
+			<h2>H2 - Arial, bold, 36 px</h2>
+			<h3>H3 - Arial, bold, 28 px</h3>
+			<h4>H4 - Arial, bold, 24 px</h4>
+			<h5>H5 - Arial, bold, 20 px</h5>
+			<h6>H6 - Arial, bold, 18 px</h6>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Text
+			</h2>
+		</header>
+		<div class="section__body">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Lists
+			</h2>
+		</header>
+		<div class="section__body">
+			<h3 class="h4">Default list</h3>
+			<ul>
+				<li>
+					Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+					<ul>
+						<li>
+							Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+							<ul>
+								<li>
+									Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+									<ul>
+										<li>
+											Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+											развития
+											<ul>
+												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+													развития
+												</li>
+												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+													развития
+												</li>
+											</ul>
+										</li>
+										<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+											развития
+										</li>
+									</ul>
+								</li>
+								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+									развития
+								</li>
+								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+									развития
+								</li>
+							</ul>
+						</li>
+						<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+					</ul>
+				</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+			</ul>
+
+			<h3 class="h4">Numbered list</h3>
+			<ol>
+				<li>
+					Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+					<ol>
+						<li>
+							Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+							<ol>
+								<li>
+									Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+									<ol>
+										<li>
+											Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+											развития
+											<ol>
+												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+													развития
+												</li>
+												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+													развития
+												</li>
+											</ol>
+										</li>
+										<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+											развития
+										</li>
+									</ol>
+								</li>
+								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+									развития
+								</li>
+								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
+									развития
+								</li>
+							</ol>
+						</li>
+						<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+					</ol>
+				</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+			</ol>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Colors
+			</h2>
+		</header>
+		<div class="section__body">
+			<h3 class="h4">Main</h3>
+			<div class="flow">
+				<div class="color-example">
+					<div class="color-example__square" style="--bgColor: var(--c-dark);"></div>
+					<div class="color-example__hex-code">#000000</div>
+				</div>
+				<div class="color-example">
+					<div class="color-example__square" style="--bgColor: var(--c-light);"></div>
+					<div class="color-example__hex-code">#FFFFFF</div>
+				</div>
+			</div>
+
+			<h3 class="h4">Brand</h3>
+			<div class="flow">
+				<div class="color-example">
+					<div class="color-example__square" style="--bgColor: var(--c-brand);"></div>
+					<div class="color-example__hex-code">#002e5e</div>
+				</div>
+				<div class="color-example">
+					<div class="color-example__square" style="--bgColor: var(--c-accent);"></div>
+					<div class="color-example__hex-code">#c0c7d4</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Buttons
+			</h2>
+		</header>
+		<div class="section__body">
+			<div class="flow mb50">
+				<%- require('../components/btn/template.ejs')({
+					data: {
+						type: 'button',
+						icon: false,
+						caption: {
+							text: 'Default btn'
+						}
+					}
+				}) %>
+				<%- require('../components/btn/template.ejs')({
+					data: {
+						type: 'a',
+						href: '/',
+						icon: false,
+						caption: {
+							text: 'Default btn-link'
+						}
+					}
+				}) %>
+				<%- require('../components/btn/template.ejs')({
+					data: {
+						type: 'button',
+						icon: {
+							name: 'arrow-right',
+							position: 'after'
+						},
+						caption: {
+							text: 'With icon after'
+						}
+					}
+				}) %>
+				<%- require('../components/btn/template.ejs')({
+					data: {
+						type: 'button',
+						icon: {
+							name: 'arrow-left',
+							position: 'before'
+						},
+						caption: {
+							text: 'With icon before'
+						}
+					}
+				}) %>
+				<%- require('../components/btn/template.ejs')({
+					data: {
+						type: 'button',
+						icon: false,
+						caption: {
+							text: 'Disabled'
+						},
+						disabled: true
+					}
+				}) %>
+			</div>
+			<div class="flow">
+				<div>
+					<span>With only icon:&nbsp;&nbsp;</span>
+					<%- require('../components/btn/template.ejs')({
+						data: {
+							type: 'button',
+							icon: {
+								name: 'search',
+							},
+							caption: {
+								text: 'With only icon',
+								isHidden: true
+							}
+						}
+					}) %>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Inputs
+			</h2>
+		</header>
+		<div class="section__body">
+			<ul class="grid grid--4">
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-1',
+							type: 'text',
+							label: {
+								text: 'Simple',
+								isHidden: false
+							},
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-2',
+							type: 'text',
+							label: {
+								text: 'With placeholder',
+								isHidden: false
+							},
+							placeholder: 'Enter value',
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-3',
+							type: 'text',
+							label: {
+								text: 'With value',
+								isHidden: false
+							},
+							value: 'Lorem ipsum',
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-4',
+							type: 'text',
+							label: {
+								text: 'Disabled',
+								isHidden: false
+							},
+							disabled: true,
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-5',
+							type: 'text',
+							label: {
+								text: 'Readonly',
+								isHidden: false
+							},
+							value: 'Just look at me',
+							readonly: true,
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Form (success with static modal)
+			</h2>
+		</header>
+		<div class="section__body">
+			<% const formCfg = {
+				url: './json/formSuccessWithStaticModalExample.json',
+				method: 'post',
+			} %>
+			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg) %>">
+				<div class="form__body grid grid--2">
+					<input type="text">
+					<%- require('../components/btn/template.ejs')({
+						data: {
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
+							}
+						}
+					}) %>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Form (success with dynamic modal)
+			</h2>
+		</header>
+		<div class="section__body">
+			<% const formCfg2 = {
+				url: './json/formSuccessWithStaticModalExample.json',
+				method: 'post',
+				type: 'json'
+			} %>
+			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg2) %>">
+				<div class="form__body grid grid--2">
+					<input type="text">
+					<%- require('../components/btn/template.ejs')({
+						data: {
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
+							}
+						}
+					}) %>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Form (success with redirect)
+			</h2>
+		</header>
+		<div class="section__body">
+
+		</div>
+	</section>
 </div>
 
 <%- require('../layouts/foot.ejs')() %>

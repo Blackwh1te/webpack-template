@@ -39,12 +39,19 @@ window.App = {
 }
 
 // load modules
+import SvgUse from './js/svgUse'
+import Modals from './js/modals'
 import Forms from './js/forms/forms'
+import ScrollEffects from './js/scrollEffects'
+import Gallery from './js/gallery'
 
 // Load components
 import './components/header'
 import './components/footer'
 import './components/breadcrumbs'
+import './components/logo'
+import './components/btn'
+import './components/input'
 
 // Load collections
 import {GoogleCaptchaCollection} from './components/grecaptcha'
@@ -110,9 +117,14 @@ const handleDOMReady = () => {
   setVhFix()
   setScrollbarWidth()
 
-  console.debug('!!!')
-  // app components
+  // standalone components
+  new SvgUse()
+  new Modals()
+  new Forms()
+  new Gallery()
 
+  // app components
+  App.ScrollEffects = new ScrollEffects()
   App.GoogleCaptchaCollection = new GoogleCaptchaCollection()
   App.FileAttachCollection = new FileAttachCollection()
 

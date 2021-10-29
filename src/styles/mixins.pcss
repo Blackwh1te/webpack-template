@@ -226,3 +226,597 @@
   width: var(--gridWidth);
   max-width: calc(100vw - var(--gridPadding) * 2);
 }
+
+@define-mixin fade-up $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, 100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-down $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, -100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(-100px, 0, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(100px, 0, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-up-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(100px, 100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-up-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(-100px, 100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-down-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(100px, -100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin fade-down-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(-100px, -100px, 0);
+    transition-timing-function: $(timing-function);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin flip-up $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: rotateX(-100deg) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin flip-down $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: rotateX(100deg) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin flip-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: rotateY(-100deg) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin flip-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: rotateY(100deg) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-in $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: scale(0.6) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-in-up $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, 100px, 0) scale(0.6);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-in-down $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, -100px, 0) scale(0.6);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-in-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(100px, 0, 0) scale(0.6);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-in-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(-100px, 0, 0) scale(0.6);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-out $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: scale(1.2) translateZ(0);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-out-up $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, 100px, 0) scale(1.2);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-out-down $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(0, -100px, 0) scale(1.2);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-out-left $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(100px, 0, 0) scale(1.2);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}
+
+@define-mixin zoom-out-right $opacity-duration: 2.4s, $transform-duration: 1.2s, $delay: 0.25s, $timing-function: ease {
+  .scroll-effect & {
+    @mixin hide;
+
+    transform: translate3d(-100px, 0, 0) scale(1.2);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-property: opacity, transform;
+
+    .dom-is-ready & {
+      transition-duration: $(opacity-duration), $(transform-duration);
+    }
+  }
+
+  .scroll-effect--visible & {
+    @mixin show;
+
+    transform: initial;
+    transition-delay: var(--delay);
+
+    @for $i from 1 to 24 {
+      &:nth-child($i) {
+        --delay: calc($i * $delay);
+      }
+    }
+  }
+}

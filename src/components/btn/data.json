@@ -1,0 +1,17 @@
+{
+  "data": {
+    "type": "button",
+    "href": "#",
+    "icon": {
+      "name": "arrow-right",
+      "position": "after"
+    },
+    "caption": {
+      "text": "Button",
+      "isHidden": false
+    },
+    "disabled": false,
+    "extraClasses": "",
+    "extraAttrs": ""
+  }
+}

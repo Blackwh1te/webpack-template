@@ -1,0 +1,47 @@
+@import '../mixins.pcss';
+
+ul[class]:not(.ul),
+ol[class]:not(.ol) {
+  list-style: none;
+}
+
+ol:not([class]) li li,
+.ol li li,
+ul:not([class]) li,
+.ul li {
+  padding-left: 20px;
+}
+
+ul:not([class]),
+.ul {
+  li {
+    --markerSize: 5px;
+
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.5em;
+      left: 0;
+      display: block;
+      width: var(--markerSize);
+      height: var(--markerSize);
+      background-color: currentColor;
+      border-radius: 50%;
+    }
+  }
+}
+
+ol:not([class]),
+.ol {
+  counter-reset: custom-counter;
+
+  li {
+    &::before {
+      content: counters(custom-counter, ".") ". ";
+      counter-increment: custom-counter;
+      margin-right: 16px;
+    }
+  }
+}

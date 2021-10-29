@@ -1,10 +1,10 @@
-import IMask from 'imask';
-import FormValidation from './formValidation';
-import FormSend from './formSend';
-import {onAjaxContentLoaded} from '../generic/eventing';
-import {getAttr} from '../utils/getAttr';
-import {parseJSON} from '../utils/parseJSON';
-import {bubble} from '../utils/bubble';
+import IMask from 'imask'
+import FormValidation from './formValidation'
+import FormSend from './formSend'
+import {onAjaxContentLoaded} from '../generic/eventing'
+import {getAttr} from '../utils/getAttr'
+import {parseJSON} from '../utils/parseJSON'
+import {bubble} from '../utils/bubble'
 
 export const bubbles = {
   formValid: 'form::valid',
@@ -15,7 +15,7 @@ export const bubbles = {
   formRemoveNodes: 'form::removeNodes',
   inputAppearedError: 'input:appearedError',
   inputRemovedError: 'input:removedError'
-};
+}
 
 export const els = {
   form: '[data-js-form]',
@@ -31,7 +31,7 @@ export const els = {
   inputs: 'input, select, textarea',
   submitAppend: '[data-js-form-append-params]',
   skipConfirmation: '[data-js-form-skip-confirmation]',
-};
+}
 
 const defaultCfg = {
   isLiveValidation: false, // true for validation after inputs blur event
@@ -48,7 +48,7 @@ const defaultCfg = {
   errorsListLayout: `<div ${getAttr(els.errorsList)} class="form__row form__row--large-offset form__row--errors"></div>`, // errors list wrapper tpl
   errorsListPosition: 'afterbegin', // see insertAdjacentElement() positions
   errorsListItemLayout: (errorText) => {
-    return `<div class="form-error" title="${errorText}"><span>${errorText}</span></div>`;
+    return `<div class="form-error" title="${errorText}"><span>${errorText}</span></div>`
   },
   isShowModals: true,
   validateOnlySelector: false,
@@ -59,7 +59,7 @@ const defaultCfg = {
   isConfirmBeforeSubmit: false,
   handler: null,
   isShowErrorsAsModals: true
-};
+}
 
 export const stateClasses = {
   passwordShown: 'is-password-visible',
@@ -69,7 +69,7 @@ export const stateClasses = {
   loading: 'is-loading',
   passwordWarn: 'is-active',
   inactive: 'is-inactive',
-};
+}
 
 export const masks = [
   {
@@ -98,22 +98,22 @@ export const masks = [
       }
     }
   },
-];
+]
 
 export default class Forms {
 
-  FormValidation = new FormValidation();
+  FormValidation = new FormValidation()
 
-  FormSend = new FormSend();
+  FormSend = new FormSend()
 
   constructor() {
-    defaultCfg.url = (typeof window.App.tplPath !== 'undefined') ? `${window.App.tplPath}/ajax/form.php` : false;
-    this.appendMasks();
-    this.bindEvents();
+    defaultCfg.url = (typeof window.App.tplPath !== 'undefined') ? `${window.App.tplPath}/ajax/form.php` : false
+    this.appendMasks()
+    this.bindEvents()
   }
 
   static getFormCfg(form) {
-    const isCustomCfg = form.matches(els.customCfg);
+    const isCustomCfg = form.matches(els.customCfg)
     return {
       form,
       ...defaultCfg,
@@ -121,15 +121,15 @@ export default class Forms {
         (isCustomCfg) ? els.customCfg : els.form
       ))),
       handler: (typeof form.handler === 'undefined') ? null : form.handler
-    };
+    }
   }
 
   static updateMaskOptions(input, options = {}, isUpdateValue = true) {
-    const maskInstance = (typeof input.iMask !== 'undefined') ? input.iMask : false;
+    const maskInstance = (typeof input.iMask !== 'undefined') ? input.iMask : false
     if (maskInstance) {
-      maskInstance.updateOptions(options);
+      maskInstance.updateOptions(options)
       if (isUpdateValue) {
-        Forms.updateMaskValue(input, input.value);
+        Forms.updateMaskValue(input, input.value)
       }
     } else {
       [...input.classList].forEach((className) => {
@@ -138,82 +138,82 @@ export default class Forms {
             Forms.createMaskInstance(input, {
               ...maskParam.options,
               ...options
-            });
+            })
           }
-        });
-      });
+        })
+      })
     }
   }
 
   static createMaskInstance(input, options) {
     if (typeof input.iMask === 'undefined') {
-      input.iMask = new IMask(input, options);
+      input.iMask = new IMask(input, options)
       if (options.on) {
         Object.entries(options.on).forEach((pair) => {
-          input.addEventListener(pair[0], (e) => pair[1](e, input.iMask));
-        });
+          input.addEventListener(pair[0], (e) => pair[1](e, input.iMask))
+        })
       }
     } else {
-      this.updateMaskValue(input, input.value);
+      this.updateMaskValue(input, input.value)
     }
   }
 
   static getMaskInstance(input) {
-    return (typeof input.iMask === 'undefined') ? false : input.iMask;
+    return (typeof input.iMask === 'undefined') ? false : input.iMask
   }
 
   appendMasks(context = document) {
     masks.forEach((maskObject) => {
       context.querySelectorAll(maskObject.selector).forEach((input) => {
-        Forms.createMaskInstance(input, maskObject.options);
-      });
-    });
+        Forms.createMaskInstance(input, maskObject.options)
+      })
+    })
   }
 
   handleAjaxContentLoaded(e) {
-    this.appendMasks(e.detail.content);
+    this.appendMasks(e.detail.content)
   }
 
   handleClick(e) {
-    const {target} = e;
+    const {target} = e
     if (target.matches('[type="submit"]')) {
       const fn = (form) => {
-        e.preventDefault();
-        form.handler = target;
-        bubble(form, 'submit');
-      };
-      const closestForm = target.closest(els.form);
+        e.preventDefault()
+        form.handler = target
+        bubble(form, 'submit')
+      }
+      const closestForm = target.closest(els.form)
       if (closestForm) {
-        fn(closestForm);
+        fn(closestForm)
       } else if (target.hasAttribute('form')) {
-        const delegatedForm = document.getElementById(target.getAttribute('form'));
-        fn(delegatedForm);
+        const delegatedForm = document.getElementById(target.getAttribute('form'))
+        fn(delegatedForm)
       }
     }
   }
 
   static updateMaskValue(input, value) {
-    const maskInstance = Forms.getMaskInstance(input);
+    const maskInstance = Forms.getMaskInstance(input)
     if (maskInstance) {
       if (value === '') {
-        maskInstance.masked.reset();
-        maskInstance.typedValue = '';
+        maskInstance.masked.reset()
+        maskInstance.typedValue = ''
       } else if (!value) {
-        maskInstance.updateValue();
-        maskInstance.value = input.value;
+        maskInstance.updateValue()
+        maskInstance.value = input.value
       } else {
-        maskInstance.updateValue();
-        maskInstance.value = value.toString();
+        maskInstance.updateValue()
+        maskInstance.value = value.toString()
       }
     }
   }
 
   bindEvents() {
     onAjaxContentLoaded((e) => {
-      this.handleAjaxContentLoaded(e);
-    });
+      this.handleAjaxContentLoaded(e)
+    })
     document.addEventListener('click', (e) => {
-      this.handleClick(e);
-    });
+      this.handleClick(e)
+    })
   }
 }

@@ -1,5 +1,28 @@
 @import '../../styles/mixins.pcss';
 
-.example {
+.header {
+  --paddingY: 16px;
 
+  padding-top: var(--paddingY);
+  padding-bottom: var(--paddingY);
+  background-color: var(--c-gray-3);
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    display: flex;
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+  }
+
+  &__actions-item {
+    display: flex;
+  }
 }

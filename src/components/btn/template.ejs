@@ -1,0 +1,58 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+	type,
+	href,
+	icon,
+	caption,
+	disabled,
+	extraClasses,
+	extraAttrs
+} = params
+%>
+
+<%
+	const iconBody = () => {
+    if (!icon) return ''
+    return `
+	    <span class="btn__icon-wrapper">
+				<svg class="i-icon">
+					<use href="#icon-${icon.name}"></use>
+				</svg>
+			</span>
+		`
+	}
+
+	const btnBody = () => {
+		return `
+			${icon.position !== 'after' ? iconBody() : ''}
+			<span class="btn__caption ${caption.isHidden ? 'visually-hidden' : ''}">
+				${caption.text}
+			</span>
+			${icon.position === 'after' ? iconBody() : ''}
+		`
+	}
+%>
+
+<% if (type === 'a') { %>
+	<a
+		class="btn <%= icon && caption.isHidden ? 'btn--icon-only' : '' %> <%= extraClasses %>"
+		href="<%= href %>"
+		title="<%= caption.text %>"
+		aria-label="<%= caption.text %>"
+	>
+		<%- btnBody() %>
+	</a>
+<% } else { %>
+	<button
+		class="btn <%= icon && caption.isHidden ? 'btn--icon-only' : '' %> <%= extraClasses %>"
+		<%- extraAttrs %>
+		type="<%= type %>"
+		title="<%= caption.text %>"
+		aria-label="<%= caption.text %>"
+		<%= disabled ? 'disabled' : '' %>
+	>
+		<%- btnBody() %>
+	</button>
+<% } %>
