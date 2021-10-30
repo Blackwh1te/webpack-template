@@ -52,6 +52,7 @@ import './components/breadcrumbs'
 import './components/logo'
 import './components/btn'
 import './components/input'
+import './components/checkbox'
 
 // Load collections
 import {GoogleCaptchaCollection} from './components/grecaptcha'

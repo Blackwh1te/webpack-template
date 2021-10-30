@@ -1,0 +1,80 @@
+@import '../../styles/mixins.pcss';
+
+.checkbox {
+  --size: 20px;
+  --marginRight: 10px;
+  --border: 1px solid var(--borderColor);
+  --borderColor: var(--c-dark);
+  --borderRadius: 2px;
+  --iconColor: var(--c-main);
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &__input {
+    &:checked ~ .checkbox__emulator .i-icon,
+    &:checked ~ .checkbox__emulator::after {
+      opacity: 1;
+    }
+
+    &:checked ~ .checkbox__emulator::after {
+      transform: translate(-50%, -50%);
+    }
+
+    &[disabled] ~ * {
+      cursor: not-allowed;
+      filter: opacity(0.5);
+    }
+  }
+
+  &__emulator {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    border: var(--border);
+    border-radius: var(--borderRadius);
+
+    &:not(:last-child) {
+      margin-right: var(--marginRight);
+    }
+
+    .i-icon {
+      --size: 100%;
+
+      opacity: 0;
+
+      * {
+        fill: var(--iconColor);
+      }
+    }
+  }
+
+  &--checkbox {
+
+  }
+
+  &--radio {
+    --borderRadius: 50%;
+
+    .checkbox__emulator {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 65%;
+        height: 65%;
+        transform: translate(-50%, -50%) scale(0);
+        background-color: var(--iconColor);
+        border-radius: inherit;
+        opacity: 0;
+      }
+    }
+  }
+}

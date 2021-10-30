@@ -1,10 +1,18 @@
 @import '../../styles/mixins.pcss';
 
 .form-input {
-  --textColor: var(--c-light);
-  --bgColor: var(--c-main);
+  --textColor: var(--c-dark);
+  --bgColor: var(--c-accent-2);
+  --border: 1px solid var(--borderColor);
+  --borderColor: var(--c-main);
+  --borderRadius: var(--border-radius);
 
-  --placeholderColor: var(--textColor);
+  --placeholderColor: var(--c-gray-4);
+
+  --hoverTextColor: var(--c-light);
+  --hoverBgColor: var(--c-main);
+  --hoverBorderColor: var(--c-main);
+  --hoverPlaceholderColor: var(--c-light);
 
   display: inline-flex;
   align-items: center;
@@ -14,15 +22,41 @@
   font-size: 100%;
   color: var(--textColor);
   background-color: var(--bgColor);
-  border-radius: var(--border-radius);
+  border: var(--border);
+  border-radius: var(--borderRadius);
 
   &::placeholder {
     color: var(--placeholderColor);
   }
 
-  &[disabled] {
+  &[disabled],
+  &[readonly] {
     --bgColor: var(--c-gray);
 
     cursor: not-allowed;
+  }
+
+  &.is-invalid {
+    --borderColor: var(--c-error);
+  }
+
+  &:hover {
+    color: var(--hoverTextColor);
+    background-color: var(--hoverBgColor);
+    border-color: var(--hoverBorderColor);
+
+    &::placeholder {
+      color: var(--hoverPlaceholderColor);
+    }
+  }
+
+  textarea& {
+    --paddingY: 16px;
+    --borderRadius: var(--border-radius-2);
+
+    min-height: 100px;
+    padding-top: var(--paddingY);
+    padding-bottom: var(--paddingY);
+    resize: none;
   }
 }

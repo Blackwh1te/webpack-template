@@ -278,7 +278,7 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<ul class="grid grid--4">
+			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
@@ -356,6 +356,159 @@
 							required: false,
 							extraClasses: '',
 							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-6',
+							type: 'text',
+							label: {
+								text: 'Has error',
+								isHidden: false
+							},
+							value: '123123123',
+							readonly: false,
+							required: false,
+							isShowError: 'Некорректные данные',
+							extraClasses: 'is-invalid',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+			</ul>
+			<ul class="grid grid--4 mb50">
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-7',
+							type: 'text',
+							label: {
+								text: 'Hidden label',
+								isHidden: true
+							},
+							required: false,
+							placeholder: 'Hidden label',
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+			</ul>
+			<ul class="grid grid--4 mb50">
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-8',
+							type: 'textarea',
+							label: {
+								text: 'Textarea',
+								isHidden: false
+							},
+							required: false,
+							extraClasses: '',
+							extraAttrs: ''
+						}
+					}) %>
+				</li>
+			</ul>
+			<ul class="grid grid--4 mb50">
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-checkbox-1',
+							id: 'test-checkbox-1',
+							type: 'checkbox',
+							label: 'Checkbox',
+							disabled: false,
+							checked: false,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-checkbox-2',
+							id: 'test-checkbox-2',
+							type: 'checkbox',
+							label: 'Checkbox checked',
+							disabled: false,
+							checked: true,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-checkbox-3',
+							id: 'test-checkbox-3',
+							type: 'checkbox',
+							label: 'Checkbox checked disabled',
+							disabled: true,
+							checked: true,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+			</ul>
+			<ul class="grid grid--4 mb50">
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-radio',
+							id: 'test-radio-1',
+							type: 'radio',
+							label: 'Radio',
+							disabled: false,
+							checked: false,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-radio',
+							id: 'test-radio-2',
+							type: 'radio',
+							label: 'Radio checked',
+							disabled: false,
+							checked: true,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-radio',
+							id: 'test-radio-3',
+							type: 'radio',
+							label: 'Radio disabled',
+							disabled: true,
+							checked: false,
+							isShowError: false,
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
 						}
 					}) %>
 				</li>
