@@ -10,7 +10,7 @@
     "required": false,
     "disabled": false,
     "readonly": false,
-    "isShowError": false,
+    "isShowError": true,
     "autocomplete": "off",
     "maxlength": false,
     "value": false,

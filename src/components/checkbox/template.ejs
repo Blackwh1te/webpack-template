@@ -42,16 +42,14 @@ const {
 		<% } %>
 	</span>
 
-	<span class="checkbox__label">
-		<%= label %>
-	</span>
+	<span class="checkbox__label"><%= label %></span>
 
 	<% if (isShowError) { %>
 		<span
 			class="form-error"
 			data-js-form-error-msg="<%= isShowError %>"
 		>
-      Некорректные данные
+      <%= isShowError %>
     </span>
 	<% } %>
 </label>

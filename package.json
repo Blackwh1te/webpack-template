@@ -94,7 +94,8 @@
     "reset-css": "^5.0.1",
     "scrollmagic": "^2.0.8",
     "svg4everybody": "^2.1.9",
-    "swiper": "^7.2.0"
+    "swiper": "^7.2.0",
+    "ymaps": "^0.2.1"
   },
   "browserslist": [
     "safari 13",

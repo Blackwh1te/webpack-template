@@ -1,0 +1,40 @@
+<div class="product-preview">
+	<div class="product-preview__main-slider" data-js-slider>
+		<div class="product-preview__main-slider-container swiper">
+			<ul class="product-preview__main-slider-list swiper-wrapper" data-js-gallery-container>
+				<% for (let i = 0; i < 8; i++) { %>
+					<li class="product-preview__main-slider-item swiper-slide">
+						<a class="product-preview__main-slider-link"
+						   href="https://placekitten.com/500/<%= 500 - i %>"
+						   data-js-gallery-item='{"caption": "Описание изображения"}'
+						   title="Открыть изображение в полном размере"
+						   aria-label="Открыть изображение в полном размере"
+						>
+							<img
+								class="product-preview__main-slider-image"
+								src="https://placekitten.com/500/<%= 500 - i %>" alt="Описание изображения"
+								width="500" height="500" loading="lazy"
+							>
+						</a>
+					</li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+	<div class="product-preview__secondary-slider" data-js-slider>
+		<div class="product-preview__secondary-slider-container swiper">
+			<ul class="product-preview__secondary-slider-list swiper-wrapper">
+				<% for (let i = 0; i < 8; i++) { %>
+					<li class="product-preview__secondary-slider-item swiper-slide">
+						<img
+							class="product-preview__secondary-slider-image"
+							src="https://placekitten.com/100/<%= 100 - i %>" alt="Описание изображения"
+							width="100" height="100" loading="lazy"
+						>
+					</li>
+				<% } %>
+			</ul>
+			<%- require('../components/slider-buttons/template.ejs')({data:{}}) %>
+		</div>
+	</div>
+</div>

@@ -1,32 +1,31 @@
 @import '../mixins.pcss';
 
 .modal {
-  --bg: var(--c-light);
-  --color: var(--c-dark);
   --maxWidth: 574px;
-  --padding: 60px;
   --contentMargin: 40px;
-  --textAlign: center;
-  --textWeight: 400;
-  --modalAlign: middle;
-  --titlePadding: 0 10%;
   --margin: 40px;
+  --padding: 60px;
+  --titlePadding: 0 10%;
+  --modalAlign: middle;
+  --textAlign: center;
+  --color: var(--c-dark);
+  --bg: var(--c-light);
   --transformOrigin: 50% 50%;
 
-  transform-origin: var(--transformOrigin);
+  position: relative;
+  display: none;
   align-self: center;
+  width: 100%;
+  max-width: var(--maxWidth);
+  margin: auto var(--margin);
+  padding: var(--padding);
+  vertical-align: var(--modalAlign);
+  text-align: var(--textAlign);
+  color: var(--color);
+  background: var(--bg);
+  transform-origin: var(--transformOrigin);
   animation-fill-mode: backwards;
   cursor: default;
-  display: none;
-  max-width: var(--maxWidth);
-  width: 100%;
-  padding: var(--padding);
-  background: var(--bg);
-  color: var(--color);
-  text-align: var(--textAlign);
-  position: relative;
-  vertical-align: var(--modalAlign);
-  margin: auto var(--margin);
 
   &.fancybox__content,
   .carousel__slide & {
@@ -38,9 +37,7 @@
   }
 
   &--confirm {
-
     .modal__closer {
-
       .btn {
         --btnWidth: 180px;
       }
@@ -61,12 +58,10 @@
     justify-content: center;
 
     .btn {
-
       &:not(:last-child) {
         margin-right: 20px;
       }
     }
-
   }
 
   &__heading {
@@ -77,21 +72,16 @@
     & + .modal__closer {
       margin-top: 0;
     }
-
   }
 
-  &__text {
-    font-weight: var(--textWeight);
-
+  &__body {
     &:empty {
       display: none;
     }
   }
-
 }
 
 .fancybox {
-
   &__counter {
     display: none;
   }
@@ -115,38 +105,37 @@
   }
 
   &__slide {
-
     &.has-error {
       animation: show-modal .25s;
     }
-
   }
-
 }
 
 .carousel {
   &__button {
-    --carousel-button-width: 60px;
-    --carousel-button-height: 60px;
+    --carousel-button-width: 36px;
+    --carousel-button-height: 36px;
     --carousel-button-border-radius: 0;
+    --carousel-button-color: var(--c-light);
+    --hover-carousel-button-color: var(--c-dark);
 
-    &.is-close svg {
+    &.is-close .i-icon {
       --carousel-button-svg-stroke-width: 0;
     }
 
-    svg {
+    &:hover .i-icon * {
+      fill: var(--hover-carousel-button-color);
+    }
+
+    .i-icon {
       --carousel-button-svg-width: 50%;
       --carousel-button-svg-height: 50%;
       --carousel-button-svg-stroke-width: 1px;
       --carousel-button-border-radius: 0;
       --carousel-button-svg-filter: none;
 
-      .fancybox__nav & {
-        transform: scaleX(0.6);
-
-        * {
-          stroke: var(--c-dark);
-        }
+      * {
+        fill: var(--carousel-button-color);
       }
     }
   }

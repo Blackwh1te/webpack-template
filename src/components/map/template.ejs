@@ -1,0 +1,13 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+	extraClasses,
+	mapCfg,
+} = params
+%>
+
+<div
+	class="map <%= extraClasses %>"
+	data-js-map="<%= JSON.stringify(mapCfg) %>"
+></div>

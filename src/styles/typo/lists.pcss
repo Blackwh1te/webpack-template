@@ -5,11 +5,15 @@ ol[class]:not(.ol) {
   list-style: none;
 }
 
-ol:not([class]) li li,
-.ol li li,
-ul:not([class]) li,
-.ul li {
-  padding-left: 20px;
+ol:not([class]),
+.ol,
+ul:not([class]),
+.ul {
+  --paddingLeft: 20px;
+
+  li {
+    padding-left: var(--paddingLeft);
+  }
 }
 
 ul:not([class]),
@@ -35,13 +39,19 @@ ul:not([class]),
 
 ol:not([class]),
 .ol {
+  --paddingLeft: 28px;
+
   counter-reset: custom-counter;
 
   li {
+    position: relative;
+
     &::before {
       content: counters(custom-counter, ".") ". ";
       counter-increment: custom-counter;
-      margin-right: 16px;
+      position: absolute;
+      right: calc(100% - 14px);
+      font-weight: 700;
     }
   }
 }

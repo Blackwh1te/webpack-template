@@ -1,20 +1,16 @@
 <% const data = {
 	title: 'Типографика',
 	flowContainerClass: '',
-	breadcrumbs: {
-		data: {
-			items: [
-				{
-					name: 'Главная',
-					link: '/'
-				},
-				{
-					name: 'Типографика',
-					link: '/'
-				},
-			]
-		}
-	}
+	crumbs: [
+		{
+			name: 'Главная',
+			link: '/'
+		},
+		{
+			name: 'Типографика',
+			link: '/'
+		},
+	]
 }; %>
 
 <%- require('../layouts/head.ejs')(data) %>
@@ -22,7 +18,11 @@
 <div class="content__sections">
 	<div class="page-header container">
 		<div class="page-header__breadcrumbs">
-			<%- require('../components/breadcrumbs/template.ejs')(data.breadcrumbs) %>
+			<%- require('../components/breadcrumb/template.ejs')({
+				data: {
+          items: data.crumbs
+				}
+			}) %>
 		</div>
 		<h1 class="page-header__title">
 			<%= data.title %>
@@ -69,89 +69,67 @@
 			<h3 class="h4">Default list</h3>
 			<ul>
 				<li>
-					Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 					<ul>
 						<li>
-							Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 							<ul>
 								<li>
-									Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 									<ul>
 										<li>
-											Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-											развития
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 											<ul>
-												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-													развития
-												</li>
-												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-													развития
-												</li>
+												<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
+												<li>ПLorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 											</ul>
 										</li>
-										<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-											развития
-										</li>
+										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 									</ul>
 								</li>
-								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-									развития
-								</li>
-								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-									развития
-								</li>
+								<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+								<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 							</ul>
 						</li>
-						<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 					</ul>
 				</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 			</ul>
 
 			<h3 class="h4">Numbered list</h3>
 			<ol>
 				<li>
-					Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 					<ol>
 						<li>
-							Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 							<ol>
 								<li>
-									Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 									<ol>
 										<li>
-											Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-											развития
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?
 											<ol>
-												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-													развития
-												</li>
-												<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-													развития
-												</li>
+												<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+												<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 											</ol>
 										</li>
-										<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-											развития
-										</li>
+										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 									</ol>
 								</li>
-								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-									развития
-								</li>
-								<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция
-									развития
-								</li>
+								<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+								<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 							</ol>
 						</li>
-						<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 					</ol>
 				</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
-				<li>Протяженность маршрута газопровода: Инсайт многопланово притягивает гомеостаз. Концепция развития</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore?</li>
 			</ol>
 		</div>
 	</section>
@@ -413,6 +391,16 @@
 					}) %>
 				</li>
 			</ul>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Checkboxes and radios
+			</h2>
+		</header>
+		<div class="section__body">
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
@@ -423,7 +411,7 @@
 							label: 'Checkbox',
 							disabled: false,
 							checked: false,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
 							extraAttrs: '',
@@ -439,7 +427,7 @@
 							label: 'Checkbox checked',
 							disabled: false,
 							checked: true,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
 							extraAttrs: '',
@@ -455,9 +443,25 @@
 							label: 'Checkbox checked disabled',
 							disabled: true,
 							checked: true,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
+							extraAttrs: '',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/checkbox/template.ejs')({
+						data: {
+							name: 'test-checkbox-11',
+							id: 'test-checkbox-11',
+							type: 'checkbox',
+							label: 'Checkbox',
+							disabled: false,
+							checked: false,
+							isShowError: 'Необходимо поставить галочку',
+							required: false,
+							extraClasses: 'is-invalid',
 							extraAttrs: '',
 						}
 					}) %>
@@ -473,7 +477,7 @@
 							label: 'Radio',
 							disabled: false,
 							checked: false,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
 							extraAttrs: '',
@@ -489,7 +493,7 @@
 							label: 'Radio checked',
 							disabled: false,
 							checked: true,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
 							extraAttrs: '',
@@ -505,10 +509,131 @@
 							label: 'Radio disabled',
 							disabled: true,
 							checked: false,
-							isShowError: false,
+							isShowError: true,
 							required: false,
 							extraClasses: '',
 							extraAttrs: '',
+						}
+					}) %>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Selects
+			</h2>
+		</header>
+		<div class="section__body">
+			<ul class="grid grid--4">
+				<li class="grid__item">
+					<%- require('../components/select/template.ejs')({
+						data: {
+							label: {
+								text: 'Simple select',
+								isHidden: false
+							},
+							name: 'test-select-1',
+							disabled: false,
+							required: false,
+							options: [
+								{
+									name: 'Option 1',
+									value: 'value-1',
+									isSelected: true
+								},
+								{
+									name: 'Option 2',
+									value: 'value-2',
+									isSelected: false
+								},
+								{
+									name: 'Option 3',
+									value: 'value-3',
+									isSelected: false
+								},
+								{
+									name: 'Option 4',
+									value: 'value-4',
+									isSelected: false
+								},
+								{
+									name: 'Option 5',
+									value: 'value-5',
+									isSelected: false
+								},
+							],
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/select/template.ejs')({
+						data: {
+							label: {
+								text: 'Disabled select',
+								isHidden: false
+							},
+							name: 'test-select-2',
+							disabled: true,
+							required: false,
+							options: [
+								{
+									name: 'Option 1',
+									value: 'value-1',
+									isSelected: true
+								},
+								{
+									name: 'Option 2',
+									value: 'value-2',
+									isSelected: false
+								},
+								{
+									name: 'Option 3',
+									value: 'value-3',
+									isSelected: false
+								},
+								{
+									name: 'Option 4',
+									value: 'value-4',
+									isSelected: false
+								},
+								{
+									name: 'Option 5',
+									value: 'value-5',
+									isSelected: false
+								},
+							],
+						}
+					}) %>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				File attach
+			</h2>
+		</header>
+		<div class="section__body">
+			<ul class="grid grid--4">
+				<li class="grid__item">
+					<%- require('../components/file-attach/template.ejs')({
+						data: {
+							name: 'attachment-1',
+							label: 'Attach file',
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/file-attach/template.ejs')({
+						data: {
+							name: 'attachment-2',
+							label: 'Attach files',
+							multiple: true
 						}
 					}) %>
 				</li>
@@ -528,17 +653,34 @@
 				method: 'post',
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg) %>">
-				<div class="form__body grid grid--2">
-					<input type="text">
-					<%- require('../components/btn/template.ejs')({
-						data: {
-							type: 'submit',
-							icon: false,
-							caption: {
-								text: 'Send'
+				<div class="form__body grid grid--4">
+					<div class="grid__item">
+						<%- require('../components/input/template.ejs')({
+							data: {
+								name: 'name',
+								type: 'text',
+								label: {
+									text: 'Name',
+									isHidden: false
+								},
+								isShowError: true,
+								required: true,
+								extraClasses: '',
+								extraAttrs: ''
 							}
-						}
-					}) %>
+						}) %>
+					</div>
+					<div class="grid__item">
+						<%- require('../components/btn/template.ejs')({
+							data: {
+								type: 'submit',
+								icon: false,
+								caption: {
+									text: 'Send'
+								}
+							}
+						}) %>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -552,22 +694,39 @@
 		</header>
 		<div class="section__body">
 			<% const formCfg2 = {
-				url: './json/formSuccessWithStaticModalExample.json',
+				url: './json/formSuccessWithDynamicModalExample.json',
 				method: 'post',
 				type: 'json'
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg2) %>">
-				<div class="form__body grid grid--2">
-					<input type="text">
-					<%- require('../components/btn/template.ejs')({
-						data: {
-							type: 'submit',
-							icon: false,
-							caption: {
-								text: 'Send'
+				<div class="form__body grid grid--4">
+					<div class="grid__item">
+						<%- require('../components/input/template.ejs')({
+							data: {
+								name: 'name-2',
+								type: 'text',
+								label: {
+									text: 'Name',
+									isHidden: false
+								},
+								required: true,
+								isShowError: true,
+								extraClasses: '',
+								extraAttrs: ''
 							}
-						}
-					}) %>
+						}) %>
+					</div>
+					<div class="grid__item">
+						<%- require('../components/btn/template.ejs')({
+							data: {
+								type: 'submit',
+								icon: false,
+								caption: {
+									text: 'Send'
+								}
+							}
+						}) %>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -580,7 +739,618 @@
 			</h2>
 		</header>
 		<div class="section__body">
+			<% const formCfg3 = {
+				url: './json/formSuccessWithRedirectExample.json',
+				method: 'post',
+				type: 'json'
+			} %>
+			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg3) %>">
+				<div class="form__body grid grid--4">
+					<div class="grid__item">
+						<%- require('../components/input/template.ejs')({
+							data: {
+								name: 'name-3',
+								type: 'text',
+								label: {
+									text: 'Name',
+									isHidden: false
+								},
+								required: true,
+								isShowError: true,
+								extraClasses: '',
+								extraAttrs: ''
+							}
+						}) %>
+					</div>
+					<div class="grid__item">
+						<%- require('../components/btn/template.ejs')({
+							data: {
+								type: 'submit',
+								icon: false,
+								caption: {
+									text: 'Send'
+								}
+							}
+						}) %>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
 
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Form (success:false with static modal and custom error messages)
+			</h2>
+		</header>
+		<div class="section__body">
+			<% const formCfg4 = {
+				url: './json/formSuccessFalseWithStaticModalExample.json',
+				method: 'post',
+			} %>
+			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg4) %>">
+				<div class="form__body grid grid--4">
+					<div class="grid__item">
+						<%- require('../components/input/template.ejs')({
+							data: {
+								name: 'name-4',
+								type: 'text',
+								label: {
+									text: 'Name',
+									isHidden: false
+								},
+								required: true,
+								isShowError: true,
+								extraClasses: '',
+								extraAttrs: ''
+							}
+						}) %>
+					</div>
+					<div class="grid__item">
+						<%- require('../components/btn/template.ejs')({
+							data: {
+								type: 'submit',
+								icon: false,
+								caption: {
+									text: 'Send'
+								}
+							}
+						}) %>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Tables
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../components/table/template.ejs')({
+				data: {
+					extraClasses: '',
+					extraAttrs: '',
+					headCells: [
+						'Регион<br><small>Страна</small>',
+						'Институт<br><small>Проект</small>',
+						'Отрасль<br><small>Тип товара (услуги)</small>',
+					],
+					bodyRows: [
+						[
+							'Европа и Центральная Азия<br><br><small>Босния и Герцеговина</small>',
+							'Европейский банк реконструкции и развития',
+							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						],
+						[
+							'Европа и Центральная Азия<br><br><small>Турция</small>',
+							'ООН',
+							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						],
+						[
+							'Европа и Центральная Азия<br><br><small>Турция</small>',
+							'ООН',
+							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						],
+						[
+							'Европа и Центральная Азия<br><br><small>Турция</small>',
+							'ООН',
+							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						],
+					]
+				}
+			}) %>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Map
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../components/map/template.ejs')({
+				data: {
+					mapCfg: {
+						center: ['55.754481', '37.556244'],
+						zoom: 16,
+						placemark: [{
+							coords: ['55.754481', '37.556244'],
+							iconContent: 'Краснопресненская наб. 12, п. 9',
+						}]
+					}
+				}
+			}) %>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Accordion
+			</h2>
+		</header>
+		<div class="section__body">
+			<!-- isAutoClosing - автоматические закрытие других аккордеонов в группе при открытии одного. -->
+			<!-- wholeSummaryClickable: false - даёт возможность, например, кликнуть по ссылке, находящейся в заголовке summary. -->
+			<% const accordionCfg = {
+				isAutoClosing: true,
+				wholeSummaryClickable: true,
+				animationParams: {
+					duration: 500,
+					easing: 'ease',
+				},
+			} %>
+			<!-- Все визуальные вариации аккордеона реализованы через БЭМ-модификаторы для элемента с классом accordion. -->
+			<!-- Все логические вариации аккордеона реализованы через атрибут data-js-accordion для элемента с классом accordion. -->
+			<div class="accordion"
+			     data-js-accordion='<%- JSON.stringify(accordionCfg) %>'
+			>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title">Accordion title</div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title">Accordion title</div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title">Accordion title</div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Accordions (title is link, isAutoClosing: false, wholeSummaryClickable: false)
+			</h2>
+		</header>
+		<div class="section__body">
+			<!-- isAutoClosing - автоматические закрытие других аккордеонов в группе при открытии одного. -->
+			<!-- wholeSummaryClickable: false - даёт возможность, например, кликнуть по ссылке, находящейся в заголовке summary. -->
+			<% const accordionCfg2 = {
+				isAutoClosing: false,
+				wholeSummaryClickable: false,
+				animationParams: {
+					duration: 500,
+					easing: 'ease',
+				},
+			} %>
+			<!-- Все визуальные вариации аккордеона реализованы через БЭМ-модификаторы для элемента с классом accordion. -->
+			<!-- Все логические вариации аккордеона реализованы через атрибут data-js-accordion для элемента с классом accordion. -->
+			<div class="accordion"
+			     data-js-accordion='<%- JSON.stringify(accordionCfg2) %>'
+			>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+				<details class="accordion__item" data-js-accordion-item>
+					<summary class="accordion__summary" data-js-accordion-summary>
+						<div class="accordion__summary-inner">
+							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
+							<button class="accordion__btn"
+							        type="button"
+							        data-js-accordion-btn
+							>
+                  <span class="accordion__btn-caption accordion__btn-caption--before">
+                    Развернуть
+                  </span>
+								<span class="accordion__btn-caption accordion__btn-caption--after">
+                    Свернуть
+                  </span>
+								<span class="accordion__btn-icon-wrapper">
+                    <svg class="i-icon">
+                      <use href="#icon-arrow-down"></use>
+                    </svg>
+                  </span>
+							</button>
+						</div>
+					</summary>
+					<div class="accordion__content" data-js-accordion-content>
+						<div class="accordion__content-inner">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
+								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
+								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
+								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
+								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
+								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
+								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
+								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
+						</div>
+					</div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Tabs
+			</h2>
+		</header>
+		<div class="section__body">
+			<div class="tabs" data-js-tabs>
+				<div class="tabs__nav">
+					<ul class="tabs__nav-list">
+						<li class="tabs__nav-item is-active" data-js-tabs-nav-item>
+							Tab title 1
+						</li>
+						<li class="tabs__nav-item" data-js-tabs-nav-item>
+							Tab title 2
+						</li>
+						<li class="tabs__nav-item" data-js-tabs-nav-item>
+							Tab title 3
+						</li>
+						<li class="tabs__nav-item" data-js-tabs-nav-item>
+							Tab title 4
+						</li>
+					</ul>
+				</div>
+				<div class="tabs__content-wrapper">
+					<div class="tabs__content is-active" data-js-tabs-content-item>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda culpa cum eius error
+						excepturi hic, inventore laudantium minus nobis nulla obcaecati officiis sunt? A dolore exercitationem
+						nesciunt nisi quam.
+					</div>
+					<div class="tabs__content" data-js-tabs-content-item>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda culpa cum eius error
+						excepturi hic, inventore laudantium minus nobis nulla obcaecati officiis sunt? A dolore exercitationem
+						nesciunt nisi quam.
+					</div>
+					<div class="tabs__content" data-js-tabs-content-item>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda culpa cum eius error
+						excepturi hic, inventore laudantium minus nobis nulla obcaecati officiis sunt? A dolore exercitationem
+						nesciunt nisi quam.
+					</div>
+					<div class="tabs__content" data-js-tabs-content-item>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda culpa cum eius error
+						excepturi hic, inventore laudantium minus nobis nulla obcaecati officiis sunt? A dolore exercitationem
+						nesciunt nisi quam.
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Slider
+			</h2>
+		</header>
+		<div class="section__body">
+			<div class="slider" data-js-slider>
+				<div class="slider__container swiper">
+					<ul class="slider__list swiper-wrapper">
+						<li class="slider__item swiper-slide">
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+						</li>
+						<li class="slider__item swiper-slide">
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+						</li>
+						<li class="slider__item swiper-slide">
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+						</li>
+					</ul>
+					<%- require('../components/slider-buttons/template.ejs')({data:{}}) %>
+					<%- require('../components/slider-pagination/template.ejs')({data:{}}) %>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Slider with gallery
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../layouts/product-preview.ejs')() %>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Modal
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../components/btn/template.ejs')({
+				data: {
+					type: 'button',
+					icon: false,
+					caption: {
+						text: 'Contact us'
+					},
+					extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`
+				}
+			}) %>
 		</div>
 	</section>
 </div>

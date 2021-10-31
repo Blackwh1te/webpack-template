@@ -1,20 +1,16 @@
 <% const data = {
 	title: 'Список страниц вёрстки',
 	flowContainerClass: '',
-	breadcrumbs: {
-		data: {
-			items: [
-				{
-					name: 'Главная',
-					link: '/'
-				},
-				{
-					name: 'Список страниц вёрстки',
-					link: '/'
-				}
-			]
-		}
-	}
+	crumbs: [
+		{
+			name: 'Главная',
+			link: '/'
+		},
+		{
+			name: 'Список страниц вёрстки',
+			link: '/'
+		},
+	]
 } %>
 
 <%- require('../layouts/head.ejs')(data) %>
@@ -23,27 +19,25 @@
 	{
 		title: 'Главная страница',
 		code: 'main',
-		items: [
-			{
-				title: 'Главная страница',
-				code: 'main',
-			}
-		]
 	},
 	{
 		title: 'Типографика',
-		code: 'typo'
+		code: 'typo',
 	},
 	{
 		title: 'Модальные окна',
-		code: 'modals'
+		code: 'modals',
 	},
 ]; %>
 
 <div class="content__sections">
 	<div class="page-header container">
 		<div class="page-header__breadcrumbs">
-			<%- require('../components/breadcrumbs/template.ejs')(data.breadcrumbs) %>
+			<%- require('../components/breadcrumb/template.ejs')({
+				data: {
+					items: data.crumbs
+				}
+			}) %>
 		</div>
 		<h1 class="page-header__title">
 			<%= data.title %>

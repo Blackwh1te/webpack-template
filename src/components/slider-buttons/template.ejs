@@ -1,0 +1,32 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+  iconPrev,
+  iconNext,
+  extraClasses,
+} = params
+%>
+
+<div class="slider-buttons <%= extraClasses %>">
+  <button
+    class="slider-buttons__btn slider-buttons__btn--prev"
+    type="button"
+    title="Предыдущий слайд"
+    aria-label="Показать предыдущий слайд"
+  >
+    <svg class="i-icon">
+      <use href="#<%= iconPrev %>"></use>
+    </svg>
+  </button>
+  <button
+    class="slider-buttons__btn slider-buttons__btn--next"
+    type="button"
+    title="Следующий слайд"
+    aria-label="Показать следующий слайд"
+  >
+    <svg class="i-icon">
+      <use href="#<%= iconNext %>"></use>
+    </svg>
+  </button>
+</div>

@@ -1,5 +1,11 @@
 @import 'mixins.pcss';
 
+.form {
+  &__body {
+    align-items: flex-end;
+  }
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
@@ -12,6 +18,7 @@
 }
 
 .form-error {
+  flex: 0 0 100%;
   display: none;
   margin-top: 5px;
   font-size: 12px;

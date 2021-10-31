@@ -1,0 +1,46 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+  name,
+  label,
+  required,
+  disabled,
+  form,
+  options
+} = params
+%>
+
+<div class="select">
+  <select
+    id="<%= name %>"
+    name="<%= name %>"
+    data-js-select
+    <%= disabled ? 'disabled' : '' %>
+    <% if (form) { %>
+      form="<%= form %>"
+    <% } %>
+    <% if (required) { %>
+      data-js-input-required="<%= required %>"
+      required
+    <% } %>
+  >
+    <% options.forEach(option => { %>
+      <% const {name, value, isSelected} = option; %>
+      <option
+        value="<%= value %>"
+        <% isSelected ? 'selected' : '' %>
+      >
+        <%= name %>
+      </option>
+    <% }) %>
+  </select>
+  <label
+    class="select__label form-label
+      <%= label.isHidden ? 'visually-hidden' : '' %>"
+    for="<%= name %>"
+  >
+    <%= label.text %>
+    <%= required ? '*' : '' %>
+  </label>
+</div>

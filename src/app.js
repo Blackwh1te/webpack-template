@@ -36,6 +36,7 @@ window.App = {
     touchscreen: 'is-touchscreen',
     mobileDevice: 'is-mobile-device'
   },
+  yandexMapKey: (typeof window.YANDEX_MAP_KEY === 'undefined') ? '' : window.YANDEX_MAP_KEY,
 }
 
 // load modules
@@ -44,19 +45,30 @@ import Modals from './js/modals'
 import Forms from './js/forms/forms'
 import ScrollEffects from './js/scrollEffects'
 import Gallery from './js/gallery'
+import AdaptiveTables from './js/adaptiveTables'
 
 // Load components
 import './components/header'
 import './components/footer'
-import './components/breadcrumbs'
+import './components/breadcrumb'
 import './components/logo'
 import './components/btn'
 import './components/input'
 import './components/checkbox'
+import './components/select'
+import './components/table'
+import './components/slider-buttons'
+import './components/slider-pagination'
+import './components/map'
 
 // Load collections
+import {SlidersCollection} from './js/sliders'
 import {GoogleCaptchaCollection} from './components/grecaptcha'
 import {FileAttachCollection} from './components/file-attach'
+import {SelectCollection} from './components/select'
+import {AccordionCollection} from './js/accordion'
+import {TabsCollection} from './js/tabs'
+import {MapCollection} from './components/map'
 
 // Load styles
 import './styles'
@@ -125,13 +137,19 @@ const handleDOMReady = () => {
   new Gallery()
 
   // app components
-  App.ScrollEffects = new ScrollEffects()
+  App.SlidersCollection = new SlidersCollection()
   App.GoogleCaptchaCollection = new GoogleCaptchaCollection()
+  App.AdaptiveTables = new AdaptiveTables()
   App.FileAttachCollection = new FileAttachCollection()
+  App.SelectCollection = new SelectCollection()
+  App.AccordionCollection = new AccordionCollection()
+  App.TabsCollection = new TabsCollection()
+  App.MapCollection = new MapCollection()
 
   // prevent transition flicker
   wait(100).then(() => {
     document.documentElement.classList.add(App.stateClasses.domReady)
+    App.ScrollEffects = new ScrollEffects()
   })
 }
 

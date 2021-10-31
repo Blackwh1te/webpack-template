@@ -4,20 +4,24 @@ const params = Object.assign({}, defaults, (data) ? data : {})
 const {items} = params
 %>
 
-<nav class="breadcrumbs" aria-label="breadcrumb">
-  <ul class="breadcrumbs__list flow">
+<nav class="breadcrumb" aria-label="breadcrumb">
+  <ol
+    class="breadcrumb__list flow"
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
+  >
     <% items.forEach((item, index) => { %>
-      <li class="breadcrumbs__item"
+      <li class="breadcrumb__item"
           title="<%= item.name %>"
           itemprop="itemListElement"
           itemscope
           itemtype="https://schema.org/ListItem"
       >
         <a
-          class="breadcrumbs__link"
+          class="breadcrumb__link"
           href="<%= item.link %>"
           itemprop="item"
-          <%= (index === items.length) ? 'aria-current="page"' : '' %>
+          <%= (index === items.length - 1) ? 'aria-current="page"' : '' %>
         >
             <span itemprop="name">
               <%= item.name %>
@@ -26,5 +30,5 @@ const {items} = params
         <meta itemprop="position" content="<%= index + 1 %>"/>
       </li>
     <% }) %>
-  </ul>
+  </ol>
 </nav>

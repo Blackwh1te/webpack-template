@@ -3,13 +3,15 @@
 .checkbox {
   --size: 20px;
   --marginRight: 10px;
-  --border: 1px solid var(--borderColor);
+  --border: var(--borderWidth) solid var(--borderColor);
+  --borderWidth: 1px;
   --borderColor: var(--c-dark);
   --borderRadius: 2px;
   --iconColor: var(--c-main);
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   cursor: pointer;
 
   &__input {
@@ -25,6 +27,14 @@
     &[disabled] ~ * {
       cursor: not-allowed;
       filter: opacity(0.5);
+    }
+
+    &.is-invalid:not(:checked) ~ .checkbox__emulator {
+      border-color: var(--c-error);
+    }
+
+    &.is-invalid:checked ~ .form-error {
+      display: none;
     }
   }
 
@@ -43,7 +53,7 @@
     }
 
     .i-icon {
-      --size: 100%;
+      --size: 85%;
 
       opacity: 0;
 

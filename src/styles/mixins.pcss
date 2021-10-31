@@ -63,7 +63,7 @@
   }
 }
 
-@define-mixin custom-scrollbar $scrollBackgroundColor: var(--c-gray-3), $thumbColor: var(--c-brand-2), $thumbBorderRadius: var(--border-radius) {
+@define-mixin custom-scrollbar $scrollBackgroundColor: var(--c-gray-3), $thumbColor: var(--c-brand), $thumbBorderRadius: 0px {
   html:not(.safari):not(.is-mobile-device) & {
     scrollbar-color: $thumbColor $scrollBackgroundColor;
     scrollbar-width: thin;
@@ -73,15 +73,11 @@
 
       width: var(--size);
       background-color: $scrollBackgroundColor;
-      border-radius: 40px;
-      padding: 2px 0;
     }
 
     &::-webkit-scrollbar-thumb {
       background-color: $thumbColor;
       background-clip: content-box;
-      border-radius: 40px;
-      border: 2px solid transparent;
     }
 
     &::-webkit-scrollbar-track,

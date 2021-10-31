@@ -1,6 +1,8 @@
 @import '../../styles/mixins.pcss';
 
 .file-attach {
+  --iconOffsetX: 14px;
+
   position: relative;
 
   &.is-invalid {
@@ -39,17 +41,20 @@
     display: none;
   }
 
-  &__btn.btn {
-    --btnTextColor: var(--c-brand-2);
-    --btnHoverTextColor: var(--c-brand);
-
+  &__btn {
     display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--c-main);
+    }
 
     .i-icon {
       --size: 20px;
 
       &:not(:last-child) {
-        margin-right: 14px;
+        margin-right: var(--iconOffsetX);
       }
     }
   }

@@ -1,0 +1,33 @@
+<%
+const defaults = require('./data.json').data
+const params = Object.assign({}, defaults, (data) ? data : {})
+const {
+  extraClasses,
+  extraAttrs,
+  headCells,
+  bodyRows
+} = params
+%>
+
+<table class="table <%= extraClasses %>" <%- extraAttrs %>>
+  <% if (headCells.length) { %>
+    <thead>
+      <tr>
+        <% headCells.forEach(cell => { %>
+          <th><%- cell %></th>
+        <% }) %>
+      </tr>
+    </thead>
+  <% } %>
+    <% if (bodyRows.length) { %>
+      <tbody>
+        <% bodyRows.forEach(row => { %>
+          <tr>
+            <% row.forEach(cell => { %>
+              <td><%- cell %></td>
+            <% }) %>
+          </tr>
+        <% }) %>
+      </tbody>
+    <% } %>
+</table>

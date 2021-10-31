@@ -1,0 +1,29 @@
+{
+  "data": {
+    "name": "select-1",
+    "label": {
+      "text": "Выберите вариант",
+      "isHidden": false
+    },
+    "required": false,
+    "disabled": false,
+    "form": false,
+    "options": [
+      {
+        "name": "Россия",
+        "value": "Russia",
+        "isSelected": true
+      },
+      {
+        "name": "Казахстан",
+        "value": "Kazakhstan",
+        "isSelected": false
+      },
+      {
+        "name": "Зимбабве",
+        "value": "Zimbabwe",
+        "isSelected": false
+      }
+    ]
+  }
+}

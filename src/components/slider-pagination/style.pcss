@@ -1,0 +1,30 @@
+@import '../../styles/mixins.pcss';
+
+.slider-pagination {
+  --size: 8px;
+  --marginX: 16px;
+  --color: var(--c-gray-2);
+  --activeColor: var(--c-accent);
+
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+
+  &__btn {
+    @mixin reset-btn;
+
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--color);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: var(--marginX);
+    }
+
+    &.is-active {
+      background-color: var(--activeColor);
+    }
+  }
+}

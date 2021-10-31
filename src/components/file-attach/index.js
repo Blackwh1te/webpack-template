@@ -240,19 +240,25 @@ export class FileAttachCollection extends Collection {
 
   static getFileTemplate({name, size, index}, isRenderRemoveBtn = true) {
     return `
-          <div class="file-attach__list-item attachment" data-js-file-attach-file="${index}">
-            <div class="attachment__icon">
-                <svg class="i-icon">
-                  <use href="#icon-attachment"></use>
-                </svg>
-            </div>
-            <div class="attachment__info">
-                <div class="attachment__name" title="${name}" data-js-file-attach-file-info="name">${name}</div>
-                <small class="attachment__size"  data-js-file-attach-file-info="size">${size}</small>
-                ${isRenderRemoveBtn ? '<button type="button" class="attachment__remove" data-js-file-attach-file-remove><svg class="i-icon"><use href="#icon-remove"></use></svg></button>' : ''}
-            </div> 
-           </div>
-		    `;
+      <div class="file-attach__list-item attachment" data-js-file-attach-file="${index}">
+        <div class="attachment__icon">
+          <svg class="i-icon">
+            <use href="#icon-attachment"></use>
+          </svg>
+        </div>
+        <div class="attachment__info">
+          <div class="attachment__name" title="${name}" data-js-file-attach-file-info="name">${name}</div>
+          <small class="attachment__size"  data-js-file-attach-file-info="size">${size}</small>
+          ${isRenderRemoveBtn ? `
+            <button type="button" class="attachment__remove" data-js-file-attach-file-remove>
+              <svg class="i-icon">
+                <use href="#icon-close"></use>
+              </svg>
+            </button>
+          ` : ''}
+        </div> 
+       </div>
+    `;
   }
 
   init(context = document) {
