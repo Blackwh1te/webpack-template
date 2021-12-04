@@ -1,5 +1,5 @@
-@import 'media.pcss';
-@import 'animations.pcss';
+@import './media.pcss';
+@import './animations.pcss';
 
 @define-mixin fluid-text $max: 100, $min: 14 {
   font-size: calc($(min)px + ($max - $min) * ((100vw - 360px) / (1920 - 360)));
@@ -9,7 +9,7 @@
   }
 }
 
-@define-mixin transition $prop: all 0.3s {
+@define-mixin transition $prop: all var(--baseTransitionDuration) {
   .dom-is-ready & {
     transition: $prop;
   }
@@ -30,6 +30,12 @@
   display: block;
   max-width: 100%;
   border: 0;
+}
+
+@define-mixin img-contain $size: 50% {
+  width: $size;
+  height: $size;
+  object-fit: contain;
 }
 
 @define-mixin img-cover {
@@ -158,6 +164,10 @@
   }
 }
 
+@define-mixin scale $scale: 1.05 {
+  transform: scale($scale) translateZ(0);
+}
+
 @define-mixin shadow-fix $offset: 30px {
   width: calc(100% + $(offset) * 2);
   margin: calc($(offset) * -1);
@@ -210,12 +220,6 @@
     margin-left: calc(var(--gridPadding) * -1);
     margin-right: calc(var(--gridPadding) * -1);
   }
-}
-
-@define-mixin img-contain $size: 50% {
-  width: $size;
-  height: $size;
-  object-fit: contain;
 }
 
 @define-mixin grid-width {

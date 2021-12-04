@@ -4,54 +4,117 @@
   --paddingX: 32px;
   --textColor: var(--c-light);
   --bgColor: var(--c-main);
+  --border: 1px solid var(--borderColor);
+  --borderColor: transparent;
+  --borderRadius: var(--border-radius);
+  --boxShadow: none;
+  --rippleAnimation: ripple 0.8s ease-in;
 
   --hoverTextColor: var(--c-light);
   --hoverBgColor: var(--c-brand);
+  --hoverBorderColor: transparent;
+  --hoverShadow: none;
 
+  --activeRippleColor: var(--c-accent-2);
+
+  --disabledTextColor: var(--c-light);
+  --disabledBgColor: var(--c-gray);
+  --disabledBorderColor: var(--c-gray);
+
+  --iconSize: 1em;
   --iconOffset: 12px;
 
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   height: var(--inputHeight);
+  overflow: hidden;
   padding-left: var(--paddingX);
   padding-right: var(--paddingX);
   font-size: 100%;
-  color: var(--c-light);
+  color: var(--textColor);
   background-color: var(--bgColor);
-  border-radius: var(--border-radius);
-  will-change: transform;
+  border: var(--border);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--boxShadow);
 
-  &:hover {
-    color: var(--hoverTextColor);
-    background-color: var(--hoverBgColor);
+  &::after {
+    --size: 0.5px;
+
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: var(--rippleOffsetX);
+    top: var(--rippleOffsetY);
+    width: var(--size);
+    height: var(--size);
+    background-color: transparent;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: initial;
+
+    .is-ripple:not(.is-animation-end)& {
+      background-color: var(--activeRippleColor);
+      animation: var(--rippleAnimation);
+    }
   }
 
-  &:active {
-    transform: scale(1.025) translateZ(0);
-  }
+  @media (--hoverable) {
+    &:hover {
+      color: var(--hoverTextColor);
+      background-color: var(--hoverBgColor);
+      border-color: var(--hoverBorderColor);
+      box-shadow: var(--hoverShadow);
 
-  &--icon-only {
-    --paddingX: 0;
-    --iconOffset: 0;
-    --textColor: var(--c-dark);
-    --bgColor: transparent;
-    --hoverBgColor: transparent;
-
-    height: auto;
-    border-radius: 0;
+      .btn__icon.i-icon {
+        --color: var(--hoverTextColor);
+      }
+    }
   }
 
   &[disabled] {
-    --bgColor: var(--c-gray);
-    --hoverTextColor: var(--c-light);
-    --hoverBgColor: var(--c-gray);
+    --textColor: var(--disabledTextColor);
+    --bgColor: var(--disabledBgColor);
+    --borderColor: var(--disabledBorderColor);
+    --hoverTextColor: var(--disabledTextColor);
+    --hoverBgColor: var(--disabledBgColor);
+    --hoverBorderColor: var(--disabledBorderColor);
 
     cursor: not-allowed;
   }
 
-  &__icon-wrapper {
-    display: flex;
+  &--icon-only {
+    --size: 32px;
+    --iconSize: 16px;
+
+    --paddingX: 0;
+    --textColor: var(--c-dark);
+    --bgColor: transparent;
+    --border: none;
+    --bordeRadius: none;
+    --boxShadow: none;
+    --hoverTextColor: var(--c-brand);
+    --hoverBgColor: transparent;
+    --hoverBorderColor: transparent;
+    --hoverShadow: none;
+    --iconOffset: 0;
+
+    width: var(--size);
+    height: var(--size);
+    border-radius: 0;
+    will-change: transform;
+
+    &:active {
+      @mixin scale;
+    }
+  }
+
+  &__icon {
+    &.i-icon {
+      --size: var(--iconSize);
+      --color: var(--textColor);
+    }
 
     &:not(:last-child) {
       margin-right: var(--iconOffset);
@@ -59,10 +122,6 @@
 
     &:not(:first-child) {
       margin-left: var(--iconOffset);
-    }
-
-    .i-icon * {
-      fill: var(--textColor);
     }
   }
 }

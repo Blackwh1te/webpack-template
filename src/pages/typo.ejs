@@ -7,8 +7,7 @@
 			link: '/'
 		},
 		{
-			name: 'Типографика',
-			link: '/'
+			name: 'Типографика'
 		},
 	]
 }; %>
@@ -177,8 +176,6 @@
 			<div class="flow mb50">
 				<%- require('../components/btn/template.ejs')({
 					data: {
-						type: 'button',
-						icon: false,
 						caption: {
 							text: 'Default btn'
 						}
@@ -186,9 +183,7 @@
 				}) %>
 				<%- require('../components/btn/template.ejs')({
 					data: {
-						type: 'a',
 						href: '/',
-						icon: false,
 						caption: {
 							text: 'Default btn-link'
 						}
@@ -196,7 +191,6 @@
 				}) %>
 				<%- require('../components/btn/template.ejs')({
 					data: {
-						type: 'button',
 						icon: {
 							name: 'arrow-right',
 							position: 'after'
@@ -208,7 +202,6 @@
 				}) %>
 				<%- require('../components/btn/template.ejs')({
 					data: {
-						type: 'button',
 						icon: {
 							name: 'arrow-left',
 							position: 'before'
@@ -220,26 +213,26 @@
 				}) %>
 				<%- require('../components/btn/template.ejs')({
 					data: {
-						type: 'button',
-						icon: false,
-						caption: {
-							text: 'Disabled'
+						icon: {
+							name: 'search'
 						},
-						disabled: true
+						caption: {
+							text: 'With icon only',
+							isHidden: true
+						}
 					}
 				}) %>
 			</div>
 			<div class="flow">
 				<div>
-					<span>With only icon:&nbsp;&nbsp;</span>
+					<span>With icon only:&nbsp;&nbsp;</span>
 					<%- require('../components/btn/template.ejs')({
 						data: {
-							type: 'button',
 							icon: {
-								name: 'search',
+								name: 'search'
 							},
 							caption: {
-								text: 'With only icon',
+								text: 'With icon only',
 								isHidden: true
 							}
 						}

@@ -1,7 +1,9 @@
 <%
 const defaults = require('./data.json').data
 const params = Object.assign({}, defaults, (data) ? data : {})
-const {items} = params
+const {
+  items,
+} = params
 %>
 
 <nav class="breadcrumb" aria-label="breadcrumb">
@@ -11,21 +13,22 @@ const {items} = params
     itemtype="https://schema.org/BreadcrumbList"
   >
     <% items.forEach((item, index) => { %>
-      <li class="breadcrumb__item"
-          title="<%= item.name %>"
-          itemprop="itemListElement"
-          itemscope
-          itemtype="https://schema.org/ListItem"
+      <li
+        class="breadcrumb__item"
+        title="<%= item.name %>"
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
       >
         <a
           class="breadcrumb__link"
           href="<%= item.link %>"
           itemprop="item"
-          <%= (index === items.length - 1) ? 'aria-current="page"' : '' %>
+          <% if (index === items.length - 1) { %>
+            aria-current="page"
+          <% } %>
         >
-            <span itemprop="name">
-              <%= item.name %>
-            </span>
+          <span itemprop="name"><%= item.name %></span>
         </a>
         <meta itemprop="position" content="<%= index + 1 %>"/>
       </li>

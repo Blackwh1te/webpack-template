@@ -6,7 +6,7 @@ requireAll(require.context('./icons', true, /\.svg$/))
 
 // Load plugins
 import svg4everybody from 'svg4everybody'
-import {isTouchEnabled} from './js/utils/isTouchEnables'
+import {isTouchEnabled} from './js/utils/isTouchEnabled'
 import {isMobileDevice} from './js/utils/isMobileDevice'
 import {parseJSON} from './js/utils/parseJSON'
 import {wait} from './js/utils/wait'
@@ -19,10 +19,10 @@ window.svg4everybody = svg4everybody
 export const mq = {
   tabletAbove: '(min-width: 1281px)',
   tablet: '(max-width: 1280px)',
-  tabletXs: '(max-width: 920px)',
   tabletXsAbove: '(min-width: 921px)',
+  tabletXs: '(max-width: 920px)',
+  mobileAbove: '(min-width: 768px)',
   mobile: '(max-width: 767px)',
-  mobileAbove: '(min-width: 768px)'
 }
 
 // Create global App object
@@ -36,11 +36,12 @@ window.App = {
     touchscreen: 'is-touchscreen',
     mobileDevice: 'is-mobile-device'
   },
-  yandexMapKey: (typeof window.YANDEX_MAP_KEY === 'undefined') ? '' : window.YANDEX_MAP_KEY,
+  ...parseJSON(document.body.getAttribute('data-js-app-globals')),
 }
 
 // load modules
 import SvgUse from './js/svgUse'
+import Btn from './components/btn'
 import Modals from './js/modals'
 import Forms from './js/forms/forms'
 import ScrollEffects from './js/scrollEffects'
@@ -59,7 +60,7 @@ import './components/select'
 import './components/table'
 import './components/slider-buttons'
 import './components/slider-pagination'
-import './components/map'
+// import './components/map'
 
 // Load collections
 import {SlidersCollection} from './js/sliders'
@@ -68,18 +69,17 @@ import {FileAttachCollection} from './components/file-attach'
 import {SelectCollection} from './components/select'
 import {AccordionCollection} from './js/accordion'
 import {TabsCollection} from './js/tabs'
-import {MapCollection} from './components/map'
+// import {MapCollection} from './components/map'
 
 // Load styles
 import './styles'
 
-const checkMobile = () => {
-  (isMobileDevice()) ? document.documentElement.classList.add(App.stateClasses.mobileDevice) : document.documentElement.classList.remove(App.stateClasses.mobileDevice)
-}
+// Utils functions
+const setVhVar = () => setCSSVar(document.documentElement, 'vh', `${window.innerHeight * 0.01}px`)
 
-const checkTouch = () => {
-  (isTouchEnabled()) ? document.documentElement.classList.add(App.stateClasses.touchscreen) : document.documentElement.classList.remove(App.stateClasses.touchscreen)
-}
+const checkMobile = () => isMobileDevice() ? document.documentElement.classList.add(App.stateClasses.mobileDevice) : document.documentElement.classList.remove(App.stateClasses.mobileDevice)
+
+const checkTouch = () => isTouchEnabled() ? document.documentElement.classList.add(App.stateClasses.touchscreen) : document.documentElement.classList.remove(App.stateClasses.touchscreen)
 
 const checkSpecificBrowser = () => {
   let browserClass = ''
@@ -101,25 +101,8 @@ const checkSpecificBrowser = () => {
   }
 }
 
-const vhFix = () => {
-  setCSSVar(document.documentElement, 'vh', `${window.innerHeight * 0.01}px`)
-}
-
-const getScrollbarWidth = () => {
-  return window.innerWidth - document.documentElement.clientWidth
-}
-
 const setScrollbarWidth = () => {
-  setCSSVar(document.documentElement, 'scrollbar-width', `${getScrollbarWidth()}px`)
-}
-
-const setVhFix = () => {
-  vhFix()
-
-  const debouncedResizeHandler = debounce(() => vhFix())
-  window.addEventListener('resize', () => {
-    debouncedResizeHandler()
-  })
+  setCSSVar(document.documentElement, 'scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px`)
 }
 
 const handleDOMReady = () => {
@@ -127,11 +110,12 @@ const handleDOMReady = () => {
   checkTouch()
   checkMobile()
   checkSpecificBrowser()
-  setVhFix()
+  setVhVar()
   setScrollbarWidth()
 
   // standalone components
   new SvgUse()
+  new Btn()
   new Modals()
   new Forms()
   new Gallery()
@@ -144,7 +128,7 @@ const handleDOMReady = () => {
   App.SelectCollection = new SelectCollection()
   App.AccordionCollection = new AccordionCollection()
   App.TabsCollection = new TabsCollection()
-  App.MapCollection = new MapCollection()
+  // App.MapCollection = new MapCollection()
 
   // prevent transition flicker
   wait(100).then(() => {
@@ -153,25 +137,19 @@ const handleDOMReady = () => {
   })
 }
 
+const debouncedResizeHandler = debounce(setVhVar)
 const handleResize = () => {
   checkTouch()
   checkMobile()
+  debouncedResizeHandler()
 }
 
-const handleWindowLoad = () => {
-  document.documentElement.classList.add(App.stateClasses.pageLoaded)
-}
+const handleWindowLoad = () => document.documentElement.classList.add(App.stateClasses.pageLoaded)
 
 const bindEvents = () => {
-  document.addEventListener('DOMContentLoaded', () => {
-    handleDOMReady()
-  })
-  document.addEventListener('resize', () => {
-    handleResize()
-  })
-  window.addEventListener('load', () => {
-    handleWindowLoad()
-  })
+  document.addEventListener('DOMContentLoaded', () => handleDOMReady())
+  window.addEventListener('resize', () => handleResize())
+  window.addEventListener('load', () => handleWindowLoad())
 }
 
 bindEvents()

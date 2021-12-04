@@ -1,11 +1,11 @@
 {
   "name": "webpack-template",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack s --mode development --config ./webpack.config.js",
-    "build": "webpack --mode production --config ./webpack.config.js"
+    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack s --mode development --config ./webpack.config.js",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack --mode production --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -94,8 +94,7 @@
     "reset-css": "^5.0.1",
     "scrollmagic": "^2.0.8",
     "svg4everybody": "^2.1.9",
-    "swiper": "^7.2.0",
-    "ymaps": "^0.2.1"
+    "swiper": "^7.2.0"
   },
   "browserslist": [
     "safari 13",

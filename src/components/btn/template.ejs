@@ -1,14 +1,45 @@
 <%
+	const exampleData = {
+    link: {
+	    href: '/',
+	    caption: {
+		    text: 'Button'
+	    },
+	    icon: {
+		    name: 'arrow-right',
+		    position: 'after'
+	    }
+    },
+
+		defaultButton: {
+			caption: {
+				text: 'Button'
+			}
+		},
+
+		buttonIconOnly: {
+			caption: {
+				text: 'Button',
+				isHidden: true
+			},
+			icon: {
+				name: 'arrow-right'
+			}
+		}
+	}
+%>
+
+<%
 const defaults = require('./data.json').data
 const params = Object.assign({}, defaults, (data) ? data : {})
 const {
+	extraClasses,
+	extraAttrs,
 	type,
 	href,
 	icon,
 	caption,
 	disabled,
-	extraClasses,
-	extraAttrs
 } = params
 %>
 
@@ -16,42 +47,54 @@ const {
 	const iconBody = () => {
     if (!icon) return ''
     return `
-	    <span class="btn__icon-wrapper">
-				<svg class="i-icon">
-					<use href="#icon-${icon.name}"></use>
-				</svg>
-			</span>
+			<svg class="btn__icon i-icon">
+				<use href="#icon-${icon.name}"></use>
+			</svg>
 		`
 	}
 
 	const btnBody = () => {
+    let classes = 'btn__caption'
+		if (caption.isHidden) classes += ' visually-hidden'
 		return `
 			${icon.position !== 'after' ? iconBody() : ''}
-			<span class="btn__caption ${caption.isHidden ? 'visually-hidden' : ''}">
-				${caption.text}
-			</span>
+			<span class="${classes}">${caption.text}</span>
 			${icon.position === 'after' ? iconBody() : ''}
 		`
 	}
+
+  let classes = 'btn'
+	let dataAttrs = ''
+	if (icon && caption.isHidden) {
+		classes += ' btn--icon-only'
+	} else {
+		dataAttrs += 'data-js-btn'
+	}
+	if (extraClasses) classes += ` ${extraClasses}`
 %>
 
-<% if (type === 'a') { %>
+<% if (href) { %>
 	<a
-		class="btn <%= icon && caption.isHidden ? 'btn--icon-only' : '' %> <%= extraClasses %>"
+		class="<%= classes %>"
 		href="<%= href %>"
 		title="<%= caption.text %>"
 		aria-label="<%= caption.text %>"
+		<%- dataAttrs %>
+		<%- extraAttrs %>
 	>
 		<%- btnBody() %>
 	</a>
 <% } else { %>
 	<button
-		class="btn <%= icon && caption.isHidden ? 'btn--icon-only' : '' %> <%= extraClasses %>"
-		<%- extraAttrs %>
+		class="<%= classes %>"
 		type="<%= type %>"
 		title="<%= caption.text %>"
 		aria-label="<%= caption.text %>"
-		<%= disabled ? 'disabled' : '' %>
+		<% if (disabled) { %>
+			disabled
+		<% } %>
+		<%- dataAttrs %>
+		<%- extraAttrs %>
 	>
 		<%- btnBody() %>
 	</button>

@@ -71,3 +71,20 @@
     background-position: 100% 9%;
   }
 }
+
+@keyframes ripple {
+  0% {
+    transform: scale(0) translateZ(0);
+    opacity: 0;
+  }
+
+  75% {
+    transform: scale(450) translateZ(0);
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: scale(700) translateZ(0);
+    opacity: 0;
+  }
+}

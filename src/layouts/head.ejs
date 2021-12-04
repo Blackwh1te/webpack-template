@@ -10,16 +10,18 @@
 	<link rel="apple-touch-icon-precomposed" href="./images/apple-touch-icon.png">
 	<link rel="preload" href="./bundle.js" as="script"/>
 </head>
-<%
-const data = {
-	flowContainerClass: flowContainerClass,
-	isUser: false
-}
-%>
-<body>
+<% const appGlobals = {
+	lang: 'ru',
+	isAuth: false,
+	tplPath: null,
+	googleCaptchaKey: null,
+	yandexMapsKey: null,
+	svgSpriteRevision: null
+} %>
+<body data-js-app-globals='<%- JSON.stringify(appGlobals) %>'>
 <div class="flow-container <%= flowContainerClass %>">
 
 	<!-- header -->
-	<%- require('../components/header/template.ejs')(data) %>
+	<%- require('../components/header/template.ejs')() %>
 	<!-- /header -->
 	<main class="content">
