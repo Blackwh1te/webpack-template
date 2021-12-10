@@ -1,0 +1,61 @@
+@import "../../styles/mixins.pcss";
+
+.star-rating {
+  --totalStars: 5;
+  --initialValue: var(--value, 0);
+  --startColor: var(--c-amaranth);
+  --endColor: var(--c-brown);
+
+  display: inline-flex;
+  cursor: pointer;
+
+  &--no-gradient {
+    --startColor: var(--c-yellow);
+    --endColor: var(--c-yellow);
+
+    .star-rating__star {
+      fill: var(--c-gray-200);
+    }
+  }
+
+  &--no-interactive {
+    pointer-events: none;
+  }
+
+  &__label {
+    && {
+      margin-bottom: 0;
+    }
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  &__body {
+    --currentValue: var(--valueOnHover, var(--initialValue));
+  }
+
+  &__mask {
+    @mixin transition width 0.15s;
+
+    width: calc(var(--currentValue) / var(--totalStars) * 100% + 1px);
+    pointer-events: none;
+  }
+
+  &__star {
+    @mixin transition 0.3s;
+
+    &.is-clicked {
+      filter: drop-shadow(0 0 2px var(--c-yellow));
+    }
+  }
+
+  &__start-color {
+    stop-color: var(--startColor);
+  }
+
+  &__end-color {
+    stop-color: var(--endColor);
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "extraClasses": "",
+    "extraAttrs": "",
+    "value": 3.5,
+    "hasGradient": true,
+    "hasInteractive": true,
+    "required": false,
+    "label": {
+      "text": "Текущий рейтинг",
+      "isHidden": true
+    }
+  }
+}

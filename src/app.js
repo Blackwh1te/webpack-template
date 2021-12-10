@@ -61,6 +61,7 @@ import './components/table'
 import './components/slider-buttons'
 import './components/slider-pagination'
 // import './components/map'
+// import './components/star-rating'
 
 // Load collections
 import {SlidersCollection} from './js/sliders'
@@ -70,6 +71,7 @@ import {SelectCollection} from './components/select'
 import {AccordionCollection} from './js/accordion'
 import {TabsCollection} from './js/tabs'
 // import {MapCollection} from './components/map'
+// import {StarRatingCollection} from './components/star-rating'
 
 // Load styles
 import './styles'
@@ -129,6 +131,7 @@ const handleDOMReady = () => {
   App.AccordionCollection = new AccordionCollection()
   App.TabsCollection = new TabsCollection()
   // App.MapCollection = new MapCollection()
+  // App.StarRatingCollection = new StarRatingCollection()
 
   // prevent transition flicker
   wait(100).then(() => {
