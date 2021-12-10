@@ -15,5 +15,5 @@ const requireAll = (requireContext) => {
 
 // requireAll(require.context('./typo', false, /.css$/))
 // requireAll(require.context('./blocks', false, /.css$/))
-requireAll(require.context('./typo', /\.(pcss|css)$/i));
-requireAll(require.context('./blocks', /\.(pcss|css)$/i));
+requireAll(require.context('./typo', false, /\.(pcss|css)$/i));
+requireAll(require.context('./blocks', false, /\.(pcss|css)$/i));

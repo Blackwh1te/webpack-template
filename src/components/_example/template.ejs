@@ -1,6 +1,6 @@
 <%
 const defaults = require('./data.json').data
-const params = Object.assign({}, defaults, (data) ? data : {})
+const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
 const {
 	extraClasses,
 	extraAttrs,
