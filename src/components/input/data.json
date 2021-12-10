@@ -1,23 +1,25 @@
 {
   "data": {
+    "extraClasses": "",
+    "extraAttrs": "",
     "name": "form-input",
     "type": "text",
     "label": {
       "text": "Название поля",
       "isHidden": false
     },
+    "value": "",
     "placeholder": "",
     "required": false,
     "disabled": false,
     "readonly": false,
     "isShowError": true,
-    "autocomplete": "off",
     "maxlength": false,
-    "value": false,
     "tabindex": false,
     "inputMode": false,
-    "form": "",
-    "extraClasses": "",
-    "extraAttrs": ""
+    "form": false,
+    "autocomplete": "off",
+    "wrapperExtraClasses": "",
+    "hasPasswordEye": false
   }
 }

@@ -8,14 +8,18 @@
   --c-main: #016FB9;
   --c-accent: #D5A021;
   --c-accent-2: #F5F0F6;
+  --c-accent-3: #eaca75;
 
   --c-gray: #8b8b8b;
   --c-gray-2: #bcbcbc;
   --c-gray-3: #ecf0f5;
   --c-gray-4: #757777;
 
-  --c-error: #FF0000;
-  --c-success: #00FF00;
+  --c-red: #FF0000;
+  --c-green: #FF0000;
+
+  --c-error: var(--c-red);
+  --c-success: var(--c-green);
 
   --c-overlay: rgba(0, 0, 0, 0.6);
 
@@ -50,7 +54,10 @@
   --inputPaddingX: 20px;
   --inputPaddingY: 0;
   --inputPadding: var(--inputPaddingY) var(--inputPaddingX);
-  --inputIconSize: 18px;
+  --inputBtnSize: var(--inputHeight);
+  --inputIconSize: 50%;
+
+  --focusOutline: 2px dashed var(--c-dark);
 
   --layerDefault: 0;
   --layerControls: 50;

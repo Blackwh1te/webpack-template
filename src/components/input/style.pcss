@@ -14,6 +14,12 @@
   --hoverBorderColor: var(--c-main);
   --hoverPlaceholderColor: var(--c-light);
 
+  --focusTextColor: var(--c-dark);
+  --focusBgColor: var(--c-light);
+  --focusBorderColor: var(--c-accent);
+
+  --textAreaMinHeight: 100px;
+
   display: inline-flex;
   align-items: center;
   width: 100%;
@@ -25,19 +31,18 @@
   border: var(--border);
   border-radius: var(--borderRadius);
 
+  textarea& {
+    --paddingY: 16px;
+    --borderRadius: var(--border-radius-2);
+
+    min-height: var(--textAreaMinHeight);
+    padding-top: var(--paddingY);
+    padding-bottom: var(--paddingY);
+    resize: none;
+  }
+
   &::placeholder {
     color: var(--placeholderColor);
-  }
-
-  &[disabled],
-  &[readonly] {
-    --bgColor: var(--c-gray);
-
-    cursor: not-allowed;
-  }
-
-  &.is-invalid {
-    --borderColor: var(--c-error);
   }
 
   &:hover {
@@ -50,13 +55,26 @@
     }
   }
 
-  textarea& {
-    --paddingY: 16px;
-    --borderRadius: var(--border-radius-2);
+  &:focus {
+    color: var(--focusTextColor);
+    background-color: var(--focusBgColor);
+    border-color: var(--focusBorderColor);
+  }
 
-    min-height: 100px;
-    padding-top: var(--paddingY);
-    padding-bottom: var(--paddingY);
-    resize: none;
+  &[disabled],
+  &[readonly] {
+    --bgColor: var(--c-gray);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &.is-invalid {
+    --borderColor: var(--c-error);
+  }
+
+  &--has-btn {
+    padding-right: calc(var(--inputBtnSize) + var(--inputPaddingX) / 2);
   }
 }

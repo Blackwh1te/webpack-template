@@ -60,6 +60,8 @@ import './components/select'
 import './components/table'
 import './components/slider-buttons'
 import './components/slider-pagination'
+import './components/password-btn'
+import './components/my-select'
 // import './components/map'
 // import './components/star-rating'
 
@@ -68,8 +70,10 @@ import {SlidersCollection} from './js/sliders'
 import {GoogleCaptchaCollection} from './components/grecaptcha'
 import {FileAttachCollection} from './components/file-attach'
 import {SelectCollection} from './components/select'
+import {MySelectCollection} from './components/my-select'
 import {AccordionCollection} from './js/accordion'
 import {TabsCollection} from './js/tabs'
+import {PasswordCollection} from './js/password'
 // import {MapCollection} from './components/map'
 // import {StarRatingCollection} from './components/star-rating'
 
@@ -128,8 +132,10 @@ const handleDOMReady = () => {
   App.AdaptiveTables = new AdaptiveTables()
   App.FileAttachCollection = new FileAttachCollection()
   App.SelectCollection = new SelectCollection()
+  App.MySelectCollection = new MySelectCollection()
   App.AccordionCollection = new AccordionCollection()
   App.TabsCollection = new TabsCollection()
+  App.PasswordCollection = new PasswordCollection()
   // App.MapCollection = new MapCollection()
   // App.StarRatingCollection = new StarRatingCollection()
 

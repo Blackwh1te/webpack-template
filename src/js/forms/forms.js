@@ -21,6 +21,7 @@ export const els = {
   form: '[data-js-form]',
   errorsList: '[data-js-form-errors]',
   formInput: '[data-js-input-required]',
+  formInputWrapper: '[data-js-input-wrapper]',
   formBlockError: '[data-js-form-error-msg]',
   formInputError: '[data-js-input-error-text]',
   formInputPlaceholder: '[data-js-input-placeholder]',
@@ -208,12 +209,19 @@ export default class Forms {
     }
   }
 
+  handleKeyPress(e) {
+    const {target, key} = e
+
+    if (key === 'Enter' && target.type === 'checkbox') {
+      target.checked = !target.checked
+    }
+  }
+
   bindEvents() {
     onAjaxContentLoaded((e) => {
       this.handleAjaxContentLoaded(e)
     })
-    document.addEventListener('click', (e) => {
-      this.handleClick(e)
-    })
+    document.addEventListener('click', (e) => this.handleClick(e))
+    document.addEventListener('keypress', (e) => this.handleKeyPress(e))
   }
 }

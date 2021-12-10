@@ -242,6 +242,8 @@
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: '',
+							extraAttrs: '',
 							name: 'test-input-1',
 							type: 'text',
 							label: {
@@ -249,14 +251,14 @@
 								isHidden: false
 							},
 							required: false,
-							extraClasses: '',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: '',
+							extraAttrs: '',
 							name: 'test-input-2',
 							type: 'text',
 							label: {
@@ -265,14 +267,14 @@
 							},
 							placeholder: 'Enter value',
 							required: false,
-							extraClasses: '',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: '',
+							extraAttrs: '',
 							name: 'test-input-3',
 							type: 'text',
 							label: {
@@ -281,14 +283,14 @@
 							},
 							value: 'Lorem ipsum',
 							required: false,
-							extraClasses: '',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: '',
+							extraAttrs: '',
 							name: 'test-input-4',
 							type: 'text',
 							label: {
@@ -297,14 +299,14 @@
 							},
 							disabled: true,
 							required: false,
-							extraClasses: '',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: '',
+							extraAttrs: '',
 							name: 'test-input-5',
 							type: 'text',
 							label: {
@@ -314,14 +316,15 @@
 							value: 'Just look at me',
 							readonly: true,
 							required: false,
-							extraClasses: '',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
 						data: {
+							extraClasses: 'is-invalid',
+							extraAttrs: '',
+							wrapperExtraClasses: 'is-invalid',
 							name: 'test-input-6',
 							type: 'text',
 							label: {
@@ -332,8 +335,6 @@
 							readonly: false,
 							required: false,
 							isShowError: 'Некорректные данные',
-							extraClasses: 'is-invalid',
-							extraAttrs: ''
 						}
 					}) %>
 				</li>
@@ -369,6 +370,22 @@
 							required: false,
 							extraClasses: '',
 							extraAttrs: ''
+						}
+					}) %>
+				</li>
+				<li class="grid__item">
+					<%- require('../components/input/template.ejs')({
+						data: {
+							name: 'test-input-9',
+							type: 'password',
+							label: {
+								text: 'Password',
+								isHidden: false
+							},
+							required: false,
+							extraClasses: '',
+							extraAttrs: '',
+							hasPasswordEye: true,
 						}
 					}) %>
 				</li>
@@ -510,6 +527,10 @@
 		</header>
 		<div class="section__body">
 			<ul class="grid grid--4">
+				<li class="grid__item">
+					<%- require('../components/my-select/template.ejs')() %>
+				</li>
+
 				<li class="grid__item">
 					<%- require('../components/select/template.ejs')({
 						data: {

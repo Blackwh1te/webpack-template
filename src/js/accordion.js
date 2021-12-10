@@ -13,7 +13,7 @@ export class Accordion {
     btn: '[data-js-accordion-btn]',
   };
 
-  classStates = {
+  stateClasses = {
     isOpen: 'is-open',
     isFullyExpanded: 'is-fully-expanded',
   };
@@ -51,20 +51,20 @@ export class Accordion {
     });
   }
 
-  isOpen = (item) => item.classList.contains(this.classStates.isOpen);
+  isOpen = (item) => item.classList.contains(this.stateClasses.isOpen);
 
   open(item) {
     const content = item.querySelector(this.els.content);
 
     this.clearAnimationsArray(content.getAnimations());
     item.open = true;
-    item.classList.add(this.classStates.isOpen);
+    item.classList.add(this.stateClasses.isOpen);
 
     content.animate([
       {height: '0'},
       {height: `${content.scrollHeight}px`},
     ], this.cfg.animationParams).onfinish = () => {
-      item.classList.add(this.classStates.isFullyExpanded);
+      item.classList.add(this.stateClasses.isFullyExpanded);
     };
 
     if (this.cfg.isAutoClosing) {
@@ -76,8 +76,8 @@ export class Accordion {
     const content = item.querySelector(this.els.content);
 
     this.clearAnimationsArray(content.getAnimations());
-    item.classList.remove(this.classStates.isOpen);
-    item.classList.remove(this.classStates.isFullyExpanded);
+    item.classList.remove(this.stateClasses.isOpen);
+    item.classList.remove(this.stateClasses.isFullyExpanded);
     content.animate([
       {height: `${content.scrollHeight}px`},
       {height: '0'},
@@ -112,7 +112,7 @@ export class Accordion {
   setInitialFullyExpandedState() {
     this.items.forEach(item => {
       if (this.isOpen(item)) {
-        item.classList.add(this.classStates.isFullyExpanded);
+        item.classList.add(this.stateClasses.isFullyExpanded);
       }
     });
   }

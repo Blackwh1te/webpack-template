@@ -2,8 +2,10 @@
 const defaults = require('./data.json').data
 const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
 const {
-	name,
+	extraClasses,
+	extraAttrs,
 	id,
+	name,
 	type,
 	label,
 	value,
@@ -11,26 +13,39 @@ const {
 	checked,
 	isShowError,
 	required,
-	extraClasses,
-	extraAttrs,
+	form,
 } = params
 %>
 
-<label class="checkbox checkbox--<%= type %>" for="<%= id %>">
+<%
+let classes = `checkbox checkbox--${type}`
+
+let inputClasses = 'checkbox__input visually-hidden'
+if (extraClasses) inputClasses += ` ${extraClasses}`
+%>
+
+<label
+	class="<%= classes %>"
+>
 	<input
-		class="checkbox__input visually-hidden <%= extraClasses %>
-		<%= required ? `required data-js-input-required=${type}` : '' %>"
+		class="<%= inputClasses %>"
 		id="<%= id %>"
 		name="<%= name %>"
 		type="<%= type %>"
-		<%= disabled ? 'disabled' : '' %>
-		<%= checked ? 'checked' : '' %>
 		value="<%= value %>"
 		autocomplete="off"
-		tabindex="-1"
+
+		<% if (disabled) { %>
+			disabled
+		<% } %>
+
+		<% if (checked) { %>
+			checked
+		<% } %>
+
 		<% if (required) { %>
-			data-js-input-required="<%= required %>"
 			required
+			data-js-input-required="<%= type %>"
 		<% } %>
 	>
 

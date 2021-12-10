@@ -1,0 +1,15 @@
+@import '../../styles/mixins.pcss';
+
+.password-btn {
+  &.is-active {
+    .password-btn__icon--before {
+      display: none;
+    }
+  }
+
+  &:not(.is-active) {
+    .password-btn__icon--after {
+      display: none;
+    }
+  }
+}

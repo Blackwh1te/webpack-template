@@ -1,7 +1,9 @@
 {
   "data": {
-    "name": "checkbox",
+    "extraClasses": "",
+    "extraAttrs": "",
     "id": "checkbox-1",
+    "name": "checkbox",
     "type": "checkbox",
     "label": "Checkbox",
     "value": "Y",
@@ -9,7 +11,6 @@
     "checked": false,
     "isShowError": false,
     "required": false,
-    "extraClasses": "",
-    "extraAttrs": ""
+    "form": false
   }
 }

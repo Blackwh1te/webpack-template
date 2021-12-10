@@ -1,0 +1,61 @@
+<%
+const defaults = require('./data.json').data
+const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const {
+	extraClasses,
+	extraAttrs,
+	name,
+	label,
+	required,
+	disabled,
+	form,
+	options,
+} = params
+%>
+
+<%
+let labelClasses = 'my-select__label form-label'
+if (label.isHidden) labelClasses += ' visually-hidden'
+%>
+
+<div
+	class="my-select form-item"
+	data-js-my-select
+>
+	<select
+		id="<%= name %>"
+		name="<%= name %>"
+		data-js-my-select-control
+
+		<% if (disabled) { %>
+			disabled
+		<% } %>
+
+		<% if (form) { %>
+			form="<%= form %>"
+		<% } %>
+	>
+		<% options.forEach(option => { %>
+			<% const {text, value, isSelected} = option; %>
+			<option
+				value="<%= value %>"
+				<% if (isSelected) { %>
+					selected
+				<% } %>
+			>
+				<%= text %>
+			</option>
+		<% }) %>
+	</select>
+
+	<label
+		class="<%= labelClasses %>"
+		id="my-select-label"
+		for="<%= name %>"
+	>
+		<span><%= label.text %></span>
+		<% if (required) { %>
+			<span class="form-star-required">*</span>
+		<% } %>
+	</label>
+</div>

@@ -84,10 +84,11 @@ export default class FormValidation {
       const formBlock = input.closest(formEls.formBlock) || input.parentNode
       const errorBlock = (formBlock) ? formBlock.querySelector(formEls.formBlockError) : null
       const errorMsg = (input.hasAttribute(getAttr(formEls.formInputError))) ? (input.getAttribute(getAttr(formEls.formInputError))) : null
+      const formInputWrapper = input.closest(formEls.formInputWrapper)
+
       input.classList.remove(stateClasses.invalid)
-      if (errorBlock) {
-        errorBlock.innerHTML = ''
-      }
+      if (formInputWrapper) formInputWrapper.classList.remove(stateClasses.invalid)
+      if (errorBlock) errorBlock.innerHTML = ''
       if (val.length || type === 'checkbox' || type === 'radio' || type === 'file' || input.matches(greCaptchaTextArea)) {
         switch (type) {
           case 'greCaptcha':
@@ -194,6 +195,7 @@ export default class FormValidation {
 
   static invalid(input, errorMessage) {
     const message = errorMessage || getLocaleMsg('EMPTY_FIELD')
+    const formInputWrapper = input.closest(formEls.formInputWrapper)
     FormValidation.manageInputError(input, message)
     if (input.matches(fileAttachEls.input)) {
       const fileContainer = input.closest(fileAttachEls.instance)
@@ -204,6 +206,10 @@ export default class FormValidation {
     }
     input.classList.remove(stateClasses.valid)
     input.classList.add(stateClasses.invalid)
+    if (formInputWrapper) {
+      formInputWrapper.classList.remove(stateClasses.valid)
+      formInputWrapper.classList.add(stateClasses.valid)
+    }
     bubble(input, bubbles.inputAppearedError)
     return false
   }
@@ -211,6 +217,7 @@ export default class FormValidation {
   static valid(input) {
     FormValidation.manageInputError(input, false)
     const fileContainer = input.closest(fileAttachEls.instance)
+    const formInputWrapper = input.closest(formEls.formInputWrapper)
     switch (true) {
       case input.matches(fileAttachEls.input):
         if (fileContainer) {
@@ -222,6 +229,10 @@ export default class FormValidation {
         input.classList.remove(stateClasses.invalid)
         input.classList.add(stateClasses.valid)
         break
+    }
+    if (formInputWrapper) {
+      formInputWrapper.classList.remove(stateClasses.invalid)
+      formInputWrapper.classList.add(stateClasses.valid)
     }
     bubble(input, bubbles.inputRemovedError)
     return true

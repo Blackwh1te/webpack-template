@@ -2,104 +2,156 @@
 const defaults = require('./data.json').data
 const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
 const {
+  extraClasses,
+  extraAttrs,
   name,
   type,
   label,
+  value,
   placeholder,
   required,
   disabled,
   readonly,
   isShowError,
-  autocomplete,
   maxlength,
-  value,
   tabindex,
   inputMode,
   form,
-  extraClasses,
-  extraAttrs,
+  autocomplete,
+  wrapperExtraClasses,
+  hasPasswordEye,
 } = params
 %>
 
-<label class="form-item" for="<%= name %>">
-  <% if (type === 'textarea') { %>
-    <textarea
-      class="form-input <%= extraClasses %>"
-      id="<%= name %>"
-      <%- extraAttrs %>
+<%
+  let wrapperClasses = 'form-input-wrapper'
+  if (wrapperExtraClasses) wrapperClasses += ` ${wrapperExtraClasses}`
 
-      <% if (form) { %>
-        form="<%= form %>"
-      <% } %>
+  let wrapperAttrs = ''
+  if (hasPasswordEye) wrapperAttrs += ' data-js-password'
 
-      <% if (tabindex) { %>
-        tabindex="<%= tabindex %>"
-      <% } %>
+  let labelClasses = 'form-label'
+  if (label.isHidden) labelClasses += ' visually-hidden'
 
-      <% if (placeholder) { %>
-        placeholder="<%= placeholder %>"
-      <% } %>
+  let inputClasses = 'form-input'
+  if (extraClasses) inputClasses += ` ${extraClasses}`
+  if (hasPasswordEye) inputClasses += ' form-input--has-btn'
 
-      <% if (maxlength) { %>
-        maxlength="<%= maxlength %>"
-      <% } %>
+  let inputAttrs = ''
+  if (hasPasswordEye) inputAttrs += ' data-js-password-input'
+%>
 
-      <% if (required) { %>
-        data-js-input-required="<%= required %>"
-        required
-      <% } %>
-
-      <%= disabled ? 'disabled' : '' %>
-      <%= readonly ? 'readonly' : '' %>
-    >
-      <% if (value) { %>
-        <%= value %>
-      <% } %>
-    </textarea>
-  <% } else { %>
-    <input
-      class="form-input <%= extraClasses %>"
-      id="<%= name %>"
-      type="<%= type %>"
-      <%- extraAttrs %>
-
-      <% if (form) { %>
-        form="<%= form %>"
-      <% } %>
-
-      <% if (tabindex) { %>
-        tabindex="<%= tabindex %>"
-      <% } %>
-
-      <% if (placeholder) { %>
-        placeholder="<%= placeholder %>"
-      <% } %>
-
-      <% if (maxlength) { %>
-        maxlength="<%= maxlength %>"
-      <% } %>
-
-      <% if (autocomplete) { %>
-        autocomplete="<%= autocomplete %>"
-      <% } %>
-
-      <% if (value) { %>
-        value="<%= value %>"
-      <% } %>
-
-      <% if (required) { %>
-        data-js-input-required="<%= required %>"
-        required
-      <% } %>
-
-      <%= disabled ? 'disabled' : '' %>
-      <%= readonly ? 'readonly' : '' %>
-    >
-  <% } %>
-
+<label class="form-item">
   <span
-    class="form-label <%= label.isHidden ? 'visually-hidden' : '' %>"
+    class="<%= wrapperClasses %>"
+    data-js-input-wrapper
+    <%- wrapperAttrs %>
   >
+    <% if (type === 'textarea') { %>
+      <textarea
+        class="<%= inputClasses %>"
+        id="<%= name %>"
+        name="<%= name %>"
+
+        <% if (placeholder) { %>
+          placeholder="<%= placeholder %>"
+        <% } %>
+
+        <% if (tabindex) { %>
+          tabindex="<%= tabindex %>"
+        <% } %>
+
+        <% if (inputMode) { %>
+          inputMode="<%= inputMode %>"
+        <% } %>
+
+        <% if (maxlength) { %>
+          maxlength="<%= maxlength %>"
+        <% } %>
+
+        <% if (required) { %>
+          data-js-input-required="<%= required %>"
+          required
+        <% } %>
+
+        <% if (disabled) { %>
+          disabled
+        <% } %>
+
+        <% if (readonly) { %>
+          readonly
+        <% } %>
+
+        <% if (form) { %>
+          form="<%= form %>"
+        <% } %>
+
+        <%- extraAttrs %>
+      >
+        <% if (value) { %>
+          <%= value %>
+        <% } %>
+      </textarea>
+    <% } else { %>
+      <input
+        class="<%= inputClasses %>"
+        id="<%= name %>"
+        name="<%= name %>"
+        type="<%= type %>"
+
+        <% if (value) { %>
+          value="<%= value %>"
+        <% } %>
+
+        <% if (placeholder) { %>
+          placeholder="<%= placeholder %>"
+        <% } %>
+
+        <% if (required) { %>
+          data-js-input-required="<%= required %>"
+          required
+        <% } %>
+
+        <% if (disabled) { %>
+          disabled
+        <% } %>
+
+        <% if (readonly) { %>
+          readonly
+        <% } %>
+
+        <% if (maxlength) { %>
+          maxlength="<%= maxlength %>"
+        <% } %>
+
+        <% if (tabindex) { %>
+          tabindex="<%= tabindex %>"
+        <% } %>
+
+        <% if (inputMode) { %>
+          inputMode="<%= inputMode %>"
+        <% } %>
+
+        <% if (form) { %>
+          form="<%= form %>"
+        <% } %>
+
+        <% if (autocomplete) { %>
+          autocomplete="<%= autocomplete %>"
+        <% } %>
+
+        <%- inputAttrs %>
+
+        <%- extraAttrs %>
+      >
+    <% } %>
+
+    <% if (hasPasswordEye) { %>
+      <%- require('../password-btn/template.ejs')() %>
+    <% } %>
+  </span>
+
+  <span class="<%= labelClasses %>">
     <%= label.text %>
   </span>
 

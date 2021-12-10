@@ -19,13 +19,27 @@ export default class Btn {
   }
 
   materializeEffect(e) {
-    const {target, layerX, layerY} = e
+    const {
+      target,
+      layerX,
+      layerY,
+      offsetX,
+      offsetY
+    } = e
+
+    let x = `${layerX}px`
+    let y = `${layerY}px`
+
+    if (!offsetX && !offsetY) {
+      x = '40%'
+      y = '45%'
+    }
 
     this.disableAnimationEndState(target)
     target.classList.remove(this.stateClasses.isRipple)
     wait(10).then(() => {
-      setCSSVar(target, 'rippleOffsetX', `${layerX}px`)
-      setCSSVar(target, 'rippleOffsetY', `${layerY}px`)
+      setCSSVar(target, 'rippleOffsetX', x)
+      setCSSVar(target, 'rippleOffsetY', y)
       target.classList.add(this.stateClasses.isRipple)
     })
   }

@@ -12,6 +12,38 @@
   align-items: flex-start;
 }
 
+.form-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-input-btn {
+  @mixin reset-btn;
+
+  position: absolute;
+  top: 0;
+  right: calc(var(--inputPaddingX) / 2);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: var(--inputBtnSize);
+
+  &:hover {
+    .i-icon {
+      --color: var(--c-accent);
+    }
+  }
+
+  &:active {
+    @mixin scale 1.25;
+  }
+
+  .i-icon {
+    --size: var(--inputIconSize);
+  }
+}
+
 .form-label {
   order: -1;
   margin-bottom: 5px;
@@ -27,4 +59,8 @@
   .is-invalid ~ & {
     display: block;
   }
+}
+
+.form-star-required {
+  color: var(--c-red);
 }
