@@ -101,6 +101,14 @@ export const locales = {
       ru: 'Скрыть пароль',
       en: 'Hide password'
     },
+    'NOT_SELECTED': {
+      ru: 'Не выбрано',
+      en: 'Not selected'
+    },
+    'SEVERAL_OPTIONS_SELECTED': {
+      ru: 'Выбрано несколько вариантов',
+      en: 'Several options selected'
+    },
   }
 }
 

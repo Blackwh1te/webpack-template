@@ -528,86 +528,39 @@
 		<div class="section__body">
 			<ul class="grid grid--4">
 				<li class="grid__item">
-					<%- require('../components/my-select/template.ejs')() %>
-				</li>
-
-				<li class="grid__item">
-					<%- require('../components/select/template.ejs')({
-						data: {
-							label: {
-								text: 'Simple select',
-								isHidden: false
-							},
-							name: 'test-select-1',
-							disabled: false,
-							required: false,
-							options: [
-								{
-									name: 'Option 1',
-									value: 'value-1',
-									isSelected: true
-								},
-								{
-									name: 'Option 2',
-									value: 'value-2',
-									isSelected: false
-								},
-								{
-									name: 'Option 3',
-									value: 'value-3',
-									isSelected: false
-								},
-								{
-									name: 'Option 4',
-									value: 'value-4',
-									isSelected: false
-								},
-								{
-									name: 'Option 5',
-									value: 'value-5',
-									isSelected: false
-								},
-							],
-						}
-					}) %>
+					<%- require('../components/select/template.ejs')() %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/select/template.ejs')({
 						data: {
+							name: 'select-2',
 							label: {
-								text: 'Disabled select',
+								text: 'Select a few country',
 								isHidden: false
 							},
-							name: 'test-select-2',
-							disabled: true,
-							required: false,
+							multiple: true,
 							options: [
 								{
-									name: 'Option 1',
-									value: 'value-1',
-									isSelected: true
-								},
-								{
-									name: 'Option 2',
-									value: 'value-2',
+									text: 'Россия',
+									value: 'Russia',
 									isSelected: false
 								},
 								{
-									name: 'Option 3',
-									value: 'value-3',
+									text: 'Казахстан',
+									value: 'Kazakhstan',
 									isSelected: false
 								},
 								{
-									name: 'Option 4',
-									value: 'value-4',
+									text: 'Зимбабве',
+									value: 'Zimbabwe',
 									isSelected: false
 								},
 								{
-									name: 'Option 5',
-									value: 'value-5',
+									text: 'Китай',
+									value: 'China',
 									isSelected: false
 								},
-							],
+							]
 						}
 					}) %>
 				</li>

@@ -1,19 +1,47 @@
 @import '../../styles/mixins.pcss';
 
 .select {
-  --dropdownOffsetY: 10px;
   --iconSize: 12px;
   --iconColor: var(--c-main);
-
   --hoverIconColor: var(--c-light);
 
-  display: flex;
-  width: 100%;
-  align-items: flex-start;
-  flex-direction: column;
+  --dropdownOffsetY: 10px;
+  --dropdownMaxHeight: 200px;
+  --dropdownBorder: 1px solid var(--dropdownBorderColor);
+  --dropdownBorderColor: var(--c-main);
+  --dropdownBorderRadius: var(--border-radius-2);
+  --dropdownShadow: var(--box-shadow);
+
+  --optionHeight: 48px;
+  --optionPaddingX: var(--inputPaddingX);
+  --optionFontSize: 14px;
+  --optionTextColor: var(--c-main);
+  --optionBgColor: var(--c-light);
+  --optionHoverTextColor: var(--c-dark);
+  --optionHoverBgColor: var(--c-gray-3);
+  --optionSelectedTextColor: var(--c-light);
+  --optionSelectedBgColor: var(--c-brand);
+
+  position: relative;
+  min-height: 73px;
+
+  &.is-open {
+    .select {
+      &__arrow-icon {
+        transform: rotate(-180deg);
+      }
+
+      &__dropdown {
+        @mixin show;
+
+        transform: initial;
+      }
+    }
+  }
 
   select {
     position: absolute;
+    z-index: calc(var(--layerControls) + 1);
     top: 0;
     left: 0;
     width: 100%;
@@ -23,119 +51,110 @@
     html:not(.is-mobile-device) & {
       @mixin visually-hidden;
     }
-  }
 
-  &__label {
-    order: -1;
-  }
-
-  &__container {
-    position: relative;
-    width: 100%;
-
-    &.is-disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-
-      .select__input {
-        pointer-events: none;
+    &:focus {
+      & ~ .select__body .select__arrow-icon {
+        transform: rotate(-180deg);
       }
     }
+  }
+
+  &__body {
+    position: relative;
+    width: 100%;
   }
 
   &__input {
     @mixin transition;
 
-    position: relative;
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding-right: calc(var(--inputPaddingX) * 2 + var(--iconSize));
     cursor: pointer;
 
-    &:hover .select__icon-wrapper .i-icon * {
-      fill: var(--hoverIconColor);
-    }
-  }
-
-  &__icon-wrapper {
-    @mixin transition;
-
-    position: absolute;
-    top: 50%;
-    right: var(--inputPaddingX);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--iconSize);
-    height: var(--iconSize);
-    transform: translateY(-50%);
-
-    .i-icon {
-      --size: 100%;
-
-      * {
-        fill: var(--iconColor);
+    &:hover {
+      .select__arrow-icon.i-icon {
+        --color: var(--hoverIconColor);
       }
     }
 
-    .select__container.is-open & {
-      transform: translateY(-50%) rotate(-180deg);
+    &:focus-visible {
+      outline: var(--focusOutline);
+    }
+  }
+
+  &__current-variant {
+    @mixin line-clamp;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  &__arrow-icon {
+    &.i-icon {
+      --size: var(--iconSize);
+      --color: var(--iconColor);
     }
   }
 
   &__dropdown {
     @mixin transition;
-    @mixin custom-scrollbar;
+    @mixin hide;
 
     position: absolute;
-    z-index: 1;
+    z-index: var(--layerControls);
     top: calc(100% + var(--dropdownOffsetY));
+    left: 0;
     width: 100%;
-    max-height: 0;
     overflow: hidden;
-    background-color: var(--c-light);
-    border-radius: var(--border-radius-2);
-    box-shadow: var(--box-shadow);
+    background-color: var(--dropdownBorderColor);
+    border: var(--dropdownBorder);
+    border-radius: var(--dropdownBorderRadius);
+    box-shadow: var(--dropdownShadow);
+    transform: translateY(calc(var(--dropdownOffsetY) * -1));
+    transform-origin: 50% 0;
 
-    &:not(.is-fully-expanded) {
-      @mixin hide-scrollbar;
+    &-list {
+      @mixin custom-scrollbar;
 
-      overflow: hidden !important;
-    }
-
-    .select__container.is-open & {
-      max-height: 195px;
+      overflow-x: hidden;
       overflow-y: auto;
+      max-height: min(var(--dropdownMaxHeight), 75vh);
     }
   }
 
   &__option {
-    @mixin transition;
+    @mixin reset-btn;
 
-    padding: 14px var(--inputPaddingX);
-    font-size: 14px;
-    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
 
-    &.has-focus {
-      background-color: var(--c-gray-3);
+    &:focus-visible {
+      outline: var(--focusOutline);
+      outline-offset: -4px;
     }
 
     &.is-selected {
-      color: var(--c-light);
-      background-color: var(--c-brand);
+      color: var(--optionSelectedTextColor);
+      background-color: var(--optionSelectedBgColor);
     }
   }
-}
 
-.custom-select-optgroup {
-  &::before {
-    content: attr(data-label);
-    display: block;
-    padding: 0.5em;
-    color: #888888;
-  }
+  &__option,
+  &__checkbox {
+    width: 100%;
+    height: var(--optionHeight);
+    padding-left: var(--optionPaddingX);
+    padding-right: var(--optionPaddingX);
+    font-size: var(--optionFontSize);
+    color: var(--optionTextColor);
+    background-color: var(--optionBgColor);
 
-  & > .custom-select-option {
-    padding-left: 2em;
+    &:hover {
+      color: var(--optionHoverTextColor);
+      background-color: var(--optionHoverBgColor);
+    }
   }
 }
