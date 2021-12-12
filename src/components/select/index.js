@@ -3,11 +3,9 @@ import Collection from '../../js/generic/collection'
 import {onAjaxContentLoaded} from '../../js/generic/eventing'
 import {getRandomString} from '../../js/utils/getRandomString'
 import {render} from '../../js/utils/render'
-import {getCfg} from '../../js/utils/getCfg'
 import {bubble} from '../../js/utils/bubble'
 import {isMobileDevice} from '../../js/utils/isMobileDevice'
 import {getLocaleMsg} from '../../js/locales'
-import {wait} from '../../js/utils/wait'
 
 export const instance = '[data-js-select]'
 
@@ -248,7 +246,7 @@ export class Select {
 
   updateCurrentVariantCaption() {
     const selectedOptionsLength = this.selectedOptions.length
-    let variantCaption = ''
+    let variantCaption
     switch (true) {
       case (selectedOptionsLength > 1): {
         variantCaption = this.messages.severalOptionsSelected
@@ -263,7 +261,7 @@ export class Select {
         break
       }
     }
-    this.currentVariantEl.textContent = variantCaption
+    this.currentVariantEl.textContent = variantCaption ?? ''
   }
 
   updateOptionButtons() {
