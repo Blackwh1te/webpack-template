@@ -20,10 +20,12 @@ if (label.isHidden) labelClasses += ' visually-hidden'
 %>
 
 <div
-	class="select form-item"
+	class="select form-item <%= extraClasses %>"
 	data-js-select
+	<%- extraAttrs%>
 >
 	<select
+		class="select__control"
 		id="<%= name %>"
 		name="<%= name %>"
 		data-js-select-control
