@@ -4,6 +4,7 @@
   --iconSize: 12px;
   --iconColor: var(--c-main);
   --hoverIconColor: var(--c-light);
+  --focusIconColor: var(--c-main);
 
   --dropdownOffsetY: 10px;
   --dropdownMaxHeight: 200px;
@@ -78,6 +79,12 @@
       }
     }
 
+    &:focus {
+      .select__arrow-icon.i-icon {
+        --color: var(--focusIconColor);
+      }
+    }
+
     &:focus-visible {
       outline: var(--focusOutline);
     }
@@ -129,7 +136,19 @@
 
     display: inline-flex;
     align-items: center;
+    width: 100%;
+    height: var(--optionHeight);
+    padding-left: var(--optionPaddingX);
+    padding-right: var(--optionPaddingX);
+    font-size: var(--optionFontSize);
+    color: var(--optionTextColor);
+    background-color: var(--optionBgColor);
     user-select: none;
+
+    &:hover:not(.is-selected) {
+      color: var(--optionHoverTextColor);
+      background-color: var(--optionHoverBgColor);
+    }
 
     &:focus-visible {
       outline: var(--focusOutline);
@@ -139,22 +158,6 @@
     &.is-selected {
       color: var(--optionSelectedTextColor);
       background-color: var(--optionSelectedBgColor);
-    }
-  }
-
-  &__option,
-  &__checkbox {
-    width: 100%;
-    height: var(--optionHeight);
-    padding-left: var(--optionPaddingX);
-    padding-right: var(--optionPaddingX);
-    font-size: var(--optionFontSize);
-    color: var(--optionTextColor);
-    background-color: var(--optionBgColor);
-
-    &:hover {
-      color: var(--optionHoverTextColor);
-      background-color: var(--optionHoverBgColor);
     }
   }
 }

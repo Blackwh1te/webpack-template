@@ -56,9 +56,15 @@ export default class FormSend {
     const cfg = Forms.getFormCfg(form)
     const fd = new FormData(form)
     if (cfg.isSerializeDisabledInputs || isGetAll) {
-      const disabledInputs = form.querySelectorAll('[disabled]')
-      disabledInputs.forEach((input) => {
-        fd.set(input.name, input.value)
+      const disabledControls = form.querySelectorAll('[disabled]')
+      disabledControls.forEach((control) => {
+        const {name, value, tagName} = control
+
+        if (tagName === 'select' && control.multiple) {
+          fd.set(name, [...control.selectedOptions].map(option => option.value).join(', '))
+        } else {
+          fd.set(name, value)
+        }
       })
     }
     for (const field of fd) {
