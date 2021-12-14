@@ -15,14 +15,17 @@ const {
 %>
 
 <%
+let classes = 'select form-item'
+if (extraClasses) classes += ` ${extraClasses}`
+
 let labelClasses = 'select__label form-label'
 if (label.isHidden) labelClasses += ' visually-hidden'
 %>
 
 <div
-	class="select form-item <%= extraClasses %>"
+	class="<%= classes %>"
 	data-js-select
-	<%- extraAttrs%>
+	<%- extraAttrs %>
 >
 	<select
 		class="select__control"
