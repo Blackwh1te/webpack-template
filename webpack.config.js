@@ -79,7 +79,7 @@ const pluginsCfg = {
     'eol': '\n',
     'end_with_newline': false,
     'indent_level': 0,
-    'preserve_newlines': true,
+    'preserve_newlines': false,
     'max_preserve_newlines': 1,
     'space_in_paren': false,
     'space_in_empty_paren': false,
@@ -96,7 +96,8 @@ const pluginsCfg = {
     'comma_first': false,
     'operator_position': 'before-newline',
     'indent_empty_lines': false,
-    'templating': ['auto']
+    'templating': ['auto'],
+    'unformatted': '',
   },
   svgSprite: {
     plainSprite: true

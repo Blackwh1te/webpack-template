@@ -103,10 +103,11 @@ export class Select {
     return !this.options.length
   }
 
-  appendOption(option) {
-    const item = this.getDropdownItemMarkup(option)
-    this.control.appendChild(option)
-    render(this.list, item)
+  appendOption(text, value, isSelected = false) {
+    const newOption = new Option(text, value, isSelected, isSelected)
+    const newItem = this.getDropdownItemMarkup(newOption)
+    this.control.appendChild(newOption)
+    render(this.list, newItem)
     bubble(this.control, 'change')
     bubble(this.instance, bubbles.change)
     this.updateOptionButtonsEls()
