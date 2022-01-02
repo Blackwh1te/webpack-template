@@ -1,0 +1,25 @@
+@import '../../styles/mixins.pcss';
+
+.progress {
+  --height: 10px;
+  --barBgColor: var(--c-main);
+  --barBorderRadius: var(--border-radius-2);
+  --valueBgColor: var(--c-brand);
+  --valueBorderRadius: var(--border-radius-2);
+
+  width: 100%;
+  height: var(--height);
+  border: none;
+  appearance: none;
+
+  &::-webkit-progress-bar,
+  &::-moz-progress-bar {
+    background-color: var(--barBgColor);
+    border-radius: var(--barBorderRadius);
+  }
+
+  &::-webkit-progress-value {
+    background-color: var(--valueBgColor);
+    border-radius: var(--valueBorderRadius);
+  }
+}

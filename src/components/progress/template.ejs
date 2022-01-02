@@ -4,17 +4,32 @@ const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
 const {
 	extraClasses,
 	extraAttrs,
+	id,
+	max,
+	value,
+	label,
 } = params
 %>
 
 <%
-	let classes = 'example'
+	let classes = 'progress'
 	if (extraClasses) classes += ` ${extraClasses}`
 %>
 
-<div
+<% if (label) { %>
+	<label
+		for="<%= id %>"
+	>
+		<%= label %>
+	</label>
+<% } %>
+
+<progress
 	class="<%= classes %>"
+	id="<%= id %>"
+	max="<%= max %>"
+	value="<%= value %>"
 	<%- extraAttrs %>
 >
-
-</div>
+	<%= value %>%
+</progress>

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "extraClasses": "",
+    "extraAttrs": "",
+    "title": "Product name",
+    "price": {
+      "old": "10000$",
+      "current": "8000$"
+    }
+  }
+}

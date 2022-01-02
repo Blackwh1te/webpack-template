@@ -51,8 +51,8 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+			<p>Lorem <mark>marked text</mark> dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
+			<p>Lorem ipsum dolor <mark>marked text</mark> amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda consequuntur dignissimos illo neque nihil nulla obcaecati quae tempore? Alias architecto debitis enim eveniet iure maiores molestias, mollitia sit velit vitae.</p>
 		</div>
@@ -1307,6 +1307,48 @@
 					extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`
 				}
 			}) %>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Product card
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../components/product-card/template.ejs')() %>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Article
+			</h2>
+		</header>
+		<div class="section__body">
+			<article class="article">
+				<header class="article__header">
+					<div class="article__title">Article title</div>
+					<time class="article__date" datetime="2022-01-02">2 january 2022</time>
+				</header>
+				<div class="article__body">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, mollitia?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores at facilis fugit magnam mollitia optio possimus repudiandae vitae voluptatem?</p>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="section container">
+		<header class="section__header">
+			<h2 class="section__title">
+				Progress
+			</h2>
+		</header>
+		<div class="section__body">
+			<%- require('../components/progress/template.ejs')() %>
 		</div>
 	</section>
 </div>

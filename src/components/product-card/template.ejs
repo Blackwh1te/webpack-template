@@ -1,0 +1,28 @@
+<%
+const defaults = require('./data.json').data
+const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const {
+	extraClasses,
+	extraAttrs,
+	title,
+	price,
+} = params
+%>
+
+<%
+	let classes = 'product-card'
+	if (extraClasses) classes += ` ${extraClasses}`
+%>
+
+<article
+	class="<%= classes %>"
+	<%- extraAttrs %>
+>
+	<div class="product-card__title">
+		<%= title %>
+	</div>
+	<div class="product-card__price">
+		<del class="product-card__old-price"><%= price.old %></del>
+		<span class="product-card__current-price"><%= price.current %></span>
+	</div>
+</article>

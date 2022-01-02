@@ -61,6 +61,8 @@ import './components/table'
 import './components/slider-buttons'
 import './components/slider-pagination'
 import './components/password-btn'
+import './components/product-card'
+import './components/progress'
 // import './components/map'
 // import './components/star-rating'
 
