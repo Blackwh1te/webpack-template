@@ -26,7 +26,6 @@ export class Select {
     list: '[data-js-select-list]',
     item: '[data-js-select-dropdown-item]',
     optionBtn: '[data-js-select-option-btn]',
-    checkbox: '[data-js-select-checkbox]',
   }
 
   stateClasses = {
@@ -49,7 +48,6 @@ export class Select {
     this.currentVariantEl = null
     this.list = null
     this.optionButtons = []
-    this.checkboxes = []
     this.isMultiple = this.control.multiple
     this.state = {
       isOpen: false
