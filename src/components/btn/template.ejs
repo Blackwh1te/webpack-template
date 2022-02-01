@@ -1,32 +1,32 @@
 <%
-	const exampleData = {
-    link: {
-	    href: '/',
-	    caption: {
-		    text: 'Button'
-	    },
-	    icon: {
-		    name: 'arrow-right',
-		    position: 'after'
-	    }
-    },
-
-		defaultButton: {
-			caption: {
-				text: 'Button'
-			}
+const exampleData = {
+	link: {
+		href: '/',
+		caption: {
+			text: 'Button'
 		},
+		icon: {
+			name: 'arrow-right',
+			position: 'after'
+		}
+	},
 
-		buttonIconOnly: {
-			caption: {
-				text: 'Button',
-				isHidden: true
-			},
-			icon: {
-				name: 'arrow-right'
-			}
+	defaultButton: {
+		caption: {
+			text: 'Button'
+		}
+	},
+
+	buttonIconOnly: {
+		caption: {
+			text: 'Button',
+			isHidden: true
+		},
+		icon: {
+			name: 'arrow-right'
 		}
 	}
+}
 %>
 
 <%
@@ -44,33 +44,33 @@ const {
 %>
 
 <%
-	const iconBody = () => {
-    if (!icon) return ''
-    return `
+const iconBody = () => {
+	if (!icon) return ''
+	return `
 			<svg class="btn__icon i-icon">
 				<use href="#icon-${icon.name}"></use>
 			</svg>
 		`
-	}
+}
 
-	const btnBody = () => {
-    let classes = 'btn__caption'
-		if (caption.isHidden) classes += ' visually-hidden'
-		return `
+const btnBody = () => {
+	let classes = 'btn__caption'
+	if (caption.isHidden) classes += ' visually-hidden'
+	return `
 			${icon.position !== 'after' ? iconBody() : ''}
 			<span class="${classes}">${caption.text}</span>
 			${icon.position === 'after' ? iconBody() : ''}
 		`
-	}
+}
 
-  let classes = 'btn'
-	let dataAttrs = ''
-	if (icon && caption.isHidden) {
-		classes += ' btn--icon-only'
-	} else {
-		dataAttrs += 'data-js-btn'
-	}
-	if (extraClasses) classes += ` ${extraClasses}`
+let classes = 'btn'
+let dataAttrs = ''
+if (icon && caption.isHidden) {
+	classes += ' btn--icon-only'
+} else {
+	dataAttrs += 'data-js-btn'
+}
+if (extraClasses) classes += ` ${extraClasses}`
 %>
 
 <% if (href) { %>
@@ -90,8 +90,8 @@ const {
 		type="<%= type %>"
 		title="<%= caption.text %>"
 		aria-label="<%= caption.text %>"
-		<% if (disabled) { %>
-			disabled
+	<% if (disabled) { %>
+		disabled
 		<% } %>
 		<%- dataAttrs %>
 		<%- extraAttrs %>

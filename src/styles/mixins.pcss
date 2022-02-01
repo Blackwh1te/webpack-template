@@ -9,7 +9,7 @@
   }
 }
 
-@define-mixin transition $prop: all var(--baseTransitionDuration) {
+@define-mixin transition $prop: var(--baseTransitionDuration) {
   .dom-is-ready & {
     transition: $prop;
   }
@@ -64,6 +64,7 @@
   scrollbar-width: none;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     width: 0 !important;
   }
