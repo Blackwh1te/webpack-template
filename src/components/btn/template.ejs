@@ -1,37 +1,5 @@
 <%
-const exampleData = {
-	link: {
-		href: '/',
-		caption: {
-			text: 'Button'
-		},
-		icon: {
-			name: 'arrow-right',
-			position: 'after'
-		}
-	},
-
-	defaultButton: {
-		caption: {
-			text: 'Button'
-		}
-	},
-
-	buttonIconOnly: {
-		caption: {
-			text: 'Button',
-			isHidden: true
-		},
-		icon: {
-			name: 'arrow-right'
-		}
-	}
-}
-%>
-
-<%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const params = { ...require("./data.json"), ...arguments?.[0]  }
 const {
 	extraClasses,
 	extraAttrs,

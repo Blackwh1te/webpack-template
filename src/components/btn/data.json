@@ -1,14 +1,12 @@
 {
-  "data": {
-    "extraClasses": "",
-    "extraAttrs": "",
-    "type": "button",
-    "href": "",
-    "caption": {
-      "text": "Button",
-      "isHidden": false
-    },
-    "icon": false,
-    "disabled": false
-  }
+  "extraClasses": "",
+  "extraAttrs": "",
+  "type": "button",
+  "href": "",
+  "caption": {
+    "text": "Button",
+    "isHidden": false
+  },
+  "icon": false,
+  "disabled": false
 }
