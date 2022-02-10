@@ -1,5 +1,6 @@
 <%
-const params = { ...require("./data.json"), ...arguments?.[0]  }
+const {classNames} = require('../../js/ejsUtils')
+const params = {...require('./data.json'), ...arguments?.[0]}
 const {
 	extraClasses,
 	extraAttrs,
@@ -12,33 +13,34 @@ const {
 %>
 
 <%
-const iconBody = () => {
+const getIconMarkup = () => {
 	if (!icon) return ''
 	return `
-			<svg class="btn__icon i-icon">
-				<use href="#icon-${icon.name}"></use>
-			</svg>
-		`
+		<svg class="btn__icon i-icon">
+			<use href="#icon-${icon.name}"></use>
+		</svg>
+	`
 }
 
-const btnBody = () => {
-	let classes = 'btn__caption'
-	if (caption.isHidden) classes += ' visually-hidden'
+const getBtnBodyMarkup = () => {
+	const classes = classNames('btn__caption', {
+    'visually-hidden': caption.isHidden
+	})
 	return `
-			${icon.position !== 'after' ? iconBody() : ''}
-			<span class="${classes}">${caption.text}</span>
-			${icon.position === 'after' ? iconBody() : ''}
-		`
+		${icon.position !== 'after' ? getIconMarkup() : ''}
+		<span class="${classes}">${caption.text}</span>
+		${icon.position === 'after' ? getIconMarkup() : ''}
+	`
 }
 
-let classes = 'btn'
+const classes = classNames('btn', extraClasses, {
+  'btn--icon-only': icon && caption.isHidden
+})
+
 let dataAttrs = ''
-if (icon && caption.isHidden) {
-	classes += ' btn--icon-only'
-} else {
-	dataAttrs += 'data-js-btn'
+if (!caption.isHidden) {
+	dataAttrs += ' data-js-btn'
 }
-if (extraClasses) classes += ` ${extraClasses}`
 %>
 
 <% if (href) { %>
@@ -50,7 +52,7 @@ if (extraClasses) classes += ` ${extraClasses}`
 		<%- dataAttrs %>
 		<%- extraAttrs %>
 	>
-		<%- btnBody() %>
+		<%- getBtnBodyMarkup() %>
 	</a>
 <% } else { %>
 	<button
@@ -58,12 +60,12 @@ if (extraClasses) classes += ` ${extraClasses}`
 		type="<%= type %>"
 		title="<%= caption.text %>"
 		aria-label="<%= caption.text %>"
-	<% if (disabled) { %>
-		disabled
+		<% if (disabled) { %>
+			disabled
 		<% } %>
 		<%- dataAttrs %>
 		<%- extraAttrs %>
 	>
-		<%- btnBody() %>
+		<%- getBtnBodyMarkup() %>
 	</button>
 <% } %>
