@@ -24,7 +24,7 @@ const getIconMarkup = () => {
 
 const getBtnBodyMarkup = () => {
 	const classes = classNames('btn__caption', {
-    'visually-hidden': caption.isHidden
+		'visually-hidden': caption.isHidden
 	})
 	return `
 		${icon.position !== 'after' ? getIconMarkup() : ''}
@@ -34,7 +34,7 @@ const getBtnBodyMarkup = () => {
 }
 
 const classes = classNames('btn', extraClasses, {
-  'btn--icon-only': icon && caption.isHidden
+	'btn--icon-only': icon && caption.isHidden
 })
 
 let dataAttrs = ''
