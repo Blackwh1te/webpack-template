@@ -1,6 +1,5 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const params = {...require('./data.json'), ...arguments?.[0]}
 const {
 	extraClasses,
 	extraAttrs,

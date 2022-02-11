@@ -46,42 +46,36 @@ const navData = [
 			<ul class="header__actions-list flow">
 				<li class="header__actions-item">
 					<%- require('../btn/template.ejs')({
-						data: {
-              type: 'button',
-							icon: {
-                name: 'search'
-							},
-							caption: {
-                text: 'Поиск',
-								isHidden: true
-							}
+						type: 'button',
+						icon: {
+							name: 'search'
+						},
+						caption: {
+							text: 'Поиск',
+							isHidden: true
 						}
 					}) %>
 				</li>
 				<li class="header__actions-item">
 					<%- require('../btn/template.ejs')({
-						data: {
-							type: 'a',
-							href: '/',
-							icon: {
-								name: 'person',
-								position: 'after'
-							},
-							caption: {
-								text: 'Войти'
-							}
+						type: 'a',
+						href: '/',
+						icon: {
+							name: 'person',
+							position: 'after'
+						},
+						caption: {
+							text: 'Войти'
 						}
 					}) %>
 				</li>
 				<li class="header__actions-item">
 					<%- require('../btn/template.ejs')({
-						data: {
-							type: 'a',
-							href: '/',
-							icon: false,
-							caption: {
-								text: 'Выйти'
-							}
+						type: 'a',
+						href: '/',
+						icon: false,
+						caption: {
+							text: 'Выйти'
 						}
 					}) %>
 				</li>

@@ -287,152 +287,134 @@
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: '',
-							extraAttrs: '',
-							name: 'test-input-1',
-							type: 'text',
-							label: {
-								text: 'Simple',
-								isHidden: false
-							},
-							required: false,
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-input-1',
+						type: 'text',
+						label: {
+							text: 'Simple',
+							isHidden: false
+						},
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: '',
-							extraAttrs: '',
-							name: 'test-input-2',
-							type: 'text',
-							label: {
-								text: 'With placeholder',
-								isHidden: false
-							},
-							placeholder: 'Enter value',
-							required: false,
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-input-2',
+						type: 'text',
+						label: {
+							text: 'With placeholder',
+							isHidden: false
+						},
+						placeholder: 'Enter value',
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: '',
-							extraAttrs: '',
-							name: 'test-input-3',
-							type: 'text',
-							label: {
-								text: 'With value',
-								isHidden: false
-							},
-							value: 'Lorem ipsum',
-							required: false,
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-input-3',
+						type: 'text',
+						label: {
+							text: 'With value',
+							isHidden: false
+						},
+						value: 'Lorem ipsum',
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: '',
-							extraAttrs: '',
-							name: 'test-input-4',
-							type: 'text',
-							label: {
-								text: 'Disabled',
-								isHidden: false
-							},
-							disabled: true,
-							required: false,
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-input-4',
+						type: 'text',
+						label: {
+							text: 'Disabled',
+							isHidden: false
+						},
+						disabled: true,
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: '',
-							extraAttrs: '',
-							name: 'test-input-5',
-							type: 'text',
-							label: {
-								text: 'Readonly',
-								isHidden: false
-							},
-							value: 'Just look at me',
-							readonly: true,
-							required: false,
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-input-5',
+						type: 'text',
+						label: {
+							text: 'Readonly',
+							isHidden: false
+						},
+						value: 'Just look at me',
+						readonly: true,
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							extraClasses: 'is-invalid',
-							extraAttrs: '',
-							wrapperExtraClasses: 'is-invalid',
-							name: 'test-input-6',
-							type: 'text',
-							label: {
-								text: 'Has error',
-								isHidden: false
-							},
-							value: '123123123',
-							readonly: false,
-							required: false,
-							isShowError: 'Некорректные данные',
-						}
+						extraClasses: 'is-invalid',
+						extraAttrs: '',
+						wrapperExtraClasses: 'is-invalid',
+						name: 'test-input-6',
+						type: 'text',
+						label: {
+							text: 'Has error',
+							isHidden: false
+						},
+						value: '123123123',
+						readonly: false,
+						required: false,
+						isShowError: 'Некорректные данные',
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							name: 'test-input-7',
-							type: 'text',
-							label: {
-								text: 'Hidden label',
-								isHidden: true
-							},
-							required: false,
-							placeholder: 'Hidden label',
-							extraClasses: '',
-							extraAttrs: ''
-						}
+						name: 'test-input-7',
+						type: 'text',
+						label: {
+							text: 'Hidden label',
+							isHidden: true
+						},
+						required: false,
+						placeholder: 'Hidden label',
+						extraClasses: '',
+						extraAttrs: ''
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							name: 'test-input-8',
-							type: 'textarea',
-							label: {
-								text: 'Textarea',
-								isHidden: false
-							},
-							required: false,
-							extraClasses: '',
-							extraAttrs: ''
-						}
+						name: 'test-input-8',
+						type: 'textarea',
+						label: {
+							text: 'Textarea',
+							isHidden: false
+						},
+						required: false,
+						extraClasses: '',
+						extraAttrs: ''
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/input/template.ejs')({
-						data: {
-							name: 'test-input-9',
-							type: 'password',
-							label: {
-								text: 'Password',
-								isHidden: false
-							},
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-							hasPasswordEye: true,
-						}
+						name: 'test-input-9',
+						type: 'password',
+						label: {
+							text: 'Password',
+							isHidden: false
+						},
+						required: false,
+						extraClasses: '',
+						extraAttrs: '',
+						hasPasswordEye: true,
 					}) %>
 				</li>
 			</ul>
@@ -658,28 +640,24 @@
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
 						<%- require('../components/input/template.ejs')({
-							data: {
-								name: 'name',
-								type: 'text',
-								label: {
-									text: 'Name',
-									isHidden: false
-								},
-								isShowError: true,
-								required: true,
-								extraClasses: '',
-								extraAttrs: ''
-							}
+							name: 'name',
+							type: 'text',
+							label: {
+								text: 'Name',
+								isHidden: false
+							},
+							isShowError: true,
+							required: true,
+							extraClasses: '',
+							extraAttrs: ''
 						}) %>
 					</div>
 					<div class="grid__item">
 						<%- require('../components/btn/template.ejs')({
-							data: {
-								type: 'submit',
-								icon: false,
-								caption: {
-									text: 'Send'
-								}
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
 							}
 						}) %>
 					</div>
@@ -704,28 +682,24 @@
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
 						<%- require('../components/input/template.ejs')({
-							data: {
-								name: 'name-2',
-								type: 'text',
-								label: {
-									text: 'Name',
-									isHidden: false
-								},
-								required: true,
-								isShowError: true,
-								extraClasses: '',
-								extraAttrs: ''
-							}
+							name: 'name-2',
+							type: 'text',
+							label: {
+								text: 'Name',
+								isHidden: false
+							},
+							required: true,
+							isShowError: true,
+							extraClasses: '',
+							extraAttrs: ''
 						}) %>
 					</div>
 					<div class="grid__item">
 						<%- require('../components/btn/template.ejs')({
-							data: {
-								type: 'submit',
-								icon: false,
-								caption: {
-									text: 'Send'
-								}
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
 							}
 						}) %>
 					</div>
@@ -750,28 +724,24 @@
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
 						<%- require('../components/input/template.ejs')({
-							data: {
-								name: 'name-3',
-								type: 'text',
-								label: {
-									text: 'Name',
-									isHidden: false
-								},
-								required: true,
-								isShowError: true,
-								extraClasses: '',
-								extraAttrs: ''
-							}
+							name: 'name-3',
+							type: 'text',
+							label: {
+								text: 'Name',
+								isHidden: false
+							},
+							required: true,
+							isShowError: true,
+							extraClasses: '',
+							extraAttrs: ''
 						}) %>
 					</div>
 					<div class="grid__item">
 						<%- require('../components/btn/template.ejs')({
-							data: {
-								type: 'submit',
-								icon: false,
-								caption: {
-									text: 'Send'
-								}
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
 							}
 						}) %>
 					</div>
@@ -795,28 +765,24 @@
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
 						<%- require('../components/input/template.ejs')({
-							data: {
-								name: 'name-4',
-								type: 'text',
-								label: {
-									text: 'Name',
-									isHidden: false
-								},
-								required: true,
-								isShowError: true,
-								extraClasses: '',
-								extraAttrs: ''
-							}
+							name: 'name-4',
+							type: 'text',
+							label: {
+								text: 'Name',
+								isHidden: false
+							},
+							required: true,
+							isShowError: true,
+							extraClasses: '',
+							extraAttrs: ''
 						}) %>
 					</div>
 					<div class="grid__item">
 						<%- require('../components/btn/template.ejs')({
-							data: {
-								type: 'submit',
-								icon: false,
-								caption: {
-									text: 'Send'
-								}
+							type: 'submit',
+							icon: false,
+							caption: {
+								text: 'Send'
 							}
 						}) %>
 					</div>
@@ -1344,14 +1310,12 @@
 		</header>
 		<div class="section__body">
 			<%- require('../components/btn/template.ejs')({
-				data: {
-					type: 'button',
-					icon: false,
-					caption: {
-						text: 'Contact us'
-					},
-					extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`
-				}
+				type: 'button',
+				icon: false,
+				caption: {
+					text: 'Contact us'
+				},
+				extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`
 			}) %>
 		</div>
 	</section>
