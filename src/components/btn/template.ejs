@@ -47,8 +47,10 @@ if (!caption.isHidden) {
 	<a
 		class="<%= classes %>"
 		href="<%= href %>"
-		title="<%= caption.text %>"
-		aria-label="<%= caption.text %>"
+		<% if (caption.isHidden) { %>
+			title="<%= caption.text %>"
+			aria-label="<%= caption.text %>"
+		<% } %>
 		<%- dataAttrs %>
 		<%- extraAttrs %>
 	>
@@ -58,8 +60,10 @@ if (!caption.isHidden) {
 	<button
 		class="<%= classes %>"
 		type="<%= type %>"
-		title="<%= caption.text %>"
-		aria-label="<%= caption.text %>"
+		<% if (caption.isHidden) { %>
+			title="<%= caption.text %>"
+			aria-label="<%= caption.text %>"
+		<% } %>
 		<% if (disabled) { %>
 			disabled
 		<% } %>

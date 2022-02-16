@@ -51,7 +51,7 @@ import AdaptiveTables from './js/adaptiveTables'
 // Load components
 import './components/header'
 import './components/footer'
-import './components/breadcrumb'
+import './components/breadcrumbs'
 import './components/logo'
 import './components/btn'
 import './components/input'
