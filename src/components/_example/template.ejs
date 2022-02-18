@@ -1,20 +1,14 @@
 <%
-const params = {...require('./data.json'), ...arguments?.[0]}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs
-} = params
-%>
-
-<%
-	let classes = 'example'
-	if (extraClasses) {
-		classes += ` ${extraClasses}`
-	}
+} = cfg
 %>
 
 <div
-	class="<%= classes %>"
+	class="<%= classNames("example-component", extraClasses) %>"
 	<%- extraAttrs %>
 >
 
