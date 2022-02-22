@@ -1,6 +1,6 @@
 <%
-const defaults = require('./data.json').data;
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data};
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
   extraClasses,
   extraAttrs,
@@ -9,14 +9,10 @@ const {
   hasInteractive,
   required,
   label,
-} = params
+} = cfg
 %>
 
 <%
- let classes = 'star-rating'
- if (extraClasses) classes += ` ${extraClasses}`
- if (!hasGradient) classes += ' star-rating--no-gradient'
- if (!hasInteractive) classes += ' star-rating--no-interactive'
  const id1 = `star-rating-mask-1-${Date.now() + Math.random()}`
  const id2 = `star-rating-mask-2-${Date.now() + Math.random()}`
 %>
@@ -46,7 +42,10 @@ const {
   и так далее.
 -->
 <div
-  class="<%= classes %>"
+  class="<%= classNames("star-rating", extraClasses, {
+    'star-rating--no-gradient': !hasGradient,
+    'star-rating--no-interactive': !hasInteractive,
+  }) %>"
   <%- extraAttrs %>
   style="--value: <%= value %>;"
   data-js-star-rating

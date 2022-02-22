@@ -1,6 +1,6 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
   extraClasses,
   extraAttrs,
@@ -20,30 +20,26 @@ const {
   autocomplete,
   wrapperExtraClasses,
   hasPasswordEye,
-} = params
+} = cfg
 %>
 
 <%
-  let wrapperClasses = 'form-input-wrapper'
-  if (wrapperExtraClasses) wrapperClasses += ` ${wrapperExtraClasses}`
-
   let wrapperAttrs = ''
-  if (hasPasswordEye) wrapperAttrs += ' data-js-password'
-
-  let labelClasses = 'form-label'
-  if (label.isHidden) labelClasses += ' visually-hidden'
-
-  let inputClasses = 'form-input'
-  if (extraClasses) inputClasses += ` ${extraClasses}`
-  if (hasPasswordEye) inputClasses += ' form-input--has-btn'
-
   let inputAttrs = ''
-  if (hasPasswordEye) inputAttrs += ' data-js-password-input'
+
+  if (hasPasswordEye) {
+    wrapperAttrs += ' data-js-password'
+    inputAttrs += ' data-js-password-input'
+  }
+
+  const inputClasses = classNames('form-input', extraClasses, {
+    'form-input--has-btn': hasPasswordEye
+  })
 %>
 
 <label class="form-item">
   <span
-    class="<%= wrapperClasses %>"
+    class="<%= classNames('form-input-wrapper', wrapperExtraClasses) %>"
     data-js-input-wrapper
     <%- wrapperAttrs %>
   >
@@ -151,7 +147,9 @@ const {
     <% } %>
   </span>
 
-  <span class="<%= labelClasses %>">
+  <span class="<%= classNames('form-label', {
+    'visually-hidden': label.isHidden
+  }) %>">
     <%= label.text %>
   </span>
 

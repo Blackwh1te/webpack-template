@@ -1,6 +1,6 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
@@ -8,24 +8,17 @@ const {
 	max,
 	value,
 	label,
-} = params
-%>
-
-<%
-	let classes = 'progress'
-	if (extraClasses) classes += ` ${extraClasses}`
+} = cfg
 %>
 
 <% if (label) { %>
-	<label
-		for="<%= id %>"
-	>
+	<label for="<%= id %>">
 		<%= label %>
 	</label>
 <% } %>
 
 <progress
-	class="<%= classes %>"
+	class="<%= classNames("progress", extraClasses) %>"
 	id="<%= id %>"
 	max="<%= max %>"
 	value="<%= value %>"

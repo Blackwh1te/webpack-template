@@ -1,10 +1,8 @@
 {
-  "data": {
-    "extraClasses": "",
-    "extraAttrs": "",
-    "id": "",
-    "max": 100,
-    "value": 70,
-    "label": false
-  }
+  "extraClasses": "",
+  "extraAttrs": "",
+  "id": "",
+  "max": 100,
+  "value": 70,
+  "label": false
 }
