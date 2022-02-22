@@ -1,9 +1,15 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
-} = params
+	extraAttrs
+} = cfg
 %>
 
-<div class="slider-pagination <%= extraClasses %>"></div>
+<div
+	class="<%= classNames("slider-pagination", extraClasses) %>"
+	<%- extraAttrs %>
+>
+
+</div>

@@ -1,19 +1,18 @@
 {
-  "data": {
-    "extraClasses": "",
-    "mapCfg": {
-      "center": [
+  "extraClasses": "",
+  "extraAttrs": "",
+  "mapCfg": {
+    "center": [
+      "55.754481",
+      "37.556244"
+    ],
+    "zoom": 16,
+    "placemark": [{
+      "coords": [
         "55.754481",
         "37.556244"
       ],
-      "zoom": 16,
-      "placemark": [{
-        "coords": [
-          "55.754481",
-          "37.556244"
-        ],
-        "iconContent": "Краснопресненская наб. 12, п. 9"
-      }]
-    }
+      "iconContent": "Краснопресненская наб. 12, п. 9"
+    }]
   }
 }

@@ -1,6 +1,6 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
@@ -11,19 +11,11 @@ const {
 	multiple,
 	form,
 	options,
-} = params
-%>
-
-<%
-let classes = 'select form-item'
-if (extraClasses) classes += ` ${extraClasses}`
-
-let labelClasses = 'select__label form-label'
-if (label.isHidden) labelClasses += ' visually-hidden'
+} = cfg
 %>
 
 <div
-	class="<%= classes %>"
+	class="<%= classNames('select form-item', extraClasses) %>"
 	data-js-select
 	<%- extraAttrs %>
 >
@@ -46,8 +38,7 @@ if (label.isHidden) labelClasses += ' visually-hidden'
 			form="<%= form %>"
 		<% } %>
 	>
-		<% options.forEach(option => { %>
-			<% const {text, value, isSelected} = option; %>
+		<% options.forEach(({text, value, isSelected}) => { %>
 			<option
 				value="<%= value %>"
 				<% if (isSelected) { %>
@@ -60,7 +51,9 @@ if (label.isHidden) labelClasses += ' visually-hidden'
 	</select>
 
 	<label
-		class="<%= labelClasses %>"
+		class="<%= classNames('select__label form-label', {
+      'visually-hidden': label.isHidden
+		}) %>"
 		for="<%= name %>"
 	>
 		<span><%= label.text %></span>

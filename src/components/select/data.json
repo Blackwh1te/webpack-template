@@ -1,32 +1,30 @@
 {
-  "data": {
-    "extraClasses": "",
-    "extraAttrs": "",
-    "name": "select-1",
-    "label": {
-      "text": "Select country",
-      "isHidden": false
+  "extraClasses": "",
+  "extraAttrs": "",
+  "name": "select-1",
+  "label": {
+    "text": "Select country",
+    "isHidden": false
+  },
+  "required": false,
+  "disabled": false,
+  "form": false,
+  "multiple": false,
+  "options": [
+    {
+      "text": "Россия",
+      "value": "Russia",
+      "isSelected": true
     },
-    "required": false,
-    "disabled": false,
-    "form": false,
-    "multiple": false,
-    "options": [
-      {
-        "text": "Россия",
-        "value": "Russia",
-        "isSelected": true
-      },
-      {
-        "text": "Казахстан",
-        "value": "Kazakhstan",
-        "isSelected": false
-      },
-      {
-        "text": "Зимбабве",
-        "value": "Zimbabwe",
-        "isSelected": false
-      }
-    ]
-  }
+    {
+      "text": "Казахстан",
+      "value": "Kazakhstan",
+      "isSelected": false
+    },
+    {
+      "text": "Зимбабве",
+      "value": "Zimbabwe",
+      "isSelected": false
+    }
+  ]
 }

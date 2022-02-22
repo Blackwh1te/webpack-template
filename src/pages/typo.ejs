@@ -431,116 +431,102 @@
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-checkbox-1',
-							id: 'test-checkbox-1',
-							type: 'checkbox',
-							label: 'Checkbox',
-							disabled: false,
-							checked: false,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-checkbox-1',
+						id: 'test-checkbox-1',
+						type: 'checkbox',
+						label: 'Checkbox',
+						disabled: false,
+						checked: false,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-checkbox-2',
-							id: 'test-checkbox-2',
-							type: 'checkbox',
-							label: 'Checkbox checked',
-							disabled: false,
-							checked: true,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-checkbox-2',
+						id: 'test-checkbox-2',
+						type: 'checkbox',
+						label: 'Checkbox checked',
+						disabled: false,
+						checked: true,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-checkbox-3',
-							id: 'test-checkbox-3',
-							type: 'checkbox',
-							label: 'Checkbox checked disabled',
-							disabled: true,
-							checked: true,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-checkbox-3',
+						id: 'test-checkbox-3',
+						type: 'checkbox',
+						label: 'Checkbox checked disabled',
+						disabled: true,
+						checked: true,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-checkbox-11',
-							id: 'test-checkbox-11',
-							type: 'checkbox',
-							label: 'Checkbox',
-							disabled: false,
-							checked: false,
-							isShowError: 'Необходимо поставить галочку',
-							required: false,
-							extraClasses: 'is-invalid',
-							extraAttrs: '',
-						}
+						extraClasses: 'is-invalid',
+						extraAttrs: '',
+						name: 'test-checkbox-11',
+						id: 'test-checkbox-11',
+						type: 'checkbox',
+						label: 'Checkbox',
+						disabled: false,
+						checked: false,
+						isShowError: 'Необходимо поставить галочку',
+						required: false
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-radio',
-							id: 'test-radio-1',
-							type: 'radio',
-							label: 'Radio',
-							disabled: false,
-							checked: false,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-radio',
+						id: 'test-radio-1',
+						type: 'radio',
+						label: 'Radio',
+						disabled: false,
+						checked: false,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-radio',
-							id: 'test-radio-2',
-							type: 'radio',
-							label: 'Radio checked',
-							disabled: false,
-							checked: true,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-radio',
+						id: 'test-radio-2',
+						type: 'radio',
+						label: 'Radio checked',
+						disabled: false,
+						checked: true,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/checkbox/template.ejs')({
-						data: {
-							name: 'test-radio',
-							id: 'test-radio-3',
-							type: 'radio',
-							label: 'Radio disabled',
-							disabled: true,
-							checked: false,
-							isShowError: true,
-							required: false,
-							extraClasses: '',
-							extraAttrs: '',
-						}
+						extraClasses: '',
+						extraAttrs: '',
+						name: 'test-radio',
+						id: 'test-radio-3',
+						type: 'radio',
+						label: 'Radio disabled',
+						disabled: true,
+						checked: false,
+						isShowError: true,
+						required: false
 					}) %>
 				</li>
 			</ul>
@@ -560,36 +546,34 @@
 				</li>
 				<li class="grid__item">
 					<%- require('../components/select/template.ejs')({
-						data: {
-							name: 'select[]',
-							label: {
-								text: 'Select a few country',
-								isHidden: false
+						name: 'select[]',
+						label: {
+							text: 'Select a few country',
+							isHidden: false
+						},
+						multiple: true,
+						options: [
+							{
+								text: 'Россия',
+								value: 'Russia',
+								isSelected: false
 							},
-							multiple: true,
-							options: [
-								{
-									text: 'Россия',
-									value: 'Russia',
-									isSelected: false
-								},
-								{
-									text: 'Казахстан',
-									value: 'Kazakhstan',
-									isSelected: false
-								},
-								{
-									text: 'Зимбабве',
-									value: 'Zimbabwe',
-									isSelected: false
-								},
-								{
-									text: 'Китай',
-									value: 'China',
-									isSelected: false
-								},
-							]
-						}
+							{
+								text: 'Казахстан',
+								value: 'Kazakhstan',
+								isSelected: false
+							},
+							{
+								text: 'Зимбабве',
+								value: 'Zimbabwe',
+								isSelected: false
+							},
+							{
+								text: 'Китай',
+								value: 'China',
+								isSelected: false
+							},
+						]
 					}) %>
 				</li>
 			</ul>
@@ -606,19 +590,15 @@
 			<ul class="grid grid--4">
 				<li class="grid__item">
 					<%- require('../components/file-attach/template.ejs')({
-						data: {
-							name: 'attachment-1',
-							label: 'Attach file',
-						}
+						name: 'attachment-1',
+						label: 'Attach file',
 					}) %>
 				</li>
 				<li class="grid__item">
 					<%- require('../components/file-attach/template.ejs')({
-						data: {
-							name: 'attachment-2',
-							label: 'Attach files',
-							multiple: true
-						}
+						name: 'attachment-2',
+						label: 'Attach files',
+						multiple: true
 					}) %>
 				</li>
 			</ul>
@@ -799,37 +779,35 @@
 		</header>
 		<div class="section__body">
 			<%- require('../components/table/template.ejs')({
-				data: {
-					extraClasses: '',
-					extraAttrs: '',
-					headCells: [
-						'Регион<br><small>Страна</small>',
-						'Институт<br><small>Проект</small>',
-						'Отрасль<br><small>Тип товара (услуги)</small>',
+				extraClasses: '',
+				extraAttrs: '',
+				headCells: [
+					'Регион<br><small>Страна</small>',
+					'Институт<br><small>Проект</small>',
+					'Отрасль<br><small>Тип товара (услуги)</small>',
+				],
+				bodyRows: [
+					[
+						'Европа и Центральная Азия<br><br><small>Босния и Герцеговина</small>',
+						'Европейский банк реконструкции и развития',
+						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
 					],
-					bodyRows: [
-						[
-							'Европа и Центральная Азия<br><br><small>Босния и Герцеговина</small>',
-							'Европейский банк реконструкции и развития',
-							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
-						],
-						[
-							'Европа и Центральная Азия<br><br><small>Турция</small>',
-							'ООН',
-							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
-						],
-						[
-							'Европа и Центральная Азия<br><br><small>Турция</small>',
-							'ООН',
-							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
-						],
-						[
-							'Европа и Центральная Азия<br><br><small>Турция</small>',
-							'ООН',
-							'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
-						],
-					]
-				}
+					[
+						'Европа и Центральная Азия<br><br><small>Турция</small>',
+						'ООН',
+						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+					],
+					[
+						'Европа и Центральная Азия<br><br><small>Турция</small>',
+						'ООН',
+						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+					],
+					[
+						'Европа и Центральная Азия<br><br><small>Турция</small>',
+						'ООН',
+						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+					],
+				]
 			}) %>
 		</div>
 	</section>
@@ -842,15 +820,14 @@
 		</header>
 		<div class="section__body">
 			<%- require('../components/map/template.ejs')({
-				data: {
-					mapCfg: {
-						center: ['55.754481', '37.556244'],
-						zoom: 16,
-						placemark: [{
-							coords: ['55.754481', '37.556244'],
-							iconContent: 'Краснопресненская наб. 12, п. 9',
-						}]
-					}
+				extraClasses: '',
+				mapCfg: {
+					center: ['55.754481', '37.556244'],
+					zoom: 16,
+					placemark: [{
+						coords: ['55.754481', '37.556244'],
+						iconContent: 'Краснопресненская наб. 12, п. 9',
+					}]
 				}
 			}) %>
 		</div>
@@ -1284,8 +1261,8 @@
 							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
 						</li>
 					</ul>
-					<%- require('../components/slider-buttons/template.ejs')({data: {}}) %>
-					<%- require('../components/slider-pagination/template.ejs')({data: {}}) %>
+					<%- require('../components/slider-buttons/template.ejs')() %>
+					<%- require('../components/slider-pagination/template.ejs')() %>
 				</div>
 			</div>
 		</div>

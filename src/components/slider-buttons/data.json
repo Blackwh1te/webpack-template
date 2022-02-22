@@ -1,7 +1,6 @@
 {
-  "data": {
-    "iconPrev": "icon-arrow-left",
-    "iconNext": "icon-arrow-right",
-    "extraClasses": ""
-  }
+  "extraClasses": "",
+  "extraAttrs": "",
+  "iconPrev": "icon-arrow-left",
+  "iconNext": "icon-arrow-right"
 }

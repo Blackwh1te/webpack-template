@@ -1,14 +1,18 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
-  iconPrev,
-  iconNext,
   extraClasses,
+  extraAttrs,
+  iconPrev,
+  iconNext
 } = params
 %>
 
-<div class="slider-buttons <%= extraClasses %>">
+<div
+  class="<%= classNames('slider-buttons', extraClasses) %>"
+  <%- extraAttrs %>
+>
   <button
     class="slider-buttons__btn slider-buttons__btn--prev"
     type="button"
