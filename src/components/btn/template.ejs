@@ -1,6 +1,6 @@
 <%
 const {classNames} = require('../../js/ejsUtils')
-const params = {...require('./data.json'), ...arguments?.[0]}
+const cfg = {...require('./data.json'), ...arguments?.[0]}
 const {
 	extraClasses,
 	extraAttrs,
@@ -9,7 +9,7 @@ const {
 	icon,
 	caption,
 	disabled,
-} = params
+} = cfg
 %>
 
 <%

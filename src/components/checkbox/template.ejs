@@ -1,5 +1,6 @@
 <%
-const params = {...require('./data.json'), ...arguments?.[0]}
+const { classNames } = require("../../js/ejsUtils")
+const cfg = {...require('./data.json'), ...arguments?.[0]}
 const {
 	extraClasses,
 	extraAttrs,
@@ -13,21 +14,14 @@ const {
 	isShowError,
 	required,
 	form,
-} = params
-%>
-
-<%
-let classes = `checkbox checkbox--${type}`
-
-let inputClasses = 'checkbox__input visually-hidden'
-if (extraClasses) inputClasses += ` ${extraClasses}`
+} = cfg
 %>
 
 <label
-	class="<%= classes %>"
+	class="<%= classNames('checkbox', `checkbox--${type}`) %>"
 >
 	<input
-		class="<%= inputClasses %>"
+		class="<%= classNames('checkbox__input visually-hidden', extraClasses) %>"
 		id="<%= id %>"
 		name="<%= name %>"
 		type="<%= type %>"
