@@ -1,6 +1,3 @@
-import {getCurrentLang} from '../utils/getCurrentLang'
-import {getByPropFromObj} from '../utils/getByPropFromObj'
-
 export const locales = {
   modals: {
     'CLOSE': {
@@ -22,6 +19,10 @@ export const locales = {
     'ERROR': {
       ru: 'Что-то пошло не так, попробуйте позже x(',
       en: 'Something went wrong, please try again later x('
+    },
+    'TIMEOUT': {
+      ru: 'Превышено время ожидания запроса x(',
+      en: 'Network error x('
     },
     'IMAGE_ERROR': {
       ru: 'Ошибка загрузки картинки x(',
@@ -45,6 +46,22 @@ export const locales = {
     },
   },
   forms: {
+    'CUSTOM_EMPTY': {
+      ru: 'Собственное сообщение об ошибке незаполненного поля',
+      en: 'Custom error of empty field'
+    },
+    'CUSTOM_INVALID': {
+      ru: 'Собственное сообщение об ошибке формата поля',
+      en: 'Custom error of invalid field'
+    },
+    'CUSTOM_VALID': {
+      ru: 'Собственное сообщение об успешном заполнении поля',
+      en: 'Custom message about valid field'
+    },
+    'VALID_FIELD': {
+      ru: 'Поле заполнено верно',
+      en: 'Valid field'
+    },
     'NETWORK_ERROR': {
       ru: 'Ошибка получения данных с сервера. Попробуйте позже.',
       en: 'Error retrieving data from the server. Try again later.'
@@ -65,13 +82,25 @@ export const locales = {
       ru: 'Заполните поле',
       en: 'Fill in the field'
     },
-    'EMPTY_FILE': {
-      ru: 'Прикрепите файл',
-      en: 'Attach a file'
+    'INVALID_FILE': {
+      ru: 'Прикрепите файл верного формата',
+      en: 'Attach a valid file'
     },
     'INVALID_FIELD': {
       ru: 'Неверно',
       en: 'Invalid'
+    },
+    'INVALID_EMAIL': {
+      ru: 'Неверный email',
+      en: 'Invalid email'
+    },
+    'EMPTY_CHECKBOX': {
+      ru: 'Пожалуйста, поставьте галочку',
+      en: 'Fill the checkbox please'
+    },
+    'INVALID_CAPTCHA': {
+      ru: 'Пройдите captcha',
+      en: 'Pass captcha'
     },
     'FILE_SIZE_BYTE': {
       ru: 'Байт',
@@ -93,14 +122,8 @@ export const locales = {
       ru: 'Tб',
       en: 'Tb'
     },
-    'SHOW_PASSWORD': {
-      ru: 'Показать пароль',
-      en: 'Show password'
-    },
-    'HIDE_PASSWORD': {
-      ru: 'Скрыть пароль',
-      en: 'Hide password'
-    },
+  },
+  select: {
     'NOT_SELECTED': {
       ru: 'Не выбрано',
       en: 'Not selected'
@@ -109,21 +132,5 @@ export const locales = {
       ru: 'Выбрано несколько вариантов',
       en: 'Several options selected'
     },
-  }
-}
-
-/**
- * Получение сообщения в зависимости от языка сайта
- * @param key{String} - ключ
- * @param lang{String=} - наименование языка
- * @return String
- */
-export const getLocaleMsg = (key, lang = getCurrentLang()) => {
-  const msg = getByPropFromObj(locales, key)
-  if (msg.length && msg[0].hasOwnProperty(lang)) {
-    return msg[0][lang]
-  } else {
-    console.debug(`Locale key '${key}' not found for lang '${lang}'`)
-    return ''
   }
 }

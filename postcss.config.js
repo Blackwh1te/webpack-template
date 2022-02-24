@@ -1,10 +1,9 @@
-const functions = require('./src/styles/appFunctions')
-
-module.exports = (env) => {
+module.exports = ({env}) => {
+  const isProd = (env === "production");
   const plugins = {
     'postcss-easy-import': {},
     'postcss-functions': {
-      functions
+      functions: require('./src/styles/functions.js')
     },
     'postcss-mixins': {},
     'postcss-for': {},
@@ -15,15 +14,13 @@ module.exports = (env) => {
     'postcss-custom-media': {},
     'postcss-color-function': {},
     'postcss-flexbugs-fixes': {},
-    'postcss-input-style': {},
     'postcss-gradient-transparency-fix': {},
     'postcss-100vh-fix': {},
     'postcss-momentum-scrolling': ['scroll'],
     'postcss-strip-inline-comments': {},
-    'postcss-clamp': {},
   }
-  if (env.env === 'production') {
-    plugins['autoprefixer'] = {}
+  if (isProd) {
+    plugins["postcss-preset-env"] = {};
   }
   return {plugins}
 }

@@ -1,9 +1,5 @@
 <%
-const defaults = require('./data.json').data
-const params = (typeof data === 'undefined') ? defaults : {...defaults, ...data}
-const {
-  items,
-} = params
+const items = (arguments.length) ? [ ...arguments?.[0] ] : require("./data.json")
 %>
 
 <nav class="breadcrumbs" aria-label="breadcrumb">

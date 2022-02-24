@@ -1,211 +1,201 @@
-/**
- * Класс для коллекций
- * Коллекция нужна для хранения экземпляров одного класса, получения/удаления этого экземпляра
- */
-
-export const defaultCfg = {
-  excludedSelector: '[data-js-observer-exclude]',
-  observer: {
-    attributes: false,
-    childList: true,
-    subtree: false
-  },
-  callbacks: {
-    add: () => {
-    },
-    remove: () => {
-    }
-  }
-}
+import Dispatcher from './dispatcher'
+import Observer from './observer'
+import {isNode} from '../utils/isNode'
 
 export default class Collection {
   /**
-   * Сама коллекция экземпляров
+   * Коллекция экземпляров
    * @type {Array}
    * @private
    */
   _collection = []
 
   /**
-   * MutationObserver для отслеживания и удаления из коллекции динамически удаляемых экземпляров
-   * @type{MutationObserver}
+   * Инициализация коллекции
+   * @param selector{String} - селектор для идентификации класса
+   * @param _class{Function} - класс, добавляемый в коллекцию
+   * @param isAutoInit{Boolean=} - автоматический вызов методов init и bindEvents (подходит для большинства обычных коллекций)
    */
-  collectionObserver
-
-  /**
-   * Конфигурация для MutationObserver
-   * @type {MutationObserverInit}
-   */
-  collectionObserverConfig = {
-    attributes: false,
-    childList: true,
-    subtree: false
-  }
-
-  /**
-   * Исключаемый из наблюдаения элемент
-   * @type{String}
-   */
-  collectionObserverExcludedSelector = '[data-js-observer-exclude]'
-
-  /**
-   * Наблюдаемый элемент
-   * @type{Element}
-   */
-  collectionObserverTarget = document.body
-
-  /**
-   * Селектор по которому отслеживается динамически изменяемый контент
-   * @type{String}
-   */
-  collectionObserverInstance
-
-  /**
-   * Класс, экземпляр которого будет создан при появлении в DOM-дереве
-   * @type{Class}
-   */
-  collectionObserverClass
-
-  /**
-   *
-   * @param instance{String} - см. collectionObserverInstance
-   * @param _class{Class} - см. collectionObserverClass
-   */
-  constructor(instance, _class) {
-    this.collectionObserverInstance = instance
-    this.collectionObserverClass = _class
-    this.collectionObserve()
-  }
-
-  /**
-   * Добавляет экземпляр в коллекцию. По-умолчанию проверяет, существует ли экземпляр с таким instance.
-   * Если существует, то добавления не происходит (возможно, стоит что-то делать в таком случае)
-   * @param newCollectionItem{Class}
-   */
-  set collection(newCollectionItem) {
-    const itemInCollection = this.getByDOMElement(newCollectionItem.instance)
-    if (!itemInCollection) {
-      this._collection = [...this._collection, newCollectionItem]
+  constructor(selector, _class, isAutoInit = true) {
+    if (typeof selector === 'string' && typeof _class === 'function') {
+      this.collectionObserverSelector = selector
+      this.collectionObserverClass = _class
+      Observer.subscribe = {
+        selector,
+        callback: this.collectionObserveCallback.bind(this)
+      }
+      if (isAutoInit) {
+        this.init()
+        this.bindEvents()
+      }
+    } else {
+      Collection._error('Selector or class are not defined while extending', this)
     }
   }
 
   /**
-   * Публичная коллекция
+   * Callback для добавления в коллекцию
+   * @param context{Object} - контекст, в котором будут искаться новые элементы для коллекции
+   */
+  init(context = document) {
+    context.querySelectorAll(this.collectionObserverSelector).forEach(el => this.addToCollection(el))
+  }
+
+  /**
+   * Подписка на обновления страницы для вызова callback (по умолчанию через Dispatcher)
+   */
+  bindEvents() {
+    Dispatcher.initiator = {
+      selector: this.collectionObserverSelector,
+      initiator: (context) => this.init(context),
+      getCollection: () => this.collection || []
+    }
+  }
+
+  /**
+   * Информирование об ошибках
+   * @param msg{String} - сообщение
+   * @param obj{Object} - объект с информацией
+   * @private
+   */
+  static _error(msg, obj) {
+    console.error(`[Collection]: ${msg}`, obj)
+  }
+
+  /**
+   * Добавление экземпляра класса в коллекцию. По-умолчанию проверяет, существует ли экземпляр с таким instance. Если существует, то добавления не происходит
+   * @param newClass{Function}
+   */
+  set collection(newClass) {
+    const {instance} = newClass
+    if (instance && !instance.isInCollection) {
+      const itemInCollection = this.getByDOMElement(instance)
+      if (!itemInCollection) {
+        this.beforeAddCallback(instance)
+        this._collection = [...this._collection, newClass]
+        this.afterAddCallback(instance)
+      }
+    } else {
+      Collection._error('Missed instance field for item: ', newClass)
+    }
+  }
+
+  /**
+   * Получение актуальной коллекции
    * @return {Array}
    */
   get collection() {
     return this._collection
   }
 
-
   /**
-   * Получает конфигурацию коллекции
-   * @return {Object}
+   * Поиск внутри коллекции по DOM-элементу путем сверки поля instance
+   * @param el{Element}
+   * @returns {Function}
    */
-  get config() {
-    return defaultCfg
+  getByDOMElement(el) {
+    return this.collection.find(item => item.instance === el)
   }
 
   /**
-   * Проверяет DOM-исключения для callback-наблюдателя
-   * @return {Boolean}
+   * Callback, вызываемый перед удалением их коллекции
+   * @param el{Element} - удаляемый из коллекции элемент
    */
-  isExcludedMutationRecord(mutationList) {
-    return mutationList.some(({target}) => target.nodeType === 1 && target.closest(this.config.excludedSelector))
+  beforeRemoveCallback(el) {
   }
 
   /**
-   * Ищет внутри коллекции по DOM-элементу. У экзепляров класса должен быть параметр instance, по нему идет проверка
-   * @param DOMElement{Element}
-   * @returns {Class}
+   * Callback, вызываемый после удаления их коллекции
+   * @param el{Element} - удалённый из коллекции элемент
    */
-  getByDOMElement(DOMElement) {
-    return this.collection.find(item => item.instance === DOMElement)
+  afterRemoveCallback(el) {
+  }
+
+  /**
+   * Callback, вызываемый перед добавлением в коллекцию
+   * @param el{Element} - добавляемый в коллекцию элемент
+   */
+  beforeAddCallback(el) {
+  }
+
+  /**
+   * Callback, вызываемый после добавления в коллекцию
+   * @param el{Element} - добавленный в коллекцию элемент
+   */
+  afterAddCallback(el) {
   }
 
   /**
    * Удаление из коллекции по экземпляру класса
-   * @param collectionItem{Class}
-   * @param callback{function}
+   * @param collectionClass{Function}
    */
-  removeFromCollection(collectionItem, callback = this.config.callbacks.remove) {
-    const collectionItemIndex = this.collection.indexOf(collectionItem)
-    this._collection.splice(collectionItemIndex, 1)
-    if (typeof callback === 'function') {
-      callback(collectionItem)
+  removeFromCollection(collectionClass) {
+    const {instance} = collectionClass
+    if (instance) {
+      this.beforeRemoveCallback(instance)
+      const collectionItemIndex = this.collection.indexOf(collectionClass)
+      this._collection.splice(collectionItemIndex, 1)
+      this.setElementState(instance, false)
+      this.afterRemoveCallback(instance)
     }
   }
 
   /**
-   * Удаление из коллекции по DOMElement'у
-   * @param DOMElement{Element}
-   * @param callback{function}
+   * Callback, вызываемый при изменении содержимого страниц, поступающих через Watcher
    */
-  removeFromCollectionByDOMElement(DOMElement, callback = this.config.callbacks.remove) {
-    const collectionItemIndex = this.collection.findIndex(collectionItem => collectionItem.instance.isEqualNode(DOMElement))
-    this._collection.splice(collectionItemIndex, 1)
-    if (typeof callback === 'function') {
-      callback(DOMElement)
-    }
+  collectionObserveCallback() {
+    this.collectionObserveRemoving()
+    this.collectionObserveAdding()
   }
 
   /**
-   * Инициализириует MutationObserver и запускает наблюдение
-   */
-  collectionObserve() {
-    this.collectionObserver = new MutationObserver(this.collectionObserveCallback.bind(this))
-    this.collectionObserver.observe(this.collectionObserverTarget, this.collectionObserverConfig)
-  }
-
-  /**
-   * Callback-наблюдатель
-   * @param mutationsList{MutationRecord}
-   * @param observer{MutationObserver}
-   */
-  collectionObserveCallback(mutationsList, observer) {
-    if (!this.isExcludedMutationRecord(mutationsList)) {
-      this.collectionObserveRemoving()
-      this.collectionObserveAdding()
-    }
-  }
-
-  /**
-   * Метод проверяет присутствует ли DOMElement на странице после изменений
-   * и в случае отсутствия удаляет его из коллекции
+   * Проверка отсутствия DOM-элементов коллекции на странице после изменений и удаление пустых классов
    */
   collectionObserveRemoving() {
     this.collection.forEach(collectionItem => {
-      if (!this.collectionObserverTarget.contains(collectionItem.instance)) {
+      if (!Observer.target.contains(collectionItem.instance)) {
         this.removeFromCollection(collectionItem)
       }
     })
   }
 
   /**
-   * Добавляет элемент в коллекцию
-   * @param instance(Object}
-   * @param callback{function}
+   * Маркировка DOM-элементов как инициализированных либо удаленных из коллекции
+   * @param el{Element} - DOM-элемент
+   * @param isInCollection{Boolean=} - маркер
    */
-  addToCollection(instance, callback = this.config.callbacks.add) {
-    const itemInCollection = this.getByDOMElement(instance)
-    if (!itemInCollection && this.collectionObserverClass) {
-      this.collection = new this.collectionObserverClass(instance)
-      if (typeof callback === 'function') {
-        callback(instance)
+  setElementState(el, isInCollection = true) {
+    el.isInCollection = isInCollection
+  }
+
+  /**
+   * Добавление элемента или класса в коллекцию
+   * @param item(Element||Function}
+   * @param params{Object=} - любые остаточные параметры
+   * @return {item||null} - возвращает экземпляр класса, если был найден
+   */
+  addToCollection(item, params = {}) {
+    const el = isNode(item) ? item : item.instance
+    if (el) {
+      if (!this.getByDOMElement(el) && !el.isInCollection) {
+        const collectionClass = (item instanceof this.collectionObserverClass) ? item : new this.collectionObserverClass(el, params)
+        collectionClass.instance = collectionClass.instance || el
+        this.collection = collectionClass
+        this.setElementState(el)
+        return collectionClass
+      } else {
+        return null
       }
+    } else {
+      Collection._error('Can\'t find instance of item: ', item)
+      return null
     }
   }
 
   /**
-   * Метод проверяет появился ли DOMElement на странице после изменений
-   * и в случае его появления добавляет его в коллекцию
+   * Проверка присутствия DOM-элементов коллекции на странице после изменений и добавление новых классов
    */
   collectionObserveAdding() {
-    if (this.collectionObserverInstance) {
-      const instances = this.collectionObserverTarget.querySelectorAll(this.collectionObserverInstance)
-      for (let instance of instances) {
-        this.addToCollection(instance)
-      }
-    }
+    [...Observer.target.querySelectorAll(this.collectionObserverSelector)].forEach(el => this.addToCollection(el))
   }
 }

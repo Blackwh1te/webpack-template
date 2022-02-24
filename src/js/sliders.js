@@ -1,13 +1,13 @@
-import {onAjaxContentLoaded} from './generic/eventing'
-import {getCopyOfObj} from './utils/getCopyOfObj'
 import Collection from './generic/collection'
-import {Swiper, Navigation, Pagination, EffectFade, Thumbs} from 'swiper'
+import {Swiper, Navigation} from 'swiper'
 import 'swiper/css/bundle'
 import {mq} from '../app'
+import {getCopyOfObj} from './utils/getCopyOfObj'
 import {isMedia} from './utils/isMedia'
 import {bubble} from './utils/bubble'
+import {getMapFromObj} from './utils/getMapFromObj'
 
-Swiper.use([Navigation, Pagination, EffectFade, Thumbs])
+Swiper.use([Navigation])
 
 export const instance = '[data-js-slider]'
 
@@ -27,9 +27,17 @@ export const bubbles = {
   sliderChange: 'slider::change',
 }
 
+const autoplayMouseControl = (instance) => {
+  if (instance.params.autoplay?.enabled) {
+    instance.el.addEventListener('mouseover', () => instance.autoplay.stop())
+    instance.el.addEventListener('mouseout', () => instance.autoplay.start())
+  }
+}
+
 const defaultFns = {
   init() {
     bubble(this.wrapperEl.parentNode, bubbles.sliderInit)
+    autoplayMouseControl(this)
   },
   slideChange() {
     bubble(this.wrapperEl.parentNode, bubbles.sliderChange)
@@ -135,7 +143,7 @@ export class Slider {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', () => this.manageSliderInitialization())
     } else {
-      // Deprecated 'MediaQueryList' API, <Safari 14, IE, <Edge 16
+      // Deprecated "MediaQueryList" API, <Safari 14, IE, <Edge 16
       mediaQuery.addListener(() => this.manageSliderInitialization())
     }
   }
@@ -152,82 +160,65 @@ export class Slider {
 }
 
 export class SlidersCollection extends Collection {
-  constructor() {
-    super()
-    this.sliders = [
-      {
-        selector: '.slider .swiper',
-        options: {
-          ...defaultParams, // use this to add default params and overwrite it
-          slidesPerView: 1,
+  static slidersCfg = getMapFromObj({
+    '.slider .swiper': {
+      ...defaultParams, // use this to add default params and overwrite it
+      slidesPerView: 1,
+      spaceBetween: 10,
+      navigation: {
+        prevEl: '.slider .slider-buttons__btn--prev',
+        nextEl: '.slider .slider-buttons__btn--next'
+      },
+      pagination: {
+        ...paginationCfg,
+        el: '.slider .slider-pagination',
+      },
+      speed: 500,
+      breakpoints: {
+        1025: {
+          allowTouchMove: false,
+        },
+      },
+    },
+    '.product-preview__main-slider .swiper': {
+      ...defaultParams,
+      slidesPerView: 1,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      },
+      thumbs: {
+        swiper: {
+          ...defaultParams,
+          el: '.product-preview__secondary-slider .swiper',
+          slidesPerView: 4,
           spaceBetween: 10,
           navigation: {
-            prevEl: '.slider .slider-buttons__btn--prev',
-            nextEl: '.slider .slider-buttons__btn--next'
-          },
-          pagination: {
-            ...paginationCfg,
-            el: '.slider .slider-pagination',
-          },
-          speed: 500,
-          breakpoints: {
-            1025: {
-              allowTouchMove: false,
-            },
+            prevEl: '.product-preview__secondary-slider .slider-buttons__btn--prev',
+            nextEl: '.product-preview__secondary-slider .slider-buttons__btn--next'
           },
         }
       },
-      {
-        selector: '.product-preview__main-slider .swiper',
-        options: {
-          ...defaultParams,
-          slidesPerView: 1,
-          effect: 'fade',
-          fadeEffect: {
-            crossFade: true
-          },
-          thumbs: {
-            swiper: {
-              ...defaultParams,
-              el: '.product-preview__secondary-slider .swiper',
-              slidesPerView: 4,
-              spaceBetween: 10,
-              navigation: {
-                prevEl: '.product-preview__secondary-slider .slider-buttons__btn--prev',
-                nextEl: '.product-preview__secondary-slider .slider-buttons__btn--next'
-              },
-            }
-          },
-          allowTouchMove: false,
-        }
-      },
-    ]
-    this.init()
-    this.bindEvents()
+      allowTouchMove: false,
+    },
+  })
+
+  constructor() {
+    super(instance, Slider)
   }
 
   init(context = document) {
-    this.sliders.forEach((slider) => {
-      const sliders = context.querySelectorAll(slider.selector)
-      sliders.forEach((sliderDOMElem, i) => {
+    [...SlidersCollection.slidersCfg.entries()].forEach(([selector, options], i, array) => {
+      context.querySelectorAll(selector).forEach((sliderDOMElem, i) => {
         if (typeof sliderDOMElem.swiper === 'undefined') {
-          if (sliders.length > 1) {
-            const parentContainer = sliderDOMElem.closest(els.instance)
-            if (parentContainer) {
-              parentContainer.setAttribute(attrs.multipleInstance, i.toString())
-            }
+          if (array.length > 1) {
+            sliderDOMElem.setAttribute(attrs.multipleInstance, i.toString())
           }
-          this.collection = new Slider(sliderDOMElem, slider.options)
+          this.addToCollection(new Slider(sliderDOMElem, options))
         } else {
           sliderDOMElem.swiper.update()
         }
       })
-    })
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content)
     })
   }
 }

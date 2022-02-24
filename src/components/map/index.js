@@ -2,7 +2,6 @@ import './style.pcss'
 import ymaps from 'ymaps'
 import {getCfg} from '../../js/utils/getCfg'
 import Collection from '../../js/generic/collection'
-import {onAjaxContentLoaded} from '../../js/generic/eventing'
 
 export const instance = '[data-js-map]'
 
@@ -79,19 +78,5 @@ export class Map {
 export class MapCollection extends Collection {
   constructor() {
     super(instance, Map)
-    this.init()
-    this.bindEvents()
-  }
-
-  init(context = document) {
-    context.querySelectorAll(instance).forEach((el) => {
-      this.collection = new Map(el)
-    })
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content)
-    })
   }
 }

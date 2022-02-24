@@ -1,11 +1,10 @@
 import './style.pcss'
 import Collection from '../../js/generic/collection'
-import {onAjaxContentLoaded} from '../../js/generic/eventing'
 import {getRandomString} from '../../js/utils/getRandomString'
 import {render} from '../../js/utils/render'
 import {bubble} from '../../js/utils/bubble'
 import {isMobileDevice} from '../../js/utils/isMobileDevice'
-import {getLocaleMsg} from '../../js/locales'
+import {locales} from '../../js/locales'
 
 export const instance = '[data-js-select]'
 
@@ -34,8 +33,8 @@ export class Select {
   }
 
   messages = {
-    notSelected: getLocaleMsg('NOT_SELECTED'),
-    severalOptionsSelected: getLocaleMsg('SEVERAL_OPTIONS_SELECTED'),
+    notSelected: locales.select['NOT_SELECTED'],
+    severalOptionsSelected: locales.select['SEVERAL_OPTIONS_SELECTED'],
   }
 
   constructor(instance) {
@@ -248,11 +247,11 @@ export class Select {
     let variantCaption
     switch (true) {
       case (selectedOptionsLength > 1): {
-        variantCaption = this.messages.severalOptionsSelected
+        variantCaption = window.App.lang === 'ru' ? this.messages.severalOptionsSelected.ru : this.messages.severalOptionsSelected.en
         break
       }
       case (selectedOptionsLength === 0): {
-        variantCaption = this.messages.notSelected
+        variantCaption = window.App.lang === 'ru' ? this.messages.notSelected.ru : this.messages.notSelected.en
         break
       }
       default: {
@@ -425,19 +424,5 @@ export class Select {
 export class SelectCollection extends Collection {
   constructor() {
     super(instance, Select)
-    this.init()
-    this.bindEvents()
-  }
-
-  init(context = document) {
-    context.querySelectorAll(instance).forEach((el) => {
-      this.collection = new Select(el)
-    })
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content)
-    })
   }
 }

@@ -1,50 +1,48 @@
-export const ajaxContentLoadedEvent = 'ajaxContentLoaded';
+export const ajaxContentLoadedEvent = 'contentLoaded'
 
 /**
  * Класс для событий
- *
  * Пример подписки на успешную инициализацию класса:
- *
- * document-link.addEventListener('SvgUseModuleLoaded', function(e) {
+ * document.addEventListener('Icons', (e) => {
  *  console.debug(e);
  * });
  */
 export default class Eventing {
-    event;
+  event
 
-    loaded = false;
+  loaded = false
 
-    constructor(eventName) {
-        this.event = document.createEvent('Event');
-        this.event.initEvent(`${eventName}ModuleLoaded`, true, true);
-    }
+  constructor(eventName) {
+    this.event = document.createEvent('Event')
+    this.event.initEvent(`${eventName}ModuleLoaded`, true, true)
+  }
 
-    preInit() {}
+  preInit() {
+  }
 
-    postInit() {}
+  postInit() {
+  }
 
-    markAsInit() {
-        this.loaded = true;
-        document.dispatchEvent(this.event);
-    }
+  markAsInit() {
+    this.loaded = true
+    document.dispatchEvent(this.event)
+  }
 }
 
 /**
  * Функция для инициализации события выполнения запроса (AJAX, Fetch, etc.)
- * @param data{Object}
+ * @param detail{Object}
  */
-export const dispatchAjaxContentLoaded = (data) => {
-    document.dispatchEvent(
-        new CustomEvent(ajaxContentLoadedEvent, {
-            detail: data
-        })
-    );
+export const dispatchContentLoaded = (detail) => {
+  document.dispatchEvent(
+    new CustomEvent(ajaxContentLoadedEvent, {detail})
+  )
 }
 
 /**
  * Функция для подписки на событие выполнения запроса (AJAX, Fetch, etc.)
  * @param callback{Function}
  */
-export const onAjaxContentLoaded = (callback) => {
-    document.addEventListener(ajaxContentLoadedEvent, e => callback(e))
+export const onContentLoaded = (callback) => {
+  document.addEventListener(ajaxContentLoadedEvent, e => callback(e))
 }

@@ -17,7 +17,7 @@ export const deepMerge = (target, source, isMergingArrays = false) => {
     return cloneObj;
   })(target);
 
-  const isObject = (obj) => obj && typeof obj === "object";
+  const isObject = (obj) => obj && typeof obj === 'object';
 
   if (!isObject(target) || !isObject(source))
     return source;

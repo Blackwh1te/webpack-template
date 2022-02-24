@@ -1,6 +1,5 @@
 import Collection from './generic/collection'
-import {onAjaxContentLoaded} from './generic/eventing'
-import {getLocaleMsg} from './locales'
+import {locales} from '../js/locales/index'
 
 export const instance = '[data-js-password]'
 
@@ -35,16 +34,16 @@ export class Password {
     this.state.isShown = true
     this.input.setAttribute('type', 'text')
     this.btn.classList.add(this.stateClasses.isActive)
-    this.btn.setAttribute('title', getLocaleMsg('HIDE_PASSWORD'))
-    this.btn.setAttribute('aria-label', getLocaleMsg('HIDE_PASSWORD'))
+    this.btn.setAttribute('title', locales.form('HIDE_PASSWORD'))
+    this.btn.setAttribute('aria-label', locales.form('HIDE_PASSWORD'))
   }
 
   hide() {
     this.state.isShown = false
     this.input.setAttribute('type', 'password')
     this.btn.classList.remove(this.stateClasses.isActive)
-    this.btn.setAttribute('title', getLocaleMsg('SHOW_PASSWORD'))
-    this.btn.setAttribute('aria-label', getLocaleMsg('SHOW_PASSWORD'))
+    this.btn.setAttribute('title', locales.form('SHOW_PASSWORD'))
+    this.btn.setAttribute('aria-label', locales.form('SHOW_PASSWORD'))
   }
 
   handleBtnClick(e) {
@@ -60,19 +59,5 @@ export class Password {
 export class PasswordCollection extends Collection {
   constructor() {
     super(instance, Password)
-    this.init()
-    this.bindEvents()
-  }
-
-  init(context = document) {
-    context.querySelectorAll(instance).forEach((el) => {
-      this.collection = new Password(el)
-    })
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content)
-    })
   }
 }

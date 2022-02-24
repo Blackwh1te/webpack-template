@@ -6,10 +6,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const fs = require('fs')
 
-const folders = ['fonts', 'icons', 'json', 'videos', 'images']
-const jsExt = ['.js']
+const folders = ['fonts', 'icons', 'json', 'videos', 'images', 'js-external']
+const jsExt = ['.ts', '.tsx', '.js', '.jsx']
+const stubs = require(path.resolve(__dirname, './src/js/stubs'))
 
 const pluginsCfg = {
   webpack: {
@@ -34,7 +36,29 @@ const pluginsCfg = {
     },
     chunks: {
       maxChunks: 1,
+    },
+    imageMin: {
+      plugins: [
+        'imagemin-gifsicle',
+        ['imagemin-mozjpeg', {progressive: true}],
+        'imagemin-pngquant',
+        'imagemin-svgo',
+      ],
     }
+  },
+  esLint: {
+    fix: false,
+    extensions: jsExt,
+    exclude: ['node_modules', 'build'],
+    emitError: true,
+    emitWarning: true
+  },
+  styleLint: {
+    fix: false,
+    extensions: ['css', 'pcss'],
+    files: ['**/*.css', '**/*.pcss'],
+    emitError: true,
+    emitWarning: true
   },
   miniCSS: {
     filename: 'styles/[name].css',
@@ -101,26 +125,6 @@ const pluginsCfg = {
   },
   svgSprite: {
     plainSprite: true
-  },
-  webp: {
-    config: [
-      {
-        test: /\.(jpe?g|png|gif)$/i,
-        options: {
-          quality: 100
-        },
-      }
-    ],
-    overrideExtension: false
-  },
-  imageMin: {
-    test: /\.(jpe?g|png|gif)$/i,
-    optipng: {
-      optimizationLevel: 4
-    },
-    jpegtran: {
-      progressive: true
-    }
   }
 }
 
@@ -183,12 +187,19 @@ const modulesCfg = {
       }
     ]
   },
+  resolve: {
+    extensions: jsExt,
+    modules: ['node_modules'],
+    alias: {
+      'ScrollMagic': path.resolve('node_modules', 'scrollmagic'),
+      'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
+    },
+  },
 }
 
 module.exports = (env, argv) => {
   const {mode} = argv
   const isDev = mode === 'development'
-  const isProd = !isDev
   const cfg = {
     mode,
     entry: './src/app.js',
@@ -198,12 +209,14 @@ module.exports = (env, argv) => {
     },
     target: 'web',
     performance: {
+      // maxEntrypointSize: 512000,
+      // maxAssetSize: 512000,
       hints: false
     }
   }
-  const {js, ejs, css, imagesAndFonts, svg} = modulesCfg
+  const {js, ejs, css, imagesAndFonts, svg, resolve} = modulesCfg
 
-  if (isProd) {
+  if (mode === 'production') {
     const generateHtmlPlugins = (files) => {
       const htmlPlugins = []
       files.map(config => {
@@ -227,13 +240,16 @@ module.exports = (env, argv) => {
       })
       return htmlPlugins
     }
+    const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
     const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-    const ImageminPlugin = require('imagemin-webpack-plugin').default
-    const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin')
     const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
     const TerserPlugin = require('terser-webpack-plugin')
     const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
     const htmlPlugins = generateHtmlPlugins(pluginsCfg.ejs)
+    const errorsEmit = {
+      failOnError: true,
+      failOnWarning: true
+    }
 
     return {
       ...cfg,
@@ -242,16 +258,15 @@ module.exports = (env, argv) => {
         rules: [js, ejs, css, imagesAndFonts, svg],
       },
       plugins: [
+        new CaseSensitivePathsPlugin(),
         new MiniCssExtractPlugin(pluginsCfg.miniCSS),
         new webpack.optimize.LimitChunkCountPlugin(pluginsCfg.webpack.chunks),
         new webpack.ProvidePlugin({}),
         ...htmlPlugins,
         new BeautifyHtmlWebpackPlugin(pluginsCfg.prettyHTML),
         new CopyWebpackPlugin(pluginsCfg.webpack.copy),
-        new ESLintPlugin(pluginsCfg.esLint),
-        new StylelintPlugin({...pluginsCfg.styleLint, failOnError: true, failOnWarning: true}),
-        new ImageminPlugin(pluginsCfg.imageMin),
-        new ImageminWebpWebpackPlugin(pluginsCfg.webp),
+        new ESLintPlugin({...pluginsCfg.esLint, ...errorsEmit}),
+        new StylelintPlugin({...pluginsCfg.styleLint, ...errorsEmit}),
         new SpriteLoaderPlugin(pluginsCfg.svgSprite),
         new BundleAnalyzerPlugin()
       ],
@@ -260,8 +275,25 @@ module.exports = (env, argv) => {
         minimizer: [
           new CssMinimizerPlugin(),
           new TerserPlugin(pluginsCfg.webpack.terser),
+          new ImageMinimizerPlugin({
+            deleteOriginalAssets: false,
+            minimizer: {
+              implementation: ImageMinimizerPlugin.imageminMinify,
+              options: pluginsCfg.webpack.imageMin,
+            },
+            generator: [
+              {
+                type: 'asset',
+                implementation: ImageMinimizerPlugin.imageminGenerate,
+                options: {
+                  plugins: ['imagemin-webp']
+                },
+              },
+            ],
+          }),
         ],
-      }
+      },
+      resolve
     }
   } else {
     const pages = pluginsCfg.ejs.map(({filePath, inject, outputPath}) => {
@@ -291,6 +323,7 @@ module.exports = (env, argv) => {
         rules: [js, ejs, css, imagesAndFonts, svg],
       },
       plugins: [
+        new CaseSensitivePathsPlugin(),
         new MiniCssExtractPlugin(pluginsCfg.miniCSS),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({}),
@@ -307,7 +340,6 @@ module.exports = (env, argv) => {
         watchFiles: './src/**/*.ejs',
         historyApiFallback: true,
         port: 'auto',
-        hot: true,
         open: true,
         compress: false,
         onBeforeSetupMiddleware(devServer) {
@@ -316,17 +348,16 @@ module.exports = (env, argv) => {
             const {originalUrl} = req
             res.redirect(originalUrl)
           })
+          Object.values(stubs).forEach((mock) => {
+            const {url, resp} = mock
+            app.get(url, (req, res) => {
+              res.json(resp)
+            })
+          })
         },
       },
       devtool: 'source-map',
-      resolve: {
-        extensions: jsExt,
-        modules: ['node_modules'],
-        alias: {
-          'ScrollMagic': path.resolve('node_modules', 'scrollmagic'),
-          'debug.addIndicators': path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
-        },
-      },
+      resolve
     }
   }
 }

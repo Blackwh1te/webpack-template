@@ -5,6 +5,6 @@
  * @param decimalSeparator{String=} - разделитель тысячных
  * @return String
  */
-export const getStringWithDecimalSpaces = (number, decimalSeparator = " ") => {
+export const getStringWithDecimalSpaces = (number, decimalSeparator = ' ') => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, decimalSeparator);
 };

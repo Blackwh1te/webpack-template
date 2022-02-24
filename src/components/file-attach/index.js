@@ -1,17 +1,16 @@
-import './style.pcss';
-
-import Collection from "../../js/generic/collection";
+import './style.pcss'
+import Collection from '../../js/generic/collection'
 import Modals from '../../js/modals'
-import { onAjaxContentLoaded } from '../../js/generic/eventing'
-import { render } from '../../js/utils/render'
-import { removeChildNodes } from '../../js/utils/removeChildNodes'
-import { getAttr } from '../../js/utils/getAttr'
-import { bubble } from '../../js/utils/bubble'
-import { getLocaleMsg } from '../../js/locales'
-import { getCfg } from "../../js/utils/getCfg";
-import { stateClasses as formStates } from '../../js/forms/forms'
+import {render} from '../../js/utils/render'
+import {removeChildNodes} from '../../js/utils/removeChildNodes'
+import {getAttr} from '../../js/utils/getAttr'
+import {bubble} from '../../js/utils/bubble'
+import {getLocaleMsg} from '../../js/utils/getLocaleMsg'
+import {getCfg} from '../../js/utils/getCfg'
+import {stateClasses as formStates} from '../../js/forms'
+import FormValidation from '../../js/forms/validation'
 
-export const instance = '[data-js-file-attach]';
+export const instance = '[data-js-file-attach]'
 
 export const els = {
   instance,
@@ -32,7 +31,7 @@ export const bubbles = {
   fileRemoved: 'file::removed'
 }
 
-const fileSizes = [ 'FILE_SIZE_BYTE', 'FILE_SIZE_KB', 'FILE_SIZE_MB', 'FILE_SIZE_GB', 'FILE_SIZE_TB'].map((key) => getLocaleMsg(key));
+const fileSizes = ['FILE_SIZE_BYTE', 'FILE_SIZE_KB', 'FILE_SIZE_MB', 'FILE_SIZE_GB', 'FILE_SIZE_TB'].map((key) => getLocaleMsg(key))
 
 export class FileAttach {
 
@@ -46,24 +45,24 @@ export class FileAttach {
   }
 
   constructor(instance) {
-    this.instance = instance;
-    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg);
-    this.addBtn = this.instance.querySelector(els.addBtn);
-    this.input = this.getInput();
-    this.fileList = this.instance.querySelector(els.fileList);
-    this.isMultiple = this.input.hasAttribute('multiple');
-    this.files = this.getInitialFiles();
-    this.bindEvents();
+    this.instance = instance
+    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+    this.addBtn = this.instance.querySelector(els.addBtn)
+    this.input = this.getInput()
+    this.fileList = this.instance.querySelector(els.fileList)
+    this.isMultiple = this.input.hasAttribute('multiple')
+    this.files = this.getInitialFiles()
+    this.bindEvents()
   }
 
   getInput() {
-    const insideInput = this.instance.querySelector(els.input);
-    return (insideInput) ? insideInput : document.querySelector(`[name="${this.addBtn.getAttribute('for')}"]`);
+    const insideInput = this.instance.querySelector(els.input)
+    return (insideInput) ? insideInput : document.querySelector(`[name="${this.addBtn.getAttribute('for')}"]`)
   }
 
   getInitialFiles() {
-    return [ ...this.getFileListNodes ].map((node) => {
-      const getInfo = (selector) => node.querySelector(selector).textContent.trim();
+    return [...this.getFileListNodes].map((node) => {
+      const getInfo = (selector) => node.querySelector(selector).textContent.trim()
       return {
         file: {
           name: getInfo(els.name),
@@ -76,96 +75,103 @@ export class FileAttach {
   }
 
   getExtension(name) {
-    return (name.substring(name.lastIndexOf('.') + 1, name.length) || name).toLowerCase();
+    return (name.substring(name.lastIndexOf('.') + 1, name.length) || name).toLowerCase()
   }
 
-  get getFileListNodes(){
-    return this.fileList.querySelectorAll(els.fileItem);
+  get getFileListNodes() {
+    return this.fileList.querySelectorAll(els.fileItem)
   }
 
   setInvalid() {
-    this.instance.classList.add(formStates.invalid);
-    this.input.classList.add(formStates.invalid);
+    this.instance.classList.add(formStates.invalid)
+    this.input.classList.add(formStates.invalid)
   }
 
   setValid() {
-    this.instance.classList.remove(formStates.invalid);
-    this.input.classList.remove(formStates.invalid);
+    this.instance.classList.remove(formStates.invalid)
+    this.input.classList.remove(formStates.invalid)
   }
 
   attach() {
     if (!this.isMultiple) {
-      this.clear();
+      this.clear()
     }
 
-    const allowedTypes = (this.input.hasAttribute(getAttr(els.types))) ? this.input.getAttribute(getAttr(els.types)).split(', ') : [];
+    const allowedTypes = (this.input.hasAttribute(getAttr(els.types))) ? this.input.getAttribute(getAttr(els.types)).split(', ') : []
 
     const prevent = (index, msg) => {
-      this.setInvalid();
-      this.removeFile(index);
-      if(!this.isMultiple) {
-        this.clear(true);
+      this.setInvalid()
+      this.removeFile(index)
+      if (!this.isMultiple) {
+        this.clear(true)
       }
-      Modals.openErrorModal(msg);
+      Modals.openErrorModal(msg)
     }
 
-    for(let i = 0; i < this.input.files.length; i++) {
-      const file = this.input.files[i];
-      const index = this.files.length ? Number(this.files[this.files.length - 1].index) + 1 : 0;
-      const maxSize = this.input.hasAttribute(getAttr(els.maxSize)) ? Number(this.input.getAttribute(getAttr(els.maxSize))) : 10;
-      const isValidSize = FileAttach.validateSize(file.size, maxSize);
-      const maxFiles = this.input.hasAttribute(getAttr(els.maxFiles)) ? Number(this.input.getAttribute(getAttr(els.maxFiles))) : 10;
-      const isMaxFiles = (this.files.length >= maxFiles);
+    for (let i = 0; i < this.input.files.length; i++) {
+      const file = this.input.files[i]
+      const index = this.files.length ? Number(this.files[this.files.length - 1].index) + 1 : 0
+      const maxSize = this.input.hasAttribute(getAttr(els.maxSize)) ? Number(this.input.getAttribute(getAttr(els.maxSize))) : 10
+      const isValidSize = FileAttach.validateSize(file.size, maxSize)
+      const maxFiles = this.input.hasAttribute(getAttr(els.maxFiles)) ? Number(this.input.getAttribute(getAttr(els.maxFiles))) : 10
+      const isMaxFiles = (this.files.length >= maxFiles)
       const data = {
         name: file.name,
         size: FileAttach.bytesToSize(file.size),
         index
-      };
+      }
 
       if (!this.files.find(file => file.file.name === data.name)) {
-        this.setValid();
-        const type = this.getExtension(data.name);
+        this.setValid()
+        const type = this.getExtension(data.name)
 
-        if(isMaxFiles) {
-          prevent(index, getLocaleMsg('FILE_UPLOAD_ERROR_MAX'));
-          return;
+        if (isMaxFiles) {
+          prevent(index, getLocaleMsg('FILE_UPLOAD_ERROR_MAX'))
+          return
         }
 
-        if(type.length && allowedTypes.length && !allowedTypes.includes(type)) {
-          prevent(index, getLocaleMsg('FILE_UPLOAD_ERROR_FORMAT'));
-          return;
+        if (type.length && allowedTypes.length && !allowedTypes.includes(type)) {
+          prevent(index, getLocaleMsg('FILE_UPLOAD_ERROR_FORMAT'))
+          return
         }
 
-        if(!isValidSize) {
-          prevent(index, () => Modals.openErrorModal(getLocaleMsg('FILE_UPLOAD_ERROR_SIZE')));
-          return;
+        if (!isValidSize) {
+          prevent(index, () => Modals.openErrorModal(getLocaleMsg('FILE_UPLOAD_ERROR_SIZE')))
+          return
         }
 
-        this.files.push({ index, file, isInitial: false });
+        this.files.push({index, file, isInitial: false})
 
-        if(!this.cfg.isCustomRenderer) {
-          render(this.fileList, FileAttachCollection.getFileTemplate(data, true));
+        if (!this.cfg.isCustomRenderer) {
+          render(this.fileList, FileAttachCollection.getFileTemplate(data, true))
+        }
+
+        if (this.input.hasAttribute('required')) {
+          const isValid = FormValidation.isValidFile(this.input)
+          if (isValid) {
+            FormValidation.clearInputMsgBlock(this.input)
+          }
         }
 
         bubble(this.instance, bubbles.fileAttached, {
           ...data,
           input: this.input,
           files: this.files
-        });
+        })
       }
     }
   }
 
   removeFile(index) {
-    const file = this.fileList.querySelector(`[${getAttr(els.fileItem)}="${index}"]`);
-    if(file) {
-      const inArrIndex = this.files.findIndex((el) => el.index === Number(index));
-      this.files.splice(inArrIndex, 1);
-      if(!this.cfg.isCustomRenderer) {
-        this.input.value = '';
-        file.remove();
+    const file = this.fileList.querySelector(`[${getAttr(els.fileItem)}="${index}"]`)
+    if (file) {
+      const inArrIndex = this.files.findIndex((el) => el.index === Number(index))
+      this.files.splice(inArrIndex, 1)
+      if (!this.cfg.isCustomRenderer) {
+        this.input.value = ''
+        file.remove()
         if (!this.files.length) {
-          removeChildNodes(this.fileList);
+          removeChildNodes(this.fileList)
         }
       }
       bubble(this.instance, bubbles.fileRemoved, {
@@ -174,7 +180,7 @@ export class FileAttach {
         size: FileAttach.bytesToSize(file.size),
         input: this.input,
         files: this.files
-      });
+      })
     }
   }
 
@@ -187,55 +193,52 @@ export class FileAttach {
         input: this.input,
         files: this.files
       })
-    });
-    this.files = [];
-    removeChildNodes(this.fileList);
-    this.setValid();
-    if(this.isMultiple || isResetValue) {
-      this.input.value = '';
+    })
+    this.files = []
+    removeChildNodes(this.fileList)
+    this.setValid()
+    if (this.isMultiple || isResetValue) {
+      this.input.value = ''
     }
   }
 
   static validateSize(bytes, maxSizeMb = 10) {
-    return (parseInt((Number(bytes) / 1024 / 1024), 10) <= maxSizeMb);
+    return (parseInt((Number(bytes) / 1024 / 1024).toString(), 10) <= maxSizeMb)
   }
 
   static bytesToSize(bytes) {
-    bytes = Number(bytes);
+    bytes = Number(bytes)
     if (bytes === 0) {
-      return `0 ${fileSizes[0]}`;
+      return `0 ${fileSizes[0]}`
     }
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + fileSizes[i];
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)).toString())
+    return Math.round(bytes / Math.pow(1024, i)) + ' ' + fileSizes[i]
   }
 
   handleClick(e) {
-    const { target } = e;
-    if(target.matches(els.fileRemove)) {
-      e.preventDefault();
-      const index = target.closest(els.fileItem).getAttribute(getAttr(els.fileItem));
-      this.removeFile(index);
+    const {target} = e
+    if (target.matches(els.fileRemove)) {
+      e.preventDefault()
+      const index = target.closest(els.fileItem).getAttribute(getAttr(els.fileItem))
+      this.removeFile(index)
     }
   }
 
   handleChange() {
-    this.attach();
+    this.attach()
   }
 
   bindEvents() {
-    this.input.addEventListener('change', () =>  this.handleChange());
+    this.input.addEventListener('change', () => this.handleChange())
     this.instance.addEventListener('click', (e) => {
-      this.handleClick(e);
-    });
+      this.handleClick(e)
+    })
   }
 }
 
 export class FileAttachCollection extends Collection {
-
   constructor() {
-    super(instance, FileAttach);
-    this.init();
-    this.bindEvents();
+    super(instance, FileAttach)
   }
 
   static getFileTemplate({name, size, index}, isRenderRemoveBtn = true) {
@@ -249,28 +252,9 @@ export class FileAttachCollection extends Collection {
         <div class="attachment__info">
           <div class="attachment__name" title="${name}" data-js-file-attach-file-info="name">${name}</div>
           <small class="attachment__size"  data-js-file-attach-file-info="size">${size}</small>
-          ${isRenderRemoveBtn ? `
-            <button type="button" class="attachment__remove" data-js-file-attach-file-remove>
-              <svg class="i-icon">
-                <use href="#icon-close"></use>
-              </svg>
-            </button>
-          ` : ''}
+          ${isRenderRemoveBtn ? '<button class="attachment__remove" type="button" data-js-file-attach-file-remove><svg class="i-icon"><use href="#icon-remove"></use></svg></button>' : ''}
         </div> 
        </div>
-    `;
+    `
   }
-
-  init(context = document) {
-    context.querySelectorAll(instance).forEach((el) => {
-      this.collection = new FileAttach(el);
-    });
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content);
-    });
-  }
-
 }

@@ -1,19 +1,13 @@
-// Load icons
-import {setCSSVar} from './js/utils/setCSSVar'
-
-const requireAll = (r) => r.keys().forEach(r)
-requireAll(require.context('./icons', true, /\.svg$/))
-
-// Load plugins
-import svg4everybody from 'svg4everybody'
+// import utils
 import {isTouchEnabled} from './js/utils/isTouchEnabled'
 import {isMobileDevice} from './js/utils/isMobileDevice'
 import {parseJSON} from './js/utils/parseJSON'
 import {wait} from './js/utils/wait'
 import {debounce} from './js/utils/debounce'
-import {getCurrentLang} from './js/utils/getCurrentLang'
-
-window.svg4everybody = svg4everybody
+import {setCSSVar} from './js/utils/setCSSVar'
+import {onDOMContentLoaded} from './js/utils/onDOMContentLoaded'
+import {requireAll} from './js/utils/webpack/requireAll'
+import {getScrollBarWidth} from './js/utils/getScrollBarWidth'
 
 // media queries (if used in js)
 export const mq = {
@@ -27,9 +21,9 @@ export const mq = {
 
 // Create global App object
 window.App = {
-  lang: getCurrentLang(),
   scrollableBody: 'body',
-  debug: window.location.port.length || (window.location.search.indexOf('debug') > -1) || window.location.pathname.indexOf('/build/') > -1,
+  isDebug: window.location.port.length > 0 || window.location.host === 'localhost' || (window.location.search.indexOf('debug') > -1) || window.location.pathname.indexOf('/build/') > -1,
+  isTest: process.env.NODE_ENV === 'test',
   stateClasses: {
     domReady: 'dom-is-ready',
     pageLoaded: 'page-is-loaded',
@@ -37,16 +31,48 @@ window.App = {
     mobileDevice: 'is-mobile-device'
   },
   ...parseJSON(document.body.getAttribute('data-js-app-globals')),
+  utils: { // utils functions
+    setVhVar: () => setCSSVar(document.documentElement, 'vh', `${(window.innerHeight * 0.01).toFixed(3)}px`),
+    checkMobile: () => (isMobileDevice()) ? document.documentElement.classList.add(App.stateClasses.mobileDevice) : document.documentElement.classList.remove(App.stateClasses.mobileDevice),
+    checkTouch: () => (isTouchEnabled()) ? document.documentElement.classList.add(App.stateClasses.touchscreen) : document.documentElement.classList.remove(App.stateClasses.touchscreen),
+    checkSpecificBrowser: () => {
+      let browserClass = ''
+      switch (true) {
+        case !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/)):
+          browserClass = 'ie11'
+          break
+        case !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/):
+          browserClass = 'safari'
+          break
+        case /Edge/.test(navigator.userAgent):
+          browserClass = 'edge'
+          break
+        default:
+          break
+      }
+      if (browserClass) {
+        document.documentElement.classList.add(browserClass)
+      }
+    },
+    getScrollBarWidth: () => setCSSVar(document.documentElement, 'scrollBarWidth', `${getScrollBarWidth()}px`)
+  }
+}
+
+// load icons
+if (!window.App.isTest) {
+  requireAll(require.context('./icons', true, /\.svg$/))
 }
 
 // load modules
-import SvgUse from './js/svgUse'
-import Btn from './components/btn'
+import Dispatcher from './js/generic/dispatcher'
+import Observer from './js/generic/observer'
+import Icons from './js/icons'
 import Modals from './js/modals'
-import Forms from './js/forms/forms'
+import Forms from './js/forms'
 import ScrollEffects from './js/scrollEffects'
 import Gallery from './js/gallery'
 import AdaptiveTables from './js/adaptiveTables'
+import Btn from './components/btn'
 
 // Load components
 import './components/header'
@@ -80,57 +106,23 @@ import {PasswordCollection} from './js/password'
 // Load styles
 import './styles'
 
-// Utils functions
-const setVhVar = () => setCSSVar(document.documentElement, 'vh', `${window.innerHeight * 0.01}px`)
-
-const checkMobile = () => isMobileDevice() ? document.documentElement.classList.add(App.stateClasses.mobileDevice) : document.documentElement.classList.remove(App.stateClasses.mobileDevice)
-
-const checkTouch = () => isTouchEnabled() ? document.documentElement.classList.add(App.stateClasses.touchscreen) : document.documentElement.classList.remove(App.stateClasses.touchscreen)
-
-const checkSpecificBrowser = () => {
-  let browserClass = ''
-  switch (true) {
-    case !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/)):
-      browserClass = 'ie11'
-      break
-    case !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/):
-      browserClass = 'safari'
-      break
-    case /Edge/.test(navigator.userAgent):
-      browserClass = 'edge'
-      break
-    default:
-      break
-  }
-  if (browserClass) {
-    document.documentElement.classList.add(browserClass)
-  }
-}
-
-const setScrollbarWidth = () => {
-  setCSSVar(document.documentElement, 'scrollbar-width', `${window.innerWidth - document.documentElement.clientWidth}px`)
-}
-
 const handleDOMReady = () => {
-  // utils
-  checkTouch()
-  checkMobile()
-  checkSpecificBrowser()
-  setVhVar()
-  setScrollbarWidth()
+  // run utils
+  Object.values(App.utils).forEach(fn => typeof fn === 'function' && fn())
 
   // standalone components
-  new SvgUse()
-  new Btn()
-  new Modals()
+  new Icons()
   new Forms()
+  new Modals()
   new Gallery()
+  new Btn()
 
   // app components
-  App.SlidersCollection = new SlidersCollection()
+  App.ScrollEffects = new ScrollEffects()
   App.GoogleCaptchaCollection = new GoogleCaptchaCollection()
   App.AdaptiveTables = new AdaptiveTables()
   App.FileAttachCollection = new FileAttachCollection()
+  App.SlidersCollection = new SlidersCollection()
   App.SelectCollection = new SelectCollection()
   App.AccordionCollection = new AccordionCollection()
   App.TabsCollection = new TabsCollection()
@@ -139,25 +131,18 @@ const handleDOMReady = () => {
   // App.StarRatingCollection = new StarRatingCollection()
 
   // prevent transition flicker
-  wait(100).then(() => {
-    document.documentElement.classList.add(App.stateClasses.domReady)
-    App.ScrollEffects = new ScrollEffects()
-  })
+  wait(100).then(() => document.documentElement.classList.add(App.stateClasses.domReady))
 }
 
-const debouncedResizeHandler = debounce(setVhVar)
+const debouncedResizeHandler = debounce(App.utils.setVhVar)
 const handleResize = () => {
-  checkTouch()
-  checkMobile()
   debouncedResizeHandler()
+  App.utils.checkTouch()
+  App.utils.checkMobile()
+  App.utils.getScrollBarWidth()
 }
-
 const handleWindowLoad = () => document.documentElement.classList.add(App.stateClasses.pageLoaded)
 
-const bindEvents = () => {
-  document.addEventListener('DOMContentLoaded', () => handleDOMReady())
-  window.addEventListener('resize', () => handleResize())
-  window.addEventListener('load', () => handleWindowLoad())
-}
-
-bindEvents()
+onDOMContentLoaded(() => handleDOMReady())
+window.addEventListener('resize', () => handleResize())
+window.addEventListener('load', () => handleWindowLoad())

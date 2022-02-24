@@ -17,11 +17,7 @@
 <div class="content__sections">
 	<div class="page-header container">
 		<div class="page-header__breadcrumbs">
-			<%- require('../components/breadcrumbs/template.ejs')({
-				data: {
-					items: data.crumbs
-				}
-			}) %>
+			<%- require('../components/breadcrumbs/template.ejs')(data.crumbs) %>
 		</div>
 		<h1 class="page-header__title">
 			<%= data.title %>

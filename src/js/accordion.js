@@ -1,6 +1,5 @@
 import Collection from './generic/collection'
 import {getCfg} from './utils/getCfg'
-import {onAjaxContentLoaded} from './generic/eventing'
 import {clearAnimationsArray} from './utils/clearAnimationsArray'
 
 export const instance = '[data-js-accordion]'
@@ -129,19 +128,5 @@ export class Accordion {
 export class AccordionCollection extends Collection {
   constructor() {
     super(instance, Accordion)
-    this.init()
-    this.bindEvents()
-  }
-
-  init(context = document) {
-    context.querySelectorAll(instance).forEach((el) => {
-      this.collection = new Accordion(el)
-    })
-  }
-
-  bindEvents() {
-    onAjaxContentLoaded((e) => {
-      this.init(e.detail.content)
-    })
   }
 }

@@ -1,7 +1,8 @@
 import '@fancyapps/ui/dist/fancybox.css'
 import {Fancybox} from '@fancyapps/ui'
-import {getLocaleMsg, locales} from './locales'
-import {dispatchAjaxContentLoaded} from './generic/eventing'
+import {locales} from './locales'
+import {getLocaleMsg} from './utils/getLocaleMsg'
+import {dispatchContentLoaded} from './generic/eventing'
 import {isUrl} from './utils/isUrl'
 import {parseJSON} from './utils/parseJSON'
 import {getAttr} from './utils/getAttr'
@@ -11,6 +12,8 @@ import {getLastFromNodeList} from './utils/getLastFromNodeList'
 import {getFormDataFromObj} from './utils/getFormDataFromObj'
 import {makeRequest} from './utils/makeRequest'
 import {getCurrentLang} from './utils/getCurrentLang'
+import {wait} from './utils/wait'
+import {stateClasses as formStateClasses} from './forms'
 
 export const els = {
   modal: '[data-js-modal]',
@@ -27,12 +30,12 @@ export const els = {
 
 export const layouts = {
   closeButton: `
-    <svg class="i-icon i-icon--medium-plus">
+    <svg class="i-icon">
       <use href="#icon-close"></use>
     </svg>
   `,
   nextButton: `
-    <svg class="i-icon i-icon--large">
+    <svg class="i-icon">
       <use href="#icon-page-next"></use>
     </svg>
   `,
@@ -40,7 +43,7 @@ export const layouts = {
     <svg class="i-icon i-icon--large">
       <use href="#icon-page-prev"></use>
     </svg>
-  `,
+  `
 }
 
 const l10n = Object.entries(locales.modals).map((pair) => {
@@ -48,7 +51,7 @@ const l10n = Object.entries(locales.modals).map((pair) => {
 }).reduce((a, b) => Object.assign(a, b), {})
 
 export const modalOptions = {
-  animated: true,
+  animated: false,
   Thumbs: false,
   Image: false,
   hideScrollbar: true,
@@ -92,6 +95,7 @@ export const modalOptions = {
 }
 
 export default class Modals {
+
   constructor() {
     this.bindEvents()
   }
@@ -107,6 +111,7 @@ export default class Modals {
     return {
       handler,
       src: handler.hasAttribute('href') ? handler.getAttribute('href') : '',
+      isLockHandler: true,
       ...modalOptions,
       ...parseJSON(handler.getAttribute(getAttr(els.open)))
     }
@@ -114,12 +119,12 @@ export default class Modals {
 
   static handleModalConfirm(instance, event) {
     event.preventDefault()
-    Modals.closeOnlyModal(instance)
+    Modals.closeModal(instance)
   }
 
   static handleModalCancel(instance, event) {
     event.preventDefault()
-    Modals.closeOnlyModal(instance)
+    Modals.closeModal(instance)
   }
 
   static handleModalReveal(instance, slide) {
@@ -133,7 +138,7 @@ export default class Modals {
         slideContent.id = modal.id
         modal.replaceWith(...modal.childNodes)
       }
-      dispatchAjaxContentLoaded({content: slideContent})
+      dispatchContentLoaded({content: slideContent})
     }
   }
 
@@ -144,24 +149,28 @@ export default class Modals {
   static handleModalClose(instance) {
     const modal = Modals.getModalContent(instance)
     if (modal) {
-      const cfg = Modals.getActionCfg(modal)
-      if (cfg.bubbleAfterClose) {
-        bubble(document, cfg.bubbleAfterClose.toString(), modal)
+      const {bubbleAfterClose, redirectAfterClose, reloadAfterClose} = Modals.getActionCfg(modal)
+      if (bubbleAfterClose) {
+        bubble(document, bubbleAfterClose.toString(), modal)
       }
-      if (cfg.redirectAfterClose) {
-        window.location.href = cfg.redirectAfterClose
-      } else if (cfg.reloadAfterClose) {
+      if (typeof redirectAfterClose === 'string') {
+        window.location.href = redirectAfterClose
+      } else if (reloadAfterClose) {
         window.location.reload()
+      } else {
+        const {isLockHandler, handler} = instance.options
+        if (isLockHandler && handler) {
+          Modals.setModalHandlerLock(handler, false)
+        }
       }
     }
   }
-
 
   static closeAllModals() {
     Fancybox.close(true)
   }
 
-  static closeOnlyModal(instance = Modals.getActiveInstance()) {
+  static closeModal(instance = Modals.getActiveInstance()) {
     if (instance) {
       instance.close()
     }
@@ -209,71 +218,78 @@ export default class Modals {
     })
   }
 
-  static openAjaxModal(cfg) {
-    const {src = '', method = 'GET'} = cfg
-    const fd = getFormDataFromObj(cfg.data)
-    const body = (method === 'POST') ? fd : null
-    const handleError = () => {
-      if (typeof cfg.on.error === 'function') {
-        cfg.on.error()
-      }
+  static handleRequestError(status = 404, callback) {
+    let msg = getLocaleMsg('ERROR')
+    switch (status) {
+      case 408:
+        msg = getLocaleMsg('TIMEOUT')
+        break
+      case 404:
+        msg = getLocaleMsg('AJAX_NOT_FOUND')
+        break
+      case 403:
+        msg = getLocaleMsg('AJAX_FORBIDDEN')
+        break
     }
-    makeRequest({url: src, type: 'text', method, body}).then((data) => {
-      if (cfg.data) {
-        delete cfg.data
+    Modals.openErrorModal(msg)
+    if (typeof callback === 'function') {
+      callback()
+    }
+  }
+
+  static openAjaxModal(cfg) {
+    const {src = '', method = 'GET', data = {}, on} = cfg
+    if (src) {
+      const body = getFormDataFromObj(data)
+      const handleError = () => {
+        if (typeof on.error === 'function') {
+          on.error()
+        }
       }
-      const json = parseJSON(data)
-      if (isEmptyObj(json)) {
-        Modals.openHTMLModal({
-          ...cfg,
-          src: data
-        })
-      } else if (json.errors) {
-        json.errors.forEach((error) => {
-          Modals.openErrorModal(error)
-        })
-        handleError()
-      }
-    }, (status) => {
-      let msg = getLocaleMsg('ERROR')
-      switch (status) {
-        case 404:
-          msg = getLocaleMsg('AJAX_NOT_FOUND')
-          break
-        case 403:
-          msg = getLocaleMsg('AJAX_FORBIDDEN')
-          break
-        default:
-          break
-      }
-      Modals.openErrorModal(msg)
-      handleError()
-    })
+      makeRequest({url: src, type: 'text', method, body}).then((data) => {
+        if (cfg.data) {
+          delete cfg.data
+        }
+        const json = parseJSON(data)
+        if (isEmptyObj(json)) {
+          Modals.openHTMLModal({
+            ...cfg,
+            src: data
+          })
+        } else if (json.errors) {
+          Modals.openErrorModal(json.errors)
+          handleError()
+        }
+      }, (errorCode) => Modals.handleRequestError(errorCode, handleError))
+    } else {
+      console.error('Can\'t open ajax modal with invalid cfg:', cfg)
+    }
+  }
+
+  static setErrorText(errorText, slide, isReset = false) {
+    const context = (typeof slide.$content === 'undefined') ? slide : slide.$content
+    const errorBlock = context.querySelector(els.errorText)
+    if (errorBlock && errorText) {
+      errorBlock.innerHTML = (isReset) ? getLocaleMsg('ERROR') : (Array.isArray(errorText) ? errorText.join('<br />') : errorText)
+    }
   }
 
   static openErrorModal(errorText = getLocaleMsg('ERROR'), isCloseOthers = true, debugInfo) {
     if (isCloseOthers) {
       Modals.closeAllModals()
     }
-    const setErrorText = (slide, isReset = false) => {
-      const context = (typeof slide.$content === 'undefined') ? slide : slide.$content
-      const errorBlock = context.querySelector(els.errorText)
-      if (errorBlock && errorText) {
-        errorBlock.innerHTML = (isReset) ? getLocaleMsg('ERROR') : (Array.isArray(errorText) ? errorText.join(`<br />`) : errorText)
-      }
-    }
     Modals.openInlineModal({
       src: els.defaultAnchors.error,
       on: {
         ...modalOptions.on,
         reveal: (instance, slide) => {
-          setErrorText(slide)
+          Modals.setErrorText(errorText, slide)
+        },
+        destroy: () => {
+          Modals.setErrorText(errorText, document.querySelector(els.defaultAnchors.error), true)
         },
         closing: (instance) => {
           Modals.handleModalClose(instance)
-          window.setTimeout(() => {
-            setErrorText(document.querySelector(els.defaultAnchors.error), true)
-          }, 1500)
         }
       }
     })
@@ -286,20 +302,37 @@ export default class Modals {
     let instance = Fancybox.getInstance()
     const modals = document.querySelectorAll('[id^="fancybox-"][aria-modal]')
     if (modals.length && !instance) {
-      console.debug(modals)
       const lastModal = getLastFromNodeList(modals)
       instance = lastModal.Fancybox || null
     }
     return instance
   }
 
+  static setModalHandlerLock(handler, isLock = true) {
+    if (handler) {
+      (isLock) ? handler.classList.add(formStateClasses.disabled) : handler.classList.remove(formStateClasses.disabled)
+      if (handler.matches('button')) {
+        handler.disabled = isLock
+      }
+    }
+  }
+
   handleOpenClick(e) {
     e.preventDefault()
     const cfg = Modals.getCfg(e.target)
-    const {src} = cfg
+    const {src, isLockHandler, handler, on} = cfg
+    const setLock = (isLock = true) => {
+      if (handler && isLockHandler) {
+        Modals.setModalHandlerLock(handler, isLock)
+      }
+    }
+    if (typeof on.error === 'undefined') {
+      on.error = () => setLock(false)
+    }
     if (src) {
+      setLock()
       switch (true) {
-        case isUrl(src) || src.startsWith('/'):
+        case isUrl(src) || src.startsWith('/') || src.startsWith('.'):
           Modals.openAjaxModal(cfg)
           break
         case src.startsWith('#'):
@@ -310,16 +343,14 @@ export default class Modals {
           break
       }
     } else {
-      throw new Error(`No src for modal`)
+      throw new Error('No src for modal')
     }
   }
 
   handleCloseClick(e) {
     e.preventDefault()
-    window.setTimeout(() => {
-      e.target.blur()
-    }, 50)
-    Modals.closeOnlyModal()
+    wait(50).then(() => e.target.blur())
+    Modals.closeModal()
   }
 
   handleConfirmClick(e) {
@@ -340,18 +371,21 @@ export default class Modals {
 
   handleMouseDown(e) {
     const {target, button} = e
+
     if (button === 0) {
+      const isMatch = (selector) => target.matches(selector)
+      const {open, close, cancel, submit} = els
       switch (true) {
-        case target.matches(els.open):
+        case isMatch(open):
           this.handleOpenClick(e)
           break
-        case target.matches(els.close):
+        case isMatch(close):
           this.handleCloseClick(e)
           break
-        case target.matches(els.cancel):
+        case isMatch(cancel):
           this.handleCancelClick(e)
           break
-        case target.matches(els.submit):
+        case isMatch(submit):
           this.handleConfirmClick(e)
           break
         default:

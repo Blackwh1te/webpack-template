@@ -1,4 +1,3 @@
-
 /**
  * Всплывающее событие
  * @param targetEl{Node|String} - целевой элемент, на котором будет всплытие
@@ -10,7 +9,7 @@ export const bubble = (targetEl = document, name, detail = null, params = {
   cancelable: true,
   bubbles: true
 }) => {
-  params.detail = detail || null;
+  params.detail = detail || null
   if (typeof targetEl === 'string') {
     targetEl = document.querySelector(targetEl)
   }

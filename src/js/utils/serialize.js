@@ -19,11 +19,11 @@ export const serialize = (form, isAddDisabled = true, exclude = []) => {
     if (field.type === 'select-multiple') {
       for (let n = 0; n < field.options.length; n++) {
         if (!field.options[n].selected) continue;
-        serialized.push(fixedEncodeURIComponent(field.name) + "=" + fixedEncodeURIComponent(field.options[n].value));
+        serialized.push(fixedEncodeURIComponent(field.name) + '=' + fixedEncodeURIComponent(field.options[n].value));
       }
     }
     else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
-      serialized.push(fixedEncodeURIComponent(field.name) + "=" + fixedEncodeURIComponent(field.value));
+      serialized.push(fixedEncodeURIComponent(field.name) + '=' + fixedEncodeURIComponent(field.value));
     }
   }
   return serialized.join('&');

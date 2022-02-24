@@ -1,5 +1,5 @@
-import { parseJSON } from "./parseJSON";
-import { getAttr } from "./getAttr";
+import { parseJSON } from './parseJSON';
+import { getAttr } from './getAttr';
 
 /**
  * Получение конфига элемента

@@ -1,4 +1,4 @@
-import { debounce } from "./debounce";
+import { debounce } from './debounce';
 import { parseJSON } from './parseJSON'
 import { getAttr } from './getAttr'
 import { isMedia } from './isMedia'

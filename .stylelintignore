@@ -1,4 +1,6 @@
-**/*.js
 node_modules/
-assets/
-bitrix/
+build/
+local/components/
+**/*.*
+!**/*.css
+!**/*.pcss
