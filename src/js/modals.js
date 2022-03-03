@@ -370,27 +370,34 @@ export default class Modals {
   }
 
   handleMouseDown(e) {
-    const {target, button} = e
+    const { target, button } = e
 
-    if (button === 0) {
-      const isMatch = (selector) => target.matches(selector)
-      const {open, close, cancel, submit} = els
-      switch (true) {
-        case isMatch(open):
-          this.handleOpenClick(e)
-          break
-        case isMatch(close):
-          this.handleCloseClick(e)
-          break
-        case isMatch(cancel):
-          this.handleCancelClick(e)
-          break
-        case isMatch(submit):
-          this.handleConfirmClick(e)
-          break
-        default:
-          break
-      }
+    if (button !== 0) return
+
+    const isMatch = (selector) => target.matches(selector)
+    const { open, close, cancel, submit } = els
+
+    if (isMatch(open) && isMatch(close)) {
+      this.handleCloseClick(e)
+      this.handleOpenClick(e)
+      return
+    }
+
+    switch (true) {
+      case isMatch(open):
+        this.handleOpenClick(e)
+        break
+      case isMatch(close):
+        this.handleCloseClick(e)
+        break
+      case isMatch(cancel):
+        this.handleCancelClick(e)
+        break
+      case isMatch(submit):
+        this.handleConfirmClick(e)
+        break
+      default:
+        break
     }
   }
 
