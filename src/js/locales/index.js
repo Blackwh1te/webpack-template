@@ -132,5 +132,15 @@ export const locales = {
       ru: 'Выбрано несколько вариантов',
       en: 'Several options selected'
     },
-  }
+  },
+  input: {
+    'START_TYPING': {
+      ru: 'Начните ввод...',
+      en: 'Start typing...'
+    },
+    'CLEAR_INPUT': {
+      ru: 'Очистить ввод',
+      en: 'Clear input'
+    }
+  },
 }

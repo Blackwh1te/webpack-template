@@ -11,12 +11,17 @@ const {
 	multiple,
 	form,
 	options,
+	isLiveSearch,
 } = cfg
 %>
 
+<% const selectCfg = {
+	isLiveSearch
+} %>
+
 <div
 	class="<%= classNames('select form-item', extraClasses) %>"
-	data-js-select
+	data-js-select='<%- JSON.stringify(selectCfg) %>'
 	<%- extraAttrs %>
 >
 	<select

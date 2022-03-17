@@ -572,6 +572,15 @@
 						]
 					}) %>
 				</li>
+				<li class="grid__item">
+					<%- require('../components/select/template.ejs')({
+						label: {
+							text: 'Select (with live search)'
+						},
+						name: 'select-with-live-search',
+						isLiveSearch: true
+					}) %>
+				</li>
 			</ul>
 		</div>
 	</section>

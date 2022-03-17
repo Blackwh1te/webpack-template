@@ -2,9 +2,11 @@
 
 .select {
   --iconSize: 12px;
-  --iconColor: var(--c-main);
-  --hoverIconColor: var(--c-light);
+  --iconColor: var(--c-gray-2);
+  --hoverIconColor: var(--c-accent);
   --focusIconColor: var(--c-main);
+
+  --currentVariantColor: var(--c-dark);
 
   --dropdownOffsetY: 10px;
   --dropdownMaxHeight: 200px;
@@ -16,15 +18,15 @@
   --optionHeight: 48px;
   --optionPaddingX: var(--inputPaddingX);
   --optionFontSize: 14px;
-  --optionTextColor: var(--c-main);
+  --optionTextColor: var(--c-dark);
   --optionBgColor: var(--c-light);
-  --optionHoverTextColor: var(--c-dark);
+  --optionHoverTextColor: var(--c-main);
   --optionHoverBgColor: var(--c-gray-3);
   --optionSelectedTextColor: var(--c-light);
-  --optionSelectedBgColor: var(--c-brand);
+  --optionSelectedBgColor: var(--c-main);
 
   position: relative;
-  min-height: 73px;
+  min-height: 65px;
 
   &.is-open {
     .select {
@@ -37,6 +39,39 @@
 
         transform: initial;
       }
+
+      &__live-search-input {
+        @mixin show;
+
+        pointer-events: auto;
+      }
+
+      &__live-search-input {
+        & ~ {
+          .select__input .select__arrow-icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.is-open) {
+    .select__live-search-input,
+    .select__live-search-clear-btn {
+      display: none;
+    }
+
+    .select__live-search-input {
+      & ~ .select__input {
+        visibility: visible;
+      }
+    }
+  }
+
+  &.is-result-empty {
+    .select__dropdown {
+      @mixin hide;
     }
   }
 
@@ -87,6 +122,74 @@
 
     &:focus-visible {
       outline: var(--focusOutline);
+    }
+
+    &.form-input {
+      --textColor: var(--currentVariantColor);
+    }
+  }
+
+  &__live-search-input,
+  &__live-search-clear-btn {
+    @mixin hide;
+
+    pointer-events: none;
+  }
+
+  &__live-search-input {
+    @mixin abs-cover;
+
+    &:focus,
+    &.is-not-empty {
+      & ~ .select__input {
+        visibility: hidden;
+      }
+    }
+
+    &.is-not-empty {
+      & ~ .select__live-search-clear-btn {
+        @mixin show;
+
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &__live-search-clear-btn {
+    --size: 24px;
+
+    @mixin reset-btn;
+    @mixin hide;
+
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    &:hover {
+      .i-icon path {
+        stroke: var(--c-accent);
+      }
+    }
+
+    &:active {
+      .i-icon {
+        transform: scale(1.15) translateZ(0);
+      }
+    }
+
+    .i-icon {
+      --size: 50%;
+
+      path {
+        stroke: var(--iconColor);
+      }
     }
   }
 
@@ -158,6 +261,10 @@
     &.is-selected {
       color: var(--optionSelectedTextColor);
       background-color: var(--optionSelectedBgColor);
+    }
+
+    &.is-hidden {
+      display: none;
     }
   }
 }

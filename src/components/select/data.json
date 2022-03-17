@@ -10,6 +10,7 @@
   "disabled": false,
   "form": false,
   "multiple": false,
+  "isLiveSearch": false,
   "options": [
     {
       "text": "Россия",

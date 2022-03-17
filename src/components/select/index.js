@@ -1,10 +1,12 @@
 import './style.pcss'
 import Collection from '../../js/generic/collection'
-import {getRandomString} from '../../js/utils/getRandomString'
-import {render} from '../../js/utils/render'
-import {bubble} from '../../js/utils/bubble'
-import {isMobileDevice} from '../../js/utils/isMobileDevice'
-import {locales} from '../../js/locales'
+import { getRandomString } from '../../js/utils/getRandomString'
+import { render } from '../../js/utils/render'
+import { bubble } from '../../js/utils/bubble'
+import { isMobileDevice } from '../../js/utils/isMobileDevice'
+import { locales } from '../../js/locales'
+import { getCfg } from '../../js/utils/getCfg'
+import { wait } from '../../js/utils/wait'
 
 export const instance = '[data-js-select]'
 
@@ -25,16 +27,27 @@ export class Select {
     list: '[data-js-select-list]',
     item: '[data-js-select-dropdown-item]',
     optionBtn: '[data-js-select-option-btn]',
+    liveSearchInput: '[data-js-select-live-search-input]',
+    liveSearchClearBtn: '[data-js-select-live-search-clear-btn]'
+  }
+
+  defaultCfg = {
+    isLiveSearch: false,
   }
 
   stateClasses = {
     isOpen: 'is-open',
     isSelected: 'is-selected',
+    isHidden: 'is-hidden',
+    isNotEmpty: 'is-not-empty',
+    isResultEmpty: 'is-result-empty'
   }
 
   messages = {
     notSelected: locales.select['NOT_SELECTED'],
     severalOptionsSelected: locales.select['SEVERAL_OPTIONS_SELECTED'],
+    startTyping: locales.input['START_TYPING'],
+    clearInput: locales.input['CLEAR_INPUT'],
   }
 
   constructor(instance) {
@@ -48,6 +61,7 @@ export class Select {
     this.list = null
     this.optionButtons = []
     this.isMultiple = this.control.multiple
+    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
     this.state = {
       isOpen: false
     }
@@ -81,19 +95,19 @@ export class Select {
   }
 
   get options() {
-    return [...this.control.options]
+    return [ ...this.control.options ]
   }
 
   get selectedOptions() {
-    return [...this.control.selectedOptions]
+    return [ ...this.control.selectedOptions ]
   }
 
   get selectedOptionButtons() {
-    return [...this.optionButtons].filter(optionBtn => optionBtn.classList.contains(this.stateClasses.isSelected))
+    return [ ...this.optionButtons ].filter(optionBtn => optionBtn.classList.contains(this.stateClasses.isSelected))
   }
 
   get selectedOptionBtnIndex() {
-    return [...this.optionButtons].indexOf(this.selectedOptionButtons[0])
+    return [ ...this.optionButtons ].indexOf(this.selectedOptionButtons[0])
   }
 
   get isEmpty() {
@@ -144,9 +158,16 @@ export class Select {
 
   open() {
     if (this.isDisabled || this.isEmpty) return
+    if (this.liveSearchInput) this.clearLiveSearchInput()
     this.isOpen = true
     this.instance.classList.add(this.stateClasses.isOpen)
     bubble(this.instance, bubbles.open)
+    if (this.liveSearchInput) {
+      this.instance.classList.remove(this.stateClasses.isResultEmpty)
+      wait(100).then(() => {
+        this.liveSearchInput.focus()
+      })
+    }
   }
 
   updateTabIndex() {
@@ -174,7 +195,7 @@ export class Select {
   }
 
   getDropdownItemMarkup(option) {
-    const {selected, value, textContent} = option
+    const { selected, value, textContent } = option
     const id = `select-option-${getRandomString()}`
     let optionClasses = 'select__option'
     if (selected) optionClasses += ' is-selected'
@@ -198,16 +219,42 @@ export class Select {
     `
   }
 
+  getLiveSearchMarkup() {
+    return `
+      <input
+        class="select__live-search-input form-input"
+        type="text"
+        autocomplete="off"
+        placeholder="${window.App.lang === 'ru' ? this.messages.startTyping.ru : this.messages.startTyping.en}"
+        data-js-select-live-search-input
+      />
+      <button
+        class="select__live-search-clear-btn"
+        type="button"
+        title="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
+        aria-label="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
+        data-js-select-live-search-clear-btn
+      >
+        <svg class="i-icon">
+          <use href="#icon-close"></use>
+        </svg>
+      </button>
+    `
+  }
+
   generateMarkup() {
     let dropdownItems = ''
     this.options.forEach((option) => {
       dropdownItems += this.getDropdownItemMarkup(option)
     })
+    const liveSearchMarkup = this.cfg.isLiveSearch ? this.getLiveSearchMarkup() : ''
+
     const markup = `
       <div
         class="select__body"
         data-js-select-body
       >
+        ${liveSearchMarkup}
         <div
           class="select__input form-input"
           data-js-select-open-btn
@@ -288,7 +335,7 @@ export class Select {
   }
 
   getBtnIndex(btn) {
-    return [...this.optionButtons].indexOf(btn)
+    return [ ...this.optionButtons ].indexOf(btn)
   }
 
   selectPrevOption() {
@@ -324,7 +371,57 @@ export class Select {
     this.optionButtons = this.instance.querySelectorAll(this.els.optionBtn)
   }
 
+  filterResult(searchQuery) {
+    this.optionButtons.forEach((optionButton) => {
+      const textContent = optionButton.textContent.trim().toLowerCase()
+
+      if (textContent.includes(searchQuery)) {
+        optionButton.classList.remove(this.stateClasses.isHidden)
+      } else {
+        optionButton.classList.add(this.stateClasses.isHidden)
+      }
+    })
+
+    const hiddenOptionsButtons = [ ...this.optionButtons ].filter((optionButton) => optionButton.classList.contains(this.stateClasses.isHidden))
+
+    if (this.optionButtons.length === hiddenOptionsButtons.length) {
+      this.instance.classList.add(this.stateClasses.isResultEmpty)
+    } else {
+      this.instance.classList.remove(this.stateClasses.isResultEmpty)
+    }
+  }
+
+  showAllOptionButtons() {
+    this.optionButtons.forEach((optionButton) => {
+      optionButton.classList.remove(this.stateClasses.isHidden)
+    })
+  }
+
+  setLiveSearchInputState() {
+    if (this.liveSearchInput.value.length) {
+      this.liveSearchInput.classList.add(this.stateClasses.isNotEmpty)
+    } else {
+      this.liveSearchInput.classList.remove(this.stateClasses.isNotEmpty)
+    }
+  }
+
+  clearLiveSearchInput() {
+    this.liveSearchInput.value = ''
+    this.liveSearchInput.classList.remove(this.stateClasses.isNotEmpty)
+    this.showAllOptionButtons()
+  }
+
+  reset() {
+    this.value = this.options[0].value
+    this.updateOptionButtons()
+  }
+
   handleOptionBtnClick(btn) {
+    if (this.liveSearchInput) {
+      this.clearLiveSearchInput()
+      this.showAllOptionButtons()
+      this.instance.classList.remove(this.stateClasses.isResultEmpty)
+    }
     if (this.isMultiple) {
       this.toggleSelectOptionBtn(btn)
     } else {
@@ -345,12 +442,20 @@ export class Select {
     this.toggleVisibility()
   }
 
-  handleClick(e) {
-    if (!e.target.closest(this.els.instance)) this.close()
+  handleClick(event) {
+    const isClickOutside = ![ ...event.path ].includes(this.instance)
+
+    if (isClickOutside) {
+      this.close()
+    }
+  }
+
+  handleFormReset() {
+    this.reset()
   }
 
   handleInstanceClick(e) {
-    const {target} = e
+    const { target } = e
 
     if (target.matches(this.els.optionBtn)) {
       this.handleOptionBtnClick(target)
@@ -393,6 +498,25 @@ export class Select {
     this.open()
   }
 
+  handleLiveSearchInput(event) {
+    const searchQuery = event.target.value.trim().toLowerCase()
+
+    if (searchQuery.length > 0) {
+      this.filterResult(searchQuery)
+    } else {
+      this.showAllOptionButtons()
+    }
+
+    this.setLiveSearchInputState()
+  }
+
+  handleLiveSearchClearBtnClick() {
+    this.clearLiveSearchInput()
+    this.showAllOptionButtons()
+    this.liveSearchInput.focus()
+    this.instance.classList.remove(this.stateClasses.isResultEmpty)
+  }
+
   init() {
     this.generateMarkup()
     this.body = this.instance.querySelector(this.els.body)
@@ -400,6 +524,8 @@ export class Select {
     this.currentVariantEl = this.instance.querySelector(this.els.currentVariantEl)
     this.dropdown = this.instance.querySelector(this.els.dropdown)
     this.list = this.instance.querySelector(this.els.list)
+    this.liveSearchInput = this.instance.querySelector(this.els.liveSearchInput)
+    this.liveSearchClearBtn = this.instance.querySelector(this.els.liveSearchClearBtn)
     this.updateOptionButtonsEls()
     this.updateCurrentVariantCaption()
     this.updateTabIndex()
@@ -412,12 +538,19 @@ export class Select {
 
   bindEvents() {
     this.openBtn.addEventListener('click', () => this.handleOpenBtnClick())
-    document.addEventListener('click', (e) => this.handleClick(e))
+    document.addEventListener('click', (event) => this.handleClick(event))
     this.instance.addEventListener('click', (e) => this.handleInstanceClick(e))
     this.instance.addEventListener('keypress', (e) => this.handleInstanceKeyPress(e))
     this.instance.addEventListener('keydown', (e) => this.handleInstanceKeyDown(e))
     this.control.addEventListener('change', (e) => this.handleControlChange(e))
     this.label.addEventListener('click', (e) => this.handleLabelClick(e))
+    if (this.liveSearchInput) {
+      this.liveSearchInput.addEventListener('input', (event) => this.handleLiveSearchInput(event))
+      this.liveSearchClearBtn.addEventListener('click', () => this.handleLiveSearchClearBtnClick())
+    }
+    if (this.control.form) {
+      this.control.form.addEventListener('reset', () => this.handleFormReset())
+    }
   }
 }
 
