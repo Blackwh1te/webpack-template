@@ -1,6 +1,7 @@
-import Collection from './generic/collection'
-import {getCfg} from './utils/getCfg'
-import {clearAnimationsArray} from './utils/clearAnimationsArray'
+import './style.pcss';
+import {getCfg} from '../../js/utils/getCfg'
+import {clearAnimationsArray} from '../../js/utils/clearAnimationsArray'
+import Collection from '../../js/generic/collection'
 
 export const instance = '[data-js-accordion]'
 

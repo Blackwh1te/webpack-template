@@ -845,175 +845,22 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<!-- isAutoClosing - автоматические закрытие других аккордеонов в группе при открытии одного. -->
-			<!-- wholeSummaryClickable: false - даёт возможность, например, кликнуть по ссылке, находящейся в заголовке summary. -->
-			<% const accordionCfg = {
-				isAutoClosing: true,
-				wholeSummaryClickable: true,
-				animationParams: {
-					duration: 500,
-					easing: 'ease',
-				},
-			} %>
-			<!-- Все визуальные вариации аккордеона реализованы через БЭМ-модификаторы для элемента с классом accordion. -->
-			<!-- Все логические вариации аккордеона реализованы через атрибут data-js-accordion для элемента с классом accordion. -->
-			<div class="accordion"
-			     data-js-accordion='<%- JSON.stringify(accordionCfg) %>'
-			>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title">Accordion title</div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title">Accordion title</div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title">Accordion title</div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-			</div>
+			<%- require('../components/accordion/template.ejs')({
+				items: [
+					{
+						title: 'Accordion title 1',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					},
+					{
+						title: 'Accordion title 2',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					},
+					{
+						title: 'Accordion title 3',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					}
+				]
+			}) %>
 		</div>
 	</section>
 
@@ -1024,175 +871,24 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<!-- isAutoClosing - автоматические закрытие других аккордеонов в группе при открытии одного. -->
-			<!-- wholeSummaryClickable: false - даёт возможность, например, кликнуть по ссылке, находящейся в заголовке summary. -->
-			<% const accordionCfg2 = {
+			<%- require('../components/accordion/template.ejs')({
 				isAutoClosing: false,
 				wholeSummaryClickable: false,
-				animationParams: {
-					duration: 500,
-					easing: 'ease',
-				},
-			} %>
-			<!-- Все визуальные вариации аккордеона реализованы через БЭМ-модификаторы для элемента с классом accordion. -->
-			<!-- Все логические вариации аккордеона реализованы через атрибут data-js-accordion для элемента с классом accordion. -->
-			<div class="accordion"
-			     data-js-accordion='<%- JSON.stringify(accordionCfg2) %>'
-			>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-				<details class="accordion__item" data-js-accordion-item>
-					<summary class="accordion__summary" data-js-accordion-summary>
-						<div class="accordion__summary-inner">
-							<div class="accordion__title"><a href="#">Accordion link-title</a></div>
-							<button class="accordion__btn"
-							        type="button"
-							        data-js-accordion-btn
-							>
-                  <span class="accordion__btn-caption accordion__btn-caption--before">
-                    Развернуть
-                  </span>
-								<span class="accordion__btn-caption accordion__btn-caption--after">
-                    Свернуть
-                  </span>
-								<span class="accordion__btn-icon-wrapper">
-                    <svg class="i-icon">
-                      <use href="#icon-arrow-down"></use>
-                    </svg>
-                  </span>
-							</button>
-						</div>
-					</summary>
-					<div class="accordion__content" data-js-accordion-content>
-						<div class="accordion__content-inner">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo
-								minima nesciunt? Accusamus animi asperiores culpa delectus, dicta, ea error hic incidunt, ipsam iure
-								iusto laudantium molestias nam necessitatibus nisi non nostrum obcaecati omnis optio possimus quasi
-								quidem rerum saepe similique sint sit vitae voluptate! Ducimus in labore possimus quasi reprehenderit
-								suscipit. Animi aspernatur commodi consectetur corporis deleniti, dignissimos dolorum eos error
-								excepturi illo incidunt ipsum iusto labore pariatur reiciendis repellat saepe sapiente ullam vero
-								voluptate! Aspernatur eaque excepturi facilis iste tempora! Animi culpa dolor dolore ducimus eligendi
-								explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>
-						</div>
-					</div>
-				</details>
-			</div>
+				items: [
+					{
+						title: '<a href="#">Accordion link-title</a>',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					},
+					{
+						title: '<a href="#">Accordion link-title</a>',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					},
+					{
+						title: '<a href="#">Accordion link-title</a>',
+						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
+					}
+				]
+			}) %>
 		</div>
 	</section>
 
