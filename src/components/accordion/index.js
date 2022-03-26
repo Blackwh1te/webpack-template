@@ -11,7 +11,7 @@ export class Accordion {
     item: '[data-js-accordion-item]',
     summary: '[data-js-accordion-summary]',
     content: '[data-js-accordion-content]',
-    btn: '[data-js-accordion-btn]',
+    button: '[data-js-accordion-button]',
   }
 
   stateClasses = {
@@ -42,7 +42,7 @@ export class Accordion {
     if (this.cfg.wholeSummaryClickable || this.cfg.isExtraView) {
       return this.summaryEls
     } else {
-      return this.instance.querySelectorAll(`:scope > ${this.els.item} > ${this.els.summary} ${this.els.btn}`)
+      return this.instance.querySelectorAll(`:scope > ${this.els.item} > ${this.els.summary} ${this.els.button}`)
     }
   }
 

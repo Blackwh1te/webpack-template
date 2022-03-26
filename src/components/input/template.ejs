@@ -33,7 +33,7 @@ const {
   }
 
   const inputClasses = classNames('form-input', extraClasses, {
-    'form-input--has-btn': hasPasswordEye
+    'form-input--has-button': hasPasswordEye
   })
 %>
 
@@ -139,7 +139,7 @@ const {
     <% } %>
 
     <% if (hasPasswordEye) { %>
-      <%- require('../password-btn/template.ejs')() %>
+      <%- require('../password-button/template.ejs')() %>
     <% } %>
   </span>
 

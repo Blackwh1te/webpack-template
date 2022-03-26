@@ -79,7 +79,7 @@ export const attrs = {
 const paginationCfg = {
   type: 'bullets',
   bulletElement: 'button',
-  bulletClass: 'slider-pagination__btn',
+  bulletClass: 'slider-pagination__button',
   bulletActiveClass: 'is-active',
   clickable: true,
 }
@@ -166,8 +166,8 @@ export class SlidersCollection extends Collection {
       slidesPerView: 1,
       spaceBetween: 10,
       navigation: {
-        prevEl: '.slider .slider-buttons__btn--prev',
-        nextEl: '.slider .slider-buttons__btn--next'
+        prevEl: '.slider .slider-buttons__button--prev',
+        nextEl: '.slider .slider-buttons__button--next'
       },
       pagination: {
         ...paginationCfg,
@@ -194,8 +194,8 @@ export class SlidersCollection extends Collection {
           slidesPerView: 4,
           spaceBetween: 10,
           navigation: {
-            prevEl: '.product-preview__secondary-slider .slider-buttons__btn--prev',
-            nextEl: '.product-preview__secondary-slider .slider-buttons__btn--next'
+            prevEl: '.product-preview__secondary-slider .slider-buttons__button--prev',
+            nextEl: '.product-preview__secondary-slider .slider-buttons__button--next'
           },
         }
       },

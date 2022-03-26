@@ -1,5 +1,5 @@
 module.exports = ({env}) => {
-  const isProd = (env === "production");
+  const isProd = (env === 'production');
   const plugins = {
     'postcss-easy-import': {},
     'postcss-functions': {
@@ -20,7 +20,7 @@ module.exports = ({env}) => {
     'postcss-strip-inline-comments': {},
   }
   if (isProd) {
-    plugins["postcss-preset-env"] = {};
+    plugins['postcss-preset-env'] = {};
   }
   return {plugins}
 }

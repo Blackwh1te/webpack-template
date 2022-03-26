@@ -2,9 +2,9 @@ import './style.pcss'
 import {setCSSVar} from '../../js/utils/setCSSVar'
 import {wait} from '../../js/utils/wait'
 
-export const instance = '[data-js-btn]'
+export const instance = '[data-js-button]'
 
-export default class Btn {
+export default class Button {
   els = {
     instance,
   }
@@ -44,12 +44,12 @@ export default class Btn {
     })
   }
 
-  enableAnimationEndState(btn) {
-    btn.classList.add(this.stateClasses.isAnimationEnd)
+  enableAnimationEndState(button) {
+    button.classList.add(this.stateClasses.isAnimationEnd)
   }
 
-  disableAnimationEndState(btn) {
-    btn.classList.remove(this.stateClasses.isAnimationEnd)
+  disableAnimationEndState(button) {
+    button.classList.remove(this.stateClasses.isAnimationEnd)
   }
 
   handleClick(e) {

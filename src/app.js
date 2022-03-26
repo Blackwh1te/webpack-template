@@ -72,21 +72,21 @@ import Forms from './js/forms'
 import ScrollEffects from './js/scrollEffects'
 import Gallery from './js/gallery'
 import AdaptiveTables from './js/adaptiveTables'
-import Btn from './components/btn'
+import Button from './components/button'
 
 // Load components
 import './components/header'
 import './components/footer'
 import './components/breadcrumbs'
 import './components/logo'
-import './components/btn'
+import './components/button'
 import './components/input'
 import './components/checkbox'
 import './components/select'
 import './components/table'
 import './components/slider-buttons'
 import './components/slider-pagination'
-import './components/password-btn'
+import './components/password-button'
 import './components/product-card'
 import './components/progress'
 import './components/accordion'
@@ -116,7 +116,7 @@ const handleDOMReady = () => {
   new Forms()
   new Modals()
   new Gallery()
-  new Btn()
+  new Button()
 
   // app components
   App.ScrollEffects = new ScrollEffects()

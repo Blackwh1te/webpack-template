@@ -5,7 +5,7 @@ import {getScrollableBody} from './utils/getScrollableBody';
 
 export default class ScrollTo {
   els = {
-    btn: '[data-js-scroll-to]'
+    button: '[data-js-scroll-to]'
   };
 
   anchorCfg = {
@@ -43,7 +43,7 @@ export default class ScrollTo {
   }
 
   getCfg(el) {
-    let cfg = el.getAttribute(getAttr(this.els.btn));
+    let cfg = el.getAttribute(getAttr(this.els.button));
     if (cfg !== 'top' && cfg !== 'bottom') {
       let parsedCfg = parseJSON(cfg);
       if (parsedCfg.anchor) {
@@ -92,7 +92,7 @@ export default class ScrollTo {
   }
 
   handleClick(e) {
-    if (e.target.matches(this.els.btn)) {
+    if (e.target.matches(this.els.button)) {
       e.preventDefault();
       ScrollTo.scroll(this.getCfg(e.target));
     }

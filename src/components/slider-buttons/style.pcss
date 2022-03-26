@@ -1,8 +1,8 @@
 @import "../../styles/mixins.pcss";
 
 .slider-buttons {
-  --btnSize: 40px;
-  --btnRadius: 0;
+  --buttonSize: 40px;
+  --buttonRadius: 0;
 
   --iconColor: var(--c-main);
   --hoverIconColor: var(--c-brand);
@@ -23,16 +23,16 @@
     width: 100%;
   }
 
-  &__btn {
-    @mixin reset-btn;
+  &__button {
+    @mixin reset-button;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--btnSize);
-    height: var(--btnSize);
+    width: var(--buttonSize);
+    height: var(--buttonSize);
     cursor: pointer;
-    border-radius: var(--btnRadius);
+    border-radius: var(--buttonRadius);
     pointer-events: visible;
 
     @media (--mobile) {

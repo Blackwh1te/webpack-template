@@ -225,19 +225,19 @@
 		</header>
 		<div class="section__body">
 			<div class="flow mb50">
-				<%- require('../components/btn/template.ejs')() %>
-				<%- require('../components/btn/template.ejs')({
+				<%- require('../components/button/template.ejs')() %>
+				<%- require('../components/button/template.ejs')({
 					caption: {
-						text: 'Default btn'
+						text: 'Default button'
 					}
 				}) %>
-				<%- require('../components/btn/template.ejs')({
+				<%- require('../components/button/template.ejs')({
 					href: '/',
 					caption: {
-						text: 'Default btn-link'
+						text: 'Default button-link'
 					}
 				}) %>
-				<%- require('../components/btn/template.ejs')({
+				<%- require('../components/button/template.ejs')({
 					icon: {
 						name: 'arrow-right',
 						position: 'after'
@@ -246,7 +246,7 @@
 						text: 'With icon after'
 					}
 				}) %>
-				<%- require('../components/btn/template.ejs')({
+				<%- require('../components/button/template.ejs')({
 					icon: {
 						name: 'arrow-left',
 						position: 'before'
@@ -259,7 +259,7 @@
 			<div class="flow">
 				<div>
 					<span>With icon only:&nbsp;&nbsp;</span>
-					<%- require('../components/btn/template.ejs')({
+					<%- require('../components/button/template.ejs')({
 						icon: {
 							name: 'search'
 						},
@@ -638,7 +638,7 @@
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/btn/template.ejs')({
+						<%- require('../components/button/template.ejs')({
 							type: 'submit',
 							icon: false,
 							caption: {
@@ -680,7 +680,7 @@
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/btn/template.ejs')({
+						<%- require('../components/button/template.ejs')({
 							type: 'submit',
 							icon: false,
 							caption: {
@@ -722,7 +722,7 @@
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/btn/template.ejs')({
+						<%- require('../components/button/template.ejs')({
 							type: 'submit',
 							icon: false,
 							caption: {
@@ -763,7 +763,7 @@
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/btn/template.ejs')({
+						<%- require('../components/button/template.ejs')({
 							type: 'submit',
 							icon: false,
 							caption: {
@@ -987,7 +987,7 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/btn/template.ejs')({
+			<%- require('../components/button/template.ejs')({
 				type: 'button',
 				icon: false,
 				caption: {

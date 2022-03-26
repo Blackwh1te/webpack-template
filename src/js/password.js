@@ -7,7 +7,7 @@ export class Password {
   els = {
     instance,
     input: '[data-js-password-input]',
-    btn: '[data-js-password-btn]',
+    button: '[data-js-password-button]',
   }
 
   stateClasses = {
@@ -17,7 +17,7 @@ export class Password {
   constructor(instance) {
     this.instance = instance
     this.input = this.instance.querySelector(this.els.input)
-    this.btn = this.instance.querySelector(this.els.btn)
+    this.button = this.instance.querySelector(this.els.button)
     this.state = {
       isShown: false
     }
@@ -33,26 +33,26 @@ export class Password {
   show() {
     this.state.isShown = true
     this.input.setAttribute('type', 'text')
-    this.btn.classList.add(this.stateClasses.isActive)
-    this.btn.setAttribute('title', locales.form('HIDE_PASSWORD'))
-    this.btn.setAttribute('aria-label', locales.form('HIDE_PASSWORD'))
+    this.button.classList.add(this.stateClasses.isActive)
+    this.button.setAttribute('title', locales.form('HIDE_PASSWORD'))
+    this.button.setAttribute('aria-label', locales.form('HIDE_PASSWORD'))
   }
 
   hide() {
     this.state.isShown = false
     this.input.setAttribute('type', 'password')
-    this.btn.classList.remove(this.stateClasses.isActive)
-    this.btn.setAttribute('title', locales.form('SHOW_PASSWORD'))
-    this.btn.setAttribute('aria-label', locales.form('SHOW_PASSWORD'))
+    this.button.classList.remove(this.stateClasses.isActive)
+    this.button.setAttribute('title', locales.form('SHOW_PASSWORD'))
+    this.button.setAttribute('aria-label', locales.form('SHOW_PASSWORD'))
   }
 
-  handleBtnClick(e) {
+  handleButtonClick(e) {
     e.preventDefault()
     this.toggle()
   }
 
   bindEvents() {
-    this.btn.addEventListener('click', (e) => this.handleBtnClick(e))
+    this.button.addEventListener('click', (e) => this.handleButtonClick(e))
   }
 }
 

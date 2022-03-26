@@ -15,7 +15,7 @@ export const instance = '[data-js-file-attach]'
 export const els = {
   instance,
   input: '[data-js-file-attach-input]',
-  addBtn: '[data-js-file-attach-add-btn]',
+  addButton: '[data-js-file-attach-add-button]',
   fileList: '[data-js-file-attach-file-list]',
   fileRemove: '[data-js-file-attach-file-remove]',
   fileItem: '[data-js-file-attach-file]',
@@ -47,7 +47,7 @@ export class FileAttach {
   constructor(instance) {
     this.instance = instance
     this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
-    this.addBtn = this.instance.querySelector(els.addBtn)
+    this.addButton = this.instance.querySelector(els.addButton)
     this.input = this.getInput()
     this.fileList = this.instance.querySelector(els.fileList)
     this.isMultiple = this.input.hasAttribute('multiple')
@@ -57,7 +57,7 @@ export class FileAttach {
 
   getInput() {
     const insideInput = this.instance.querySelector(els.input)
-    return (insideInput) ? insideInput : document.querySelector(`[name="${this.addBtn.getAttribute('for')}"]`)
+    return (insideInput) ? insideInput : document.querySelector(`[name="${this.addButton.getAttribute('for')}"]`)
   }
 
   getInitialFiles() {
@@ -241,7 +241,7 @@ export class FileAttachCollection extends Collection {
     super(instance, FileAttach)
   }
 
-  static getFileTemplate({name, size, index}, isRenderRemoveBtn = true) {
+  static getFileTemplate({name, size, index}, isRenderRemoveButton = true) {
     return `
       <div class="file-attach__list-item attachment" data-js-file-attach-file="${index}">
         <div class="attachment__icon">
@@ -252,7 +252,7 @@ export class FileAttachCollection extends Collection {
         <div class="attachment__info">
           <div class="attachment__name" title="${name}" data-js-file-attach-file-info="name">${name}</div>
           <small class="attachment__size"  data-js-file-attach-file-info="size">${size}</small>
-          ${isRenderRemoveBtn ? '<button class="attachment__remove" type="button" data-js-file-attach-file-remove><svg class="i-icon"><use href="#icon-remove"></use></svg></button>' : ''}
+          ${isRenderRemoveButton ? '<button class="attachment__remove" type="button" data-js-file-attach-file-remove><svg class="i-icon"><use href="#icon-remove"></use></svg></button>' : ''}
         </div> 
        </div>
     `

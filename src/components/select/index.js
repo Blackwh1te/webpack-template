@@ -21,14 +21,14 @@ export class Select {
     instance,
     control: '[data-js-select-control]',
     body: '[data-js-select-body]',
-    openBtn: '[data-js-select-open-btn]',
+    openButton: '[data-js-select-open-button]',
     currentVariantEl: '[data-js-select-current-variant]',
     dropdown: '[data-js-select-dropdown]',
     list: '[data-js-select-list]',
     item: '[data-js-select-dropdown-item]',
-    optionBtn: '[data-js-select-option-btn]',
+    optionButton: '[data-js-select-option-button]',
     liveSearchInput: '[data-js-select-live-search-input]',
-    liveSearchClearBtn: '[data-js-select-live-search-clear-btn]'
+    liveSearchClearButton: '[data-js-select-live-search-clear-button]'
   }
 
   defaultCfg = {
@@ -55,7 +55,7 @@ export class Select {
     if (this.instance.querySelector(this.els.body)) return
     this.control = this.instance.querySelector(this.els.control)
     this.label = this.control.labels[0]
-    this.openBtn = null
+    this.openButton = null
     this.dropdown = null
     this.currentVariantEl = null
     this.list = null
@@ -103,10 +103,10 @@ export class Select {
   }
 
   get selectedOptionButtons() {
-    return [ ...this.optionButtons ].filter(optionBtn => optionBtn.classList.contains(this.stateClasses.isSelected))
+    return [ ...this.optionButtons ].filter(optionButton => optionButton.classList.contains(this.stateClasses.isSelected))
   }
 
-  get selectedOptionBtnIndex() {
+  get selectedOptionButtonIndex() {
     return [ ...this.optionButtons ].indexOf(this.selectedOptionButtons[0])
   }
 
@@ -173,24 +173,24 @@ export class Select {
   updateTabIndex() {
     isMobileDevice() ?
       this.control.removeAttribute('tabindex') :
-      this.openBtn.setAttribute('tabindex', '0')
+      this.openButton.setAttribute('tabindex', '0')
   }
 
   setAttrs() {
     const id = getRandomString()
     const dropdownID = `select-dropdown-${id}`
     const labelID = `select-label-${id}`
-    this.openBtn.setAttribute('aria-labelledby', labelID)
-    this.openBtn.setAttribute('aria-owns', dropdownID)
+    this.openButton.setAttribute('aria-labelledby', labelID)
+    this.openButton.setAttribute('aria-owns', dropdownID)
     this.label.setAttribute('id', labelID)
     this.dropdown.setAttribute('id', dropdownID)
-    this.updateOpenBtnAttr()
+    this.updateOpenButtonAttr()
   }
 
-  updateOpenBtnAttr() {
-    const firstSelectedOptionBtn = this.selectedOptionButtons[0]
-    if (firstSelectedOptionBtn) {
-      this.openBtn.setAttribute('aria-activedescendant', firstSelectedOptionBtn.id)
+  updateOpenButtonAttr() {
+    const firstSelectedOptionButton = this.selectedOptionButtons[0]
+    if (firstSelectedOptionButton) {
+      this.openButton.setAttribute('aria-activedescendant', firstSelectedOptionButton.id)
     }
   }
 
@@ -210,7 +210,7 @@ export class Select {
           class="${optionClasses}"
           id="${id}"
           type="button"
-          data-js-select-option-btn='{"value": "${value}"}'
+          data-js-select-option-button='{"value": "${value}"}'
           role="option"
         >
           ${textContent}
@@ -229,11 +229,11 @@ export class Select {
         data-js-select-live-search-input
       />
       <button
-        class="select__live-search-clear-btn"
+        class="select__live-search-clear-button"
         type="button"
         title="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
         aria-label="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
-        data-js-select-live-search-clear-btn
+        data-js-select-live-search-clear-button
       >
         <svg class="i-icon">
           <use href="#icon-close"></use>
@@ -257,7 +257,7 @@ export class Select {
         ${liveSearchMarkup}
         <div
           class="select__input form-input"
-          data-js-select-open-btn
+          data-js-select-open-button
           role="combobox"
           aria-autocomplete="list"
           aria-expanded="false"
@@ -312,63 +312,63 @@ export class Select {
   updateOptionButtons() {
     this.options.forEach((option, i) => {
       option.selected ?
-        this.selectOptionBtn(this.optionButtons[i]) :
-        this.unselectOptionBtn(this.optionButtons[i])
+        this.selectOptionButton(this.optionButtons[i]) :
+        this.unselectOptionButton(this.optionButtons[i])
     })
     this.updateMarkup()
   }
 
-  toggleSelectOptionBtn(btn) {
-    btn.classList.contains(this.stateClasses.isSelected) ?
-      this.unselectOptionBtn(btn) :
-      this.selectOptionBtn(btn)
+  toggleSelectOptionButton(button) {
+    button.classList.contains(this.stateClasses.isSelected) ?
+      this.unselectOptionButton(button) :
+      this.selectOptionButton(button)
   }
 
-  selectOptionBtn(btn) {
-    btn.classList.add(this.stateClasses.isSelected)
-    this.control.options[this.getBtnIndex(btn)].setAttribute('selected', true)
+  selectOptionButton(button) {
+    button.classList.add(this.stateClasses.isSelected)
+    this.control.options[this.getButtonIndex(button)].setAttribute('selected', true)
   }
 
-  unselectOptionBtn(btn) {
-    btn.classList.remove(this.stateClasses.isSelected)
-    this.control.options[this.getBtnIndex(btn)].removeAttribute('selected')
+  unselectOptionButton(button) {
+    button.classList.remove(this.stateClasses.isSelected)
+    this.control.options[this.getButtonIndex(button)].removeAttribute('selected')
   }
 
-  getBtnIndex(btn) {
-    return [ ...this.optionButtons ].indexOf(btn)
+  getButtonIndex(button) {
+    return [ ...this.optionButtons ].indexOf(button)
   }
 
   selectPrevOption() {
-    const index = this.selectedOptionBtnIndex
+    const index = this.selectedOptionButtonIndex
 
-    this.unselectOptionBtn(this.optionButtons[index])
+    this.unselectOptionButton(this.optionButtons[index])
     index > 0 ?
-      this.selectOptionBtn(this.optionButtons[index - 1]) :
-      this.selectOptionBtn(this.optionButtons[this.optionButtons.length - 1])
+      this.selectOptionButton(this.optionButtons[index - 1]) :
+      this.selectOptionButton(this.optionButtons[this.optionButtons.length - 1])
     bubble(this.control, 'change')
     bubble(this.instance, bubbles.change)
     this.updateMarkup()
   }
 
   selectNextOption() {
-    const index = this.selectedOptionBtnIndex
+    const index = this.selectedOptionButtonIndex
 
-    this.unselectOptionBtn(this.optionButtons[index])
+    this.unselectOptionButton(this.optionButtons[index])
     index < this.optionButtons.length - 1 ?
-      this.selectOptionBtn(this.optionButtons[index + 1]) :
-      this.selectOptionBtn(this.optionButtons[0])
+      this.selectOptionButton(this.optionButtons[index + 1]) :
+      this.selectOptionButton(this.optionButtons[0])
     bubble(this.control, 'change')
     bubble(this.instance, bubbles.change)
     this.updateMarkup()
   }
 
   updateMarkup() {
-    this.updateOpenBtnAttr()
+    this.updateOpenButtonAttr()
     this.updateCurrentVariantCaption()
   }
 
   updateOptionButtonsEls() {
-    this.optionButtons = this.instance.querySelectorAll(this.els.optionBtn)
+    this.optionButtons = this.instance.querySelectorAll(this.els.optionButton)
   }
 
   filterResult(searchQuery) {
@@ -416,21 +416,21 @@ export class Select {
     this.updateOptionButtons()
   }
 
-  handleOptionBtnClick(btn) {
+  handleOptionButtonClick(button) {
     if (this.liveSearchInput) {
       this.clearLiveSearchInput()
       this.showAllOptionButtons()
       this.instance.classList.remove(this.stateClasses.isResultEmpty)
     }
     if (this.isMultiple) {
-      this.toggleSelectOptionBtn(btn)
+      this.toggleSelectOptionButton(button)
     } else {
-      this.optionButtons.forEach((optionBtn) => {
-        if (optionBtn !== btn) {
-          this.unselectOptionBtn(optionBtn)
+      this.optionButtons.forEach((optionButton) => {
+        if (optionButton !== button) {
+          this.unselectOptionButton(optionButton)
         }
       })
-      this.selectOptionBtn(btn)
+      this.selectOptionButton(button)
       this.close()
     }
     bubble(this.control, 'change')
@@ -438,7 +438,7 @@ export class Select {
     this.updateMarkup()
   }
 
-  handleOpenBtnClick() {
+  handleOpenButtonClick() {
     this.toggleVisibility()
   }
 
@@ -457,13 +457,13 @@ export class Select {
   handleInstanceClick(e) {
     const { target } = e
 
-    if (target.matches(this.els.optionBtn)) {
-      this.handleOptionBtnClick(target)
+    if (target.matches(this.els.optionButton)) {
+      this.handleOptionButtonClick(target)
     }
   }
 
   handleInstanceKeyPress(e) {
-    if (e.target.matches(this.els.openBtn) && e.key === 'Enter') {
+    if (e.target.matches(this.els.openButton) && e.key === 'Enter') {
       this.toggleVisibility()
     }
   }
@@ -510,7 +510,7 @@ export class Select {
     this.setLiveSearchInputState()
   }
 
-  handleLiveSearchClearBtnClick() {
+  handleLiveSearchClearButtonClick() {
     this.clearLiveSearchInput()
     this.showAllOptionButtons()
     this.liveSearchInput.focus()
@@ -520,12 +520,12 @@ export class Select {
   init() {
     this.generateMarkup()
     this.body = this.instance.querySelector(this.els.body)
-    this.openBtn = this.instance.querySelector(this.els.openBtn)
+    this.openButton = this.instance.querySelector(this.els.openButton)
     this.currentVariantEl = this.instance.querySelector(this.els.currentVariantEl)
     this.dropdown = this.instance.querySelector(this.els.dropdown)
     this.list = this.instance.querySelector(this.els.list)
     this.liveSearchInput = this.instance.querySelector(this.els.liveSearchInput)
-    this.liveSearchClearBtn = this.instance.querySelector(this.els.liveSearchClearBtn)
+    this.liveSearchClearButton = this.instance.querySelector(this.els.liveSearchClearButton)
     this.updateOptionButtonsEls()
     this.updateCurrentVariantCaption()
     this.updateTabIndex()
@@ -537,7 +537,7 @@ export class Select {
   }
 
   bindEvents() {
-    this.openBtn.addEventListener('click', () => this.handleOpenBtnClick())
+    this.openButton.addEventListener('click', () => this.handleOpenButtonClick())
     document.addEventListener('click', (event) => this.handleClick(event))
     this.instance.addEventListener('click', (e) => this.handleInstanceClick(e))
     this.instance.addEventListener('keypress', (e) => this.handleInstanceKeyPress(e))
@@ -546,7 +546,7 @@ export class Select {
     this.label.addEventListener('click', (e) => this.handleLabelClick(e))
     if (this.liveSearchInput) {
       this.liveSearchInput.addEventListener('input', (event) => this.handleLiveSearchInput(event))
-      this.liveSearchClearBtn.addEventListener('click', () => this.handleLiveSearchClearBtnClick())
+      this.liveSearchClearButton.addEventListener('click', () => this.handleLiveSearchClearButtonClick())
     }
     if (this.control.form) {
       this.control.form.addEventListener('reset', () => this.handleFormReset())

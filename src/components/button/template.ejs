@@ -16,14 +16,14 @@ const {
 const getIconMarkup = () => {
 	if (!icon) return ''
 	return `
-		<svg class="btn__icon i-icon">
+		<svg class="button__icon i-icon">
 			<use href="#icon-${icon.name}"></use>
 		</svg>
 	`
 }
 
-const getBtnBodyMarkup = () => {
-	const classes = classNames('btn__caption', {
+const getButtonBodyMarkup = () => {
+	const classes = classNames('button__caption', {
 		'visually-hidden': caption.isHidden
 	})
 	return `
@@ -33,13 +33,13 @@ const getBtnBodyMarkup = () => {
 	`
 }
 
-const classes = classNames('btn', extraClasses, {
-	'btn--icon-only': icon && caption.isHidden
+const classes = classNames('button', extraClasses, {
+	'button--icon-only': icon && caption.isHidden
 })
 
 let dataAttrs = ''
 if (!caption.isHidden) {
-	dataAttrs += ' data-js-btn'
+	dataAttrs += ' data-js-button'
 }
 %>
 
@@ -54,7 +54,7 @@ if (!caption.isHidden) {
 		<%- dataAttrs %>
 		<%- extraAttrs %>
 	>
-		<%- getBtnBodyMarkup() %>
+		<%- getButtonBodyMarkup() %>
 	</a>
 <% } else { %>
 	<button
@@ -70,6 +70,6 @@ if (!caption.isHidden) {
 		<%- dataAttrs %>
 		<%- extraAttrs %>
 	>
-		<%- getBtnBodyMarkup() %>
+		<%- getButtonBodyMarkup() %>
 	</button>
 <% } %>

@@ -58,7 +58,7 @@
 
   &:not(.is-open) {
     .select__live-search-input,
-    .select__live-search-clear-btn {
+    .select__live-search-clear-button {
       display: none;
     }
 
@@ -130,7 +130,7 @@
   }
 
   &__live-search-input,
-  &__live-search-clear-btn {
+  &__live-search-clear-button {
     @mixin hide;
 
     pointer-events: none;
@@ -147,7 +147,7 @@
     }
 
     &.is-not-empty {
-      & ~ .select__live-search-clear-btn {
+      & ~ .select__live-search-clear-button {
         @mixin show;
 
         pointer-events: auto;
@@ -155,10 +155,10 @@
     }
   }
 
-  &__live-search-clear-btn {
+  &__live-search-clear-button {
     --size: 24px;
 
-    @mixin reset-btn;
+    @mixin reset-button;
     @mixin hide;
 
     position: absolute;
@@ -235,7 +235,7 @@
   }
 
   &__option {
-    @mixin reset-btn;
+    @mixin reset-button;
 
     display: inline-flex;
     align-items: center;
