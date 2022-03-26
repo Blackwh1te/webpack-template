@@ -7,9 +7,14 @@ const {
 } = cfg
 %>
 
+<%
+const classes = classNames(extraClasses, 'example-component')
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(' ') : extraAttrs
+%>
+
 <div
-	class="<%= classNames("example-component", extraClasses) %>"
-	<%- extraAttrs %>
+	class="<%= classes %>"
+	<%- attrs %>
 >
 
 </div>
