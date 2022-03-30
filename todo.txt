@@ -1,0 +1,2 @@
+Todo:
+- заменить все paddingX и paddingY на padding-block и padding-inline
