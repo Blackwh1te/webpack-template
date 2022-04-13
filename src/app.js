@@ -28,7 +28,7 @@ window.App = {
     domReady: 'dom-is-ready',
     pageLoaded: 'page-is-loaded',
     touchscreen: 'is-touchscreen',
-    mobileDevice: 'is-mobile-device'
+    mobileDevice: 'is-mobile-device',
   },
   ...parseJSON(document.body.getAttribute('data-js-app-globals')),
   utils: { // utils functions
