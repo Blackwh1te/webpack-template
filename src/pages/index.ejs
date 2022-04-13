@@ -27,7 +27,7 @@
 		title: 'Модальные окна',
 		code: 'modals',
 	},
-]; %>
+] %>
 
 <div class="content__sections">
 	<div class="page-header container">
@@ -38,7 +38,8 @@
 			<%= data.title %>
 		</h1>
 		<div class="page-header__description">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laborum nostrum quasi, reprehenderit tenetur voluptates.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae laborum nostrum quasi, reprehenderit tenetur
+				voluptates.</p>
 		</div>
 	</div>
 
@@ -50,28 +51,28 @@
 		</header>
 		<div class="section__body">
 			<ul>
-				<% pages.forEach((page) => {
-					const {code, title, items} = page; %>
-				<li>
-					<% if (page.code) { %>
-						<a href="./<%= code %>.html">
-							<%= title %>
-						</a>
-					<% } else { %>
-						<span><%= title %></span>
-					<% } %>
-					<% if (items) { %>
-						<ul>
-							<% items.forEach(item => { %>
-								<li>
-									<a href="./<%= item.code %>.html">
-										<%= item.title %>
-									</a>
-								</li>
-							<% }) %>
-						</ul>
-					<% } %>
-				</li>
+				<% pages.forEach((page) => { %>
+					<% const {code, title, items} = page %>
+					<li>
+						<% if (page.code) { %>
+							<a href="./<%= code %>.html">
+								<%= title %>
+							</a>
+						<% } else { %>
+							<span><%= title %></span>
+						<% } %>
+						<% if (items) { %>
+							<ul>
+								<% items.forEach(item => { %>
+									<li>
+										<a href="./<%= item.code %>.html">
+											<%= item.title %>
+										</a>
+									</li>
+								<% }) %>
+							</ul>
+						<% } %>
+					</li>
 				<% }) %>
 			</ul>
 		</div>
