@@ -16,7 +16,7 @@ export const mq = {
   tabletXsAbove: '(min-width: 921px)',
   tabletXs: '(max-width: 920px)',
   mobileAbove: '(min-width: 768px)',
-  mobile: '(max-width: 767px)',
+  mobile: '(max-width: 767px)'
 }
 
 // Create global App object
