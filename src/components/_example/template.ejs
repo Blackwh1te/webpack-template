@@ -1,10 +1,10 @@
 <%
-const { classNames } = require("../../js/ejsUtils")
-const cfg = { ...require("./data.json"), ...arguments?.[0] }
+const { classNames } = require("../../js/utils/classNames")
+const props = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs
-} = cfg
+} = props
 %>
 
 <%

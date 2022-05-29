@@ -1,4 +1,4 @@
-function classNames() {
+export function classNames() {
   const classes = []
 
   for (let i = 0; i < arguments.length; i++) {
@@ -30,8 +30,4 @@ function classNames() {
   }
 
   return classes.join(' ')
-}
-
-module.exports = {
-  classNames,
 }

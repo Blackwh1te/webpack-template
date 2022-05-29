@@ -1,6 +1,6 @@
 <%
-const {classNames} = require('../../js/ejsUtils')
-const cfg = {...require('./data.json'), ...arguments?.[0]}
+const { classNames } = require('../../js/utils/classNames')
+const props = { ...require('./data.json'), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
@@ -9,7 +9,7 @@ const {
 	icon,
 	caption,
 	disabled,
-} = cfg
+} = props
 %>
 
 <%
@@ -24,7 +24,7 @@ const getIconMarkup = () => {
 
 const getButtonBodyMarkup = () => {
 	const classes = classNames('button__caption', {
-		'visually-hidden': caption.isHidden
+		'visually-hidden': caption.isHidden,
 	})
 	return `
 		${icon.position !== 'after' ? getIconMarkup() : ''}
@@ -34,7 +34,7 @@ const getButtonBodyMarkup = () => {
 }
 
 const classes = classNames('button', extraClasses, {
-	'button--icon-only': icon && caption.isHidden
+	'button--icon-only': icon && caption.isHidden,
 })
 
 let dataAttrs = ''

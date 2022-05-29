@@ -1,0 +1,60 @@
+<%
+const { classNames } = require("../../js/utils/classNames")
+const props = { ...require("./data.json"), ...arguments?.[0] };
+const {
+	extraClasses,
+	extraAttrs,
+	title,
+	hasLink,
+	linkTitle,
+	body,
+} = props
+%>
+
+<%
+const classes = classNames(extraClasses, 'section')
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(' ') : extraAttrs
+%>
+
+<%
+const getLinkMarkup = () => {
+	if (!hasLink) return ''
+
+	return require('../button/template.ejs')({
+		extraClasses: 'section__link',
+		href: '/',
+		label: linkTitle,
+		isLabelHidden: true,
+		iconName: 'arrow-right-up',
+		isTransparent: true,
+	})
+}
+
+const getHeaderMarkup = () => {
+	if (!title) return ''
+
+	return `
+    <header class="section__header">
+      <h2 class="section__title h1">${title}</h2>
+      ${getLinkMarkup()}
+    </header>
+  `
+}
+
+const innerMarkup = `
+  <div class="section__inner container">
+    ${getHeaderMarkup()}
+    <div class="section__body">${body}</div>
+  </div>
+`
+%>
+
+<% if (title) { %>
+	<section class="<%= classes %>" <%- attrs %>>
+		<%- innerMarkup %>
+	</section>
+<% } else { %>
+	<div class="<%= classes %>" <%- attrs %>>
+		<%- innerMarkup %>
+	</div>
+<% } %>
