@@ -1,18 +1,18 @@
-import {instance as fileAttachInstance} from '../../../components/file-attach'
-import Forms, {bubbles as formBubbles, els as formEls, stateClasses} from '../'
-import Modals from '../../../js/modals'
-import FormValidation from '../validation'
-import {bubble} from '../../utils/bubble'
-import {render} from '../../utils/render'
-import {removeChildNodes} from '../../utils/removeChildNodes'
-import {dispatchContentLoaded} from '../../generic/eventing'
-import {parseHTML} from '../../utils/parseHTML'
-import {getAttr} from '../../utils/getAttr'
-import {parseJSON} from '../../utils/parseJSON'
-import {getLocaleMsg} from '../../utils/getLocaleMsg'
-import {makeRequest} from '../../utils/makeRequest'
-import {getCheckedBoxes} from '../../utils/getCheckedBoxes'
-import {wait} from '../../utils/wait'
+import { instance as fileAttachInstance } from "../../../components/file-attach"
+import Forms, { bubbles as formBubbles, els as formEls, stateClasses } from "../"
+import Modals from "../../../js/modals"
+import FormValidation from "../validation"
+import { bubble } from "../../utils/bubble"
+import { render } from "../../utils/render"
+import { removeChildNodes } from "../../utils/removeChildNodes"
+import { dispatchContentLoaded } from "../../generic/eventing"
+import { parseHTML } from "../../utils/parseHTML"
+import { getAttr } from "../../utils/getAttr"
+import { parseJSON } from "../../utils/parseJSON"
+import { getLocaleMsg } from "../../utils/getLocaleMsg"
+import { makeRequest } from "../../utils/makeRequest"
+import { getCheckedBoxes } from "../../utils/getCheckedBoxes"
+import { wait } from "../../utils/wait"
 
 export default class FormSend {
   constructor() {
@@ -28,7 +28,7 @@ export default class FormSend {
   handleFormValid(e) {
     const form = e.target
     const cfg = Forms.getFormCfg(form)
-    const {isIgnoreAutoSend, isUseFetch, isConfirmBeforeSubmit, handler} = cfg
+    const { isIgnoreAutoSend, isUseFetch, isConfirmBeforeSubmit, handler } = cfg
     if (!isIgnoreAutoSend) {
       const fn = () => (isUseFetch) ? FormSend.send(form, FormSend.getFormData(form, false, [], false)) : form.submit()
       if (isConfirmBeforeSubmit) {
@@ -56,10 +56,10 @@ export default class FormSend {
     const cfg = Forms.getFormCfg(form)
     const fd = new FormData(form)
     if (cfg.isSerializeDisabledInputs || isGetAll) {
-      const disabledInputs = form.querySelectorAll('[disabled]')
-      disabledInputs.forEach(({name, value, type}) => {
+      const disabledInputs = form.querySelectorAll("[disabled]")
+      disabledInputs.forEach(({ name, value, type }) => {
         const set = (name, value) => fd.set(name, value)
-        if (type === 'radio') {
+        if (type === "radio") {
           const radios = getCheckedBoxes(document.querySelectorAll(`[name=${name}]`))
           if (radios.length) {
             set(name, radios[0].value)
@@ -69,8 +69,8 @@ export default class FormSend {
         }
       })
     }
-    [...fd.entries()].forEach(([name, value]) => {
-      if ((isTrim && typeof value === 'string' && !value.trim().length) || excludedParams.includes(name)) {
+    [ ...fd.entries() ].forEach(([ name, value ]) => {
+      if ((isTrim && typeof value === "string" && !value.trim().length) || excludedParams.includes(name)) {
         fd.delete(name)
       }
     })
@@ -83,17 +83,17 @@ export default class FormSend {
    */
   static appendNodes(elements) {
     elements.forEach((item) => {
-      const {to, html} = item
+      const { to, html } = item
       const position = item.position || undefined
       const dest = document.querySelector(to)
       if (dest) {
         render(dest, html, position)
         dispatchContentLoaded({
-          content: dest
+          content: dest,
         })
         bubble(dest, formBubbles.formAppendNodes, html)
       } else {
-        console.debug('Can\'t find nodes with selector: ', dest)
+        console.debug("Can't find nodes with selector: ", dest)
       }
     })
   }
@@ -104,15 +104,15 @@ export default class FormSend {
    */
   static replaceNodes(elements) {
     elements.forEach(item => {
-      const {selector, html} = item
+      const { selector, html } = item
       const dest = document.querySelector(selector)
       const newNodes = parseHTML(html)
       if (dest && newNodes.length) {
         dest.replaceWith(newNodes[0])
-        dispatchContentLoaded({content: dest})
+        dispatchContentLoaded({ content: dest })
         bubble(dest, formBubbles.formReplaceNodes, html)
       } else {
-        console.debug('Can\'t find nodes with selector: ', dest)
+        console.debug("Can't find nodes with selector: ", dest)
       }
     })
   }
@@ -130,7 +130,7 @@ export default class FormSend {
           bubble(node, formBubbles.formRemoveNodes)
         })
       } else {
-        console.debug('Can\'t find nodes with selector: ', selector)
+        console.debug("Can't find nodes with selector: ", selector)
       }
     })
   }
@@ -150,12 +150,12 @@ export default class FormSend {
       isResetAfterSuccess,
       isShowModals,
       successModalId,
-      isCloseAllModalsAfterSuccess
+      isCloseAllModalsAfterSuccess,
     } = cfg
-    const {file, reload, redirect, errors, hideElements, appendElements, replaceElements, innerHTML, modals} = resp
-    const bubbleDetail = {resp, cfg, form}
+    const { file, reload, redirect, errors, hideElements, appendElements, replaceElements, innerHTML, modals } = resp
+    const bubbleDetail = { resp, cfg, form }
     if (file) {
-      window.open(resp.file, 'downloadFile').focus()
+      window.open(resp.file, "downloadFile").focus()
     }
     if (reload) {
       window.location.reload()
@@ -172,15 +172,15 @@ export default class FormSend {
       } else {
         render(form, errorsListLayout, errorsListPosition)
         const errorsBlock = form.querySelector(formEls.errorsList)
-        errors.forEach(errorText => render(errorsBlock, errorsListItemLayout(errorText), 'afterbegin'))
+        errors.forEach(errorText => render(errorsBlock, errorsListItemLayout(errorText), "afterbegin"))
         FormValidation.resetGoogleCaptcha(form)
       }
     } else {
       bubble(form, formBubbles.formSuccess, bubbleDetail)
-      if (innerHTML && typeof innerHTML === 'string') {
+      if (innerHTML && typeof innerHTML === "string") {
         removeChildNodes(form)
         render(form, innerHTML)
-        dispatchContentLoaded({content: form})
+        dispatchContentLoaded({ content: form })
       }
       if (hideElements) {
         FormSend.hideNodes(hideElements)
@@ -203,12 +203,12 @@ export default class FormSend {
           if (Array.isArray(modals)) {
             modals.forEach(src => {
               if (src.length) {
-                Modals.openHTMLModal({src})
+                Modals.openHTMLModal({ src })
               }
             })
-          } else Modals.openHTMLModal({src: modals})
+          } else Modals.openHTMLModal({ src: modals })
         } else {
-          Modals.openInlineModal({src: successModalId})
+          Modals.openInlineModal({ src: successModalId })
         }
       }
     }
@@ -220,13 +220,13 @@ export default class FormSend {
    * @param err{Object} - ответ сервера
    */
   static handleError(cfg, err) {
-    const {form, isResetAfterSuccess, successTimeOut = 1000} = cfg
+    const { form, isResetAfterSuccess, successTimeOut = 1000 } = cfg
     FormValidation.resetGoogleCaptcha(form)
     if (isResetAfterSuccess) {
       form.reset()
       FormValidation.resetFiles(form)
     }
-    Modals.openErrorModal(getLocaleMsg('NETWORK_ERROR'), false, err)
+    Modals.openErrorModal(getLocaleMsg("NETWORK_ERROR"), false, err)
     FormSend.setLoadingState(form, false, successTimeOut)
   }
 
@@ -247,15 +247,15 @@ export default class FormSend {
    */
   static setLoadingState(form, isLoading = true, timeOut = 0) {
     const cfg = Forms.getFormCfg(form)
-    const {successTimeOut, handler} = cfg
+    const { successTimeOut, handler } = cfg
     timeOut = timeOut || successTimeOut
     const fn = () => {
       (isLoading) ? form.classList.add(stateClasses.loading) : form.classList.remove(stateClasses.loading)
-      if (handler && (handler.matches('button') || handler.matches('[type="submit"]'))) {
+      if (handler && (handler.matches("button") || handler.matches("[type=\"submit\"]"))) {
         handler.disabled = isLoading
       }
     }
-    (typeof timeOut === 'number' && timeOut > 0) ? wait(timeOut).then(() => fn()) : fn()
+    (typeof timeOut === "number" && timeOut > 0) ? wait(timeOut).then(() => fn()) : fn()
   }
 
   /**
@@ -268,15 +268,15 @@ export default class FormSend {
    */
   static send(form, formData, onSuccess, onError, onDone) {
     const cfg = Forms.getFormCfg(form)
-    const {handler, isClearErrorsBeforeSend, url, method, isReturnJSON, successTimeOut} = cfg
-    const {submitAppend, errorsList} = formEls
+    const { handler, isClearErrorsBeforeSend, url, method, isReturnJSON, successTimeOut } = cfg
+    const { submitAppend, errorsList } = formEls
     const isFiles = !!form.querySelectorAll(fileAttachInstance).length
-    const delayedCallback = (callback) => (successTimeOut && typeof successTimeOut === 'number') ? wait(successTimeOut).finally(() => callback()) : callback()
+    const delayedCallback = (callback) => (successTimeOut && typeof successTimeOut === "number") ? wait(successTimeOut).finally(() => callback()) : callback()
     formData = formData || FormSend.getFormData(form)
     FormSend.setLoadingState(form)
     if (handler && handler.matches(submitAppend)) {
       const extraData = parseJSON(handler.getAttribute(getAttr(submitAppend)))
-      extraData.forEach((item) => Object.entries(item).forEach(([name, value]) => formData.append(name, value.toString())))
+      extraData.forEach((item) => Object.entries(item).forEach(([ name, value ]) => formData.append(name, value.toString())))
     }
     if (isFiles) {
       FormValidation.extendFiles(form, formData)
@@ -287,21 +287,21 @@ export default class FormSend {
         errorList.remove()
       }
     }
-    if (form.hasAttribute('method')) {
-      const nativeMethod = form.getAttribute('method')
+    if (form.hasAttribute("method")) {
+      const nativeMethod = form.getAttribute("method")
       if (nativeMethod !== method) {
         cfg.method = nativeMethod
       }
     }
     if (!url) {
-      cfg.url = (form.hasAttribute('action')) ? form.getAttribute('action') : window.location.origin + window.location.pathname
+      cfg.url = (form.hasAttribute("action")) ? form.getAttribute("action") : window.location.origin + window.location.pathname
     }
     cfg.data = formData
     if (isReturnJSON) {
-      cfg.type = 'json'
+      cfg.type = "json"
     }
     makeRequest(cfg).then(resp => {
-      if (typeof onSuccess === 'function') {
+      if (typeof onSuccess === "function") {
         onSuccess(resp)
       } else {
         if (isReturnJSON) {
@@ -310,11 +310,11 @@ export default class FormSend {
           return resp
         }
       }
-    }, err => delayedCallback(() => (typeof onError === 'function') ? onError(err) : FormSend.handleError(cfg, err))).finally(() => {
+    }, err => delayedCallback(() => (typeof onError === "function") ? onError(err) : FormSend.handleError(cfg, err))).finally(() => {
       if (App.debug) {
-        console.debug('Form send:', form, cfg, 'data: ', [...formData.entries()])
+        console.debug("Form send:", form, cfg, "data: ", [ ...formData.entries() ])
       }
-      (typeof onDone === 'function') ? onDone(cfg, form) : FormSend.handleDone(form)
+      (typeof onDone === "function") ? onDone(cfg, form) : FormSend.handleDone(form)
     })
   }
 }

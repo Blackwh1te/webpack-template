@@ -4,15 +4,15 @@ const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
-  multiple,
+	multiple,
 	name,
 	filter,
-	label
+	label,
 } = cfg
 %>
 
 <div
-	class="<%= classNames('file-attach', extraClasses) %>"
+	class="<%= classNames("file-attach", extraClasses) %>"
 	data-js-file-attach
 	<%- extraAttrs %>
 >
@@ -20,8 +20,8 @@ const {
 		class="file-attach__input"
 		id="<%= name %>"
 		name="<%= name %>"
-		<% if (multiple) { %>
-			multiple
+	<% if (multiple) { %>
+		multiple
 		<% } %>
 		autocomplete="off"
 		type="file"
@@ -30,8 +30,8 @@ const {
 	>
 	<label
 		class="file-attach__button"
-	  data-js-file-attach-add-button
-	  for="<%= name %>"
+		data-js-file-attach-add-button
+		for="<%= name %>"
 	>
 		<svg class="file-attach__icon i-icon">
 			<use href="#icon-attachment"></use>

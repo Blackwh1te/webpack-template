@@ -3,24 +3,24 @@
  v. 1.2.5
 */
 
-import {bubble} from './utils/bubble'
-import {debounce} from './utils/debounce'
-import {setCSSVar} from './utils/setCSSVar'
-import {removeCSSVar} from './utils/removeCSSVar'
-import {isMedia} from './utils/isMedia'
-import {removeAttrs} from './utils/removeAttrs'
-import {removeClasses} from './utils/removeClasses'
+import { bubble } from "./utils/bubble"
+import { debounce } from "./utils/debounce"
+import { setCSSVar } from "./utils/setCSSVar"
+import { removeCSSVar } from "./utils/removeCSSVar"
+import { isMedia } from "./utils/isMedia"
+import { removeAttrs } from "./utils/removeAttrs"
+import { removeClasses } from "./utils/removeClasses"
 
-import ScrollMagic from 'scrollmagic/scrollmagic/uncompressed/ScrollMagic'
-import 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators'
+import ScrollMagic from "scrollmagic/scrollmagic/uncompressed/ScrollMagic"
+import "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators"
 
 export const els = {
-  blocks: '[data-js-scroll-effect]',
-  unlock: '[data-js-scroll-effect-unlock]',
-  spacer: '[data-scrollmagic-pin-spacer]'
+  blocks: "[data-js-scroll-effect]",
+  unlock: "[data-js-scroll-effect-unlock]",
+  spacer: "[data-scrollmagic-pin-spacer]",
 }
 
-export const nameSpace = 'scrollEffects'
+export const nameSpace = "scrollEffects"
 
 export const bubbles = {
   module: `${nameSpace}::inited`,
@@ -30,45 +30,45 @@ export const bubbles = {
   update: `${nameSpace}::update`,
   destroy: `${nameSpace}::destroy`,
   progress: `${nameSpace}::progress`,
-  transitionEnd: `${nameSpace}::transitionEnd`
+  transitionEnd: `${nameSpace}::transitionEnd`,
 }
 
 export default class ScrollEffects {
 
   stateClasses = {
-    effect: 'scroll-effect',
-    visible: 'scroll-effect--visible',
-    locked: 'scroll-effect--locked',
-    playing: 'scroll-effect--playing',
-    init: 'scroll-effect--init',
+    effect: "scroll-effect",
+    visible: "scroll-effect--visible",
+    locked: "scroll-effect--locked",
+    playing: "scroll-effect--playing",
+    init: "scroll-effect--init",
     transition: {
-      end: 'scroll-effect--transition-end'
+      end: "scroll-effect--transition-end",
     },
     page: {
-      loaded: 'dom-is-ready',
-      ready: 'page-is-loaded'
+      loaded: "dom-is-ready",
+      ready: "page-is-loaded",
     },
     progress: {
-      scrolledQuarter: 'scroll-effect--progress-quarter',
-      scrolledMiddle: 'scroll-effect--progress-middle',
-      scrolledFull: 'scroll-effect--progress-full',
-    }
+      scrolledQuarter: "scroll-effect--progress-quarter",
+      scrolledMiddle: "scroll-effect--progress-middle",
+      scrolledFull: "scroll-effect--progress-full",
+    },
   }
 
   utils = {
     modules: {
-      nameSpace: 'ModuleLoaded',
-      classPrefix: 'module-is-loaded'
-    }
+      nameSpace: "ModuleLoaded",
+      classPrefix: "module-is-loaded",
+    },
   }
 
   cssVars = {
-    progress: '--scrollEffectsSceneProgress'
+    progress: "--scrollEffectsSceneProgress",
   }
 
   defaultSettings = {
     triggerHook: .9,
-    duration: '80%',
+    duration: "80%",
     offset: 25,
     reverse: false,
     media: false,
@@ -88,7 +88,7 @@ export default class ScrollEffects {
       end: false,
       update: false,
       destroy: false,
-      transitionEnd: false
+      transitionEnd: false,
     },
     exclude: false,
     wait: false,
@@ -99,16 +99,16 @@ export default class ScrollEffects {
     const attr = els.blocks.slice(1, -1)
     this.attrs = {
       main: attr,
-      scrolled: attr + '-progress',
-      videoAutoPlay: attr + '--video-autoplay',
-      unlock: attr + '-unlocker'
+      scrolled: attr + "-progress",
+      videoAutoPlay: attr + "--video-autoplay",
+      unlock: attr + "-unlocker",
     }
 
-    this.isOff = (location.search.indexOf('?light') > -1)
+    this.isOff = (location.search.indexOf("?light") > -1)
     this.isDebug = !!(location.port.length) || App.debug
-    this.isCSS3VarsMode = (window.CSS && window.CSS.supports && window.CSS.supports('(--a: b)'))
+    this.isCSS3VarsMode = (window.CSS && window.CSS.supports && window.CSS.supports("(--a: b)"))
     this.controller = new ScrollMagic.Controller({
-      addIndicators: this.isDebug
+      addIndicators: this.isDebug,
     })
     this.windowWidth = window.innerWidth
     this.instances = []
@@ -134,7 +134,7 @@ export default class ScrollEffects {
 
   handleScroll() {
     const activeEl = document.activeElement
-    const isBlur = (activeEl && activeEl.matches('input') && activeEl.closest(els.spacer))
+    const isBlur = (activeEl && activeEl.matches("input") && activeEl.closest(els.spacer))
     if (isBlur) {
       activeEl.blur()
     }
@@ -142,10 +142,10 @@ export default class ScrollEffects {
 
   bindEvents() {
     const debouncedHandler = debounce(() => this.handleResize())
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       this.handleScroll()
     })
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       debouncedHandler()
     })
   }
@@ -171,7 +171,7 @@ export default class ScrollEffects {
   static getBrowser() {
     return {
       ie11: !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/)),
-      safari: !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/)
+      safari: !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/),
     }
   }
 
@@ -180,9 +180,9 @@ export default class ScrollEffects {
     if (list) {
       const ie11 = ScrollEffects.getBrowser().ie11
       const safari = ScrollEffects.getBrowser().safari
-      if (!Array.isArray(list)) list = list.split(',')
+      if (!Array.isArray(list)) list = list.split(",")
       list.forEach((i, browserName) => {
-        if ((browserName.indexOf('ie') !== -1 && ie11) || (browserName.indexOf('safari') !== -1) && safari) isExcluded = true
+        if ((browserName.indexOf("ie") !== -1 && ie11) || (browserName.indexOf("safari") !== -1) && safari) isExcluded = true
       })
     }
     return isExcluded
@@ -200,7 +200,7 @@ export default class ScrollEffects {
     if (e) {
       const fn = () => {
         item.classList.remove(this.stateClasses.locked)
-        item.removeEventListener('transitionend', (e) => {
+        item.removeEventListener("transitionend", (e) => {
           this.unlock(item, e)
         })
       }
@@ -220,7 +220,7 @@ export default class ScrollEffects {
     if (isForced) {
       item.classList.remove(this.stateClasses.locked)
     } else {
-      item.addEventListener('transitionend', (e) => {
+      item.addEventListener("transitionend", (e) => {
         this.unlock(item, e)
       })
     }
@@ -250,7 +250,7 @@ export default class ScrollEffects {
   }
 
   playSceneVideo(el) {
-    const video = el.querySelector('video')
+    const video = el.querySelector("video")
     if (video && video.paused) {
       const delay = el.getAttribute(this.attrs.videoAutoPlay) || this.defaultSettings.defaultVideoDelay
       window.setTimeout(() => {
@@ -261,7 +261,7 @@ export default class ScrollEffects {
   }
 
   pauseSceneVideo(el) {
-    const video = el.querySelector('video')
+    const video = el.querySelector("video")
     if (video && !video.paused) {
       video.pause()
       el.classList.remove(this.stateClasses.playing)
@@ -277,7 +277,7 @@ export default class ScrollEffects {
     if (scene.passedSettings.triggers.enter) {
       bubble(el, bubbles.enter)
     }
-    if (this.isDebug) console.debug('Enter scene:', el)
+    if (this.isDebug) console.debug("Enter scene:", el)
   }
 
   sceneLeaveHandler(el) {
@@ -285,7 +285,7 @@ export default class ScrollEffects {
     this.sceneUnlockHandler(el, true)
     if (el.hasAttribute(this.attrs.videoAutoPlay)) this.pauseSceneVideo(el)
     if (scene.passedSettings.triggers.leave) bubble(el, bubbles.leave)
-    if (this.isDebug) console.debug('Leave scene:', el)
+    if (this.isDebug) console.debug("Leave scene:", el)
   }
 
   sceneEndHandler(el) {
@@ -295,7 +295,7 @@ export default class ScrollEffects {
   }
 
   sceneTransitionEndHandler(e, params, sceneEl) {
-    const {target, propertyName} = e
+    const { target, propertyName } = e
     if (!sceneEl.classList.contains(this.stateClasses.transition.end) && params.property && params.el && params.property === propertyName && target.matches(params.el)) {
       sceneEl.classList.add(this.stateClasses.transition.end)
       bubble(sceneEl, bubbles.transitionEnd)
@@ -304,8 +304,8 @@ export default class ScrollEffects {
 
   sceneDestroy(from, isDestroyPin) {
     const scene = this.getScene(from)
-    const attrsToRemove = [this.attrs.scrolled, this.attrs.scrolledMiddle, this.attrs.scrolledFull]
-    const classesToRemove = Object.values(this.stateClasses).filter((className) => typeof className === 'string' && className.indexOf(nameSpace))
+    const attrsToRemove = [ this.attrs.scrolled, this.attrs.scrolledMiddle, this.attrs.scrolledFull ]
+    const classesToRemove = Object.values(this.stateClasses).filter((className) => typeof className === "string" && className.indexOf(nameSpace))
     scene.scene.destroy(isDestroyPin)
     removeClasses(scene.dom, classesToRemove)
     removeAttrs(scene.dom, attrsToRemove)
@@ -325,26 +325,26 @@ export default class ScrollEffects {
     this.controller.removeScene(scene.scene)
     this.controller.update(true)
     if (scene.passedSettings.triggers.destroy) bubble(scene.dom, bubbles.destroy)
-    if (this.isDebug) console.debug('Destroying scene:', scene.dom)
+    if (this.isDebug) console.debug("Destroying scene:", scene.dom)
   }
 
   sceneUpdate(from, isImmediately) {
     const scene = this.getScene(from)
     scene.scene.update(isImmediately)
     if (scene.passedSettings.triggers.update) bubble(scene.dom, bubbles.update)
-    if (this.isDebug) console.debug('Updating scene:', scene.dom)
+    if (this.isDebug) console.debug("Updating scene:", scene.dom)
   }
 
   sceneDisable(from) {
     const scene = this.getScene(from)
     scene.scene.enabled(false)
-    if (this.isDebug) console.debug('Disabling scene:', scene.dom)
+    if (this.isDebug) console.debug("Disabling scene:", scene.dom)
   }
 
   sceneEnable(from) {
     const scene = this.getScene(from)
     scene.scene.enabled(true)
-    if (this.isDebug) console.debug('Enabling scene:', scene.dom)
+    if (this.isDebug) console.debug("Enabling scene:", scene.dom)
   }
 
   sceneOn(el, event, handler) {
@@ -358,12 +358,12 @@ export default class ScrollEffects {
   }
 
   getScene(from) {
-    if (typeof from === 'string') {
+    if (typeof from === "string") {
       const el = document.querySelector(from)
       if (document.querySelectorAll(from).length > 1 && this.isDebug) console.debug(`Warning: page contains multiple elements with selector "${from}". Result shown for:`, el)
       from = el
     }
-    if (typeof from.scrollEffects === undefined) console.error('Error: this element was not initialized:', from)
+    if (typeof from.scrollEffects === undefined) console.error("Error: this element was not initialized:", from)
     else return from.scrollEffects
   }
 
@@ -379,7 +379,7 @@ export default class ScrollEffects {
     const scene = this.getScene(from).scene
     return {
       start: scene.scrollOffset(),
-      end: scene.scrollOffset() + scene.duration()
+      end: scene.scrollOffset() + scene.duration(),
     }
   }
 
@@ -397,25 +397,25 @@ export default class ScrollEffects {
       pinnedScene: params.pinnedScene,
       passedSettings: params.passedSettings,
       pinnedSceneDOM: params.pinnedSceneDOM,
-      dom: params.domElement
+      dom: params.domElement,
     }
     if (params.passedSettings.addToGlobal) {
       this.instances.push({
         el: params.domElement,
-        instance: instance
+        instance: instance,
       })
     }
     params.domElement.scrollEffects = instance
   }
 
   sceneCreate(domElement) {
-    let settings = {...this.defaultSettings, ...this.getSettings(domElement)}
+    let settings = { ...this.defaultSettings, ...this.getSettings(domElement) }
     let pinnedScene = false
     let pinnedSceneDOM = false
     let isDestroyed = false
 
     if (ScrollEffects.excludeByBrowser(settings.exclude)) {
-      if (this.isDebug) console.debug('Warning: This browser has been excluded for element', domElement)
+      if (this.isDebug) console.debug("Warning: This browser has been excluded for element", domElement)
       return
     }
 
@@ -425,7 +425,7 @@ export default class ScrollEffects {
     }
 
     if (ScrollEffects.excludeByMedia(settings.media)) {
-      if (this.isDebug) console.debug('Warning: This element has been excluded by @media rule', domElement)
+      if (this.isDebug) console.debug("Warning: This element has been excluded by @media rule", domElement)
       return
     }
 
@@ -443,7 +443,7 @@ export default class ScrollEffects {
       }
     }
 
-    if (typeof settings.delegatedSelector === 'string') {
+    if (typeof settings.delegatedSelector === "string") {
       settings.delegatedSelector = document.querySelector(settings.delegatedSelector)
     }
 
@@ -454,33 +454,33 @@ export default class ScrollEffects {
         pinnedScene = new ScrollMagic.Scene({
           triggerElement: settings.pin,
           triggerHook: 0,
-          duration: '100%',
+          duration: "100%",
         }).setPin(settings.pin, {
-          pushFollowers: false
+          pushFollowers: false,
         }).addTo(this.controller)
         if (settings.progress) {
-          pinnedScene.on('progress', (e) => {
+          pinnedScene.on("progress", (e) => {
             this.sceneProgressHandler(e.progress, pinnedSceneDOM, settings.progressSteps, delegatedID, settings.delegatedVar, settings.delegatedSelector)
           })
         }
-      } else console.error('Pinned el not found:', settings.pin)
+      } else console.error("Pinned el not found:", settings.pin)
     }
 
     settings.triggerElement = (settings.triggerElement) ? document.querySelector(settings.triggerElement) : domElement
 
     const scene = new ScrollMagic.Scene(settings)
       .setClassToggle(domElement, this.stateClasses.visible)
-      .on('end', () => this.sceneEndHandler(domElement))
-      .on('enter', () => this.sceneEnterHandler(domElement))
-      .on('leave', () => this.sceneLeaveHandler(domElement))
+      .on("end", () => this.sceneEndHandler(domElement))
+      .on("enter", () => this.sceneEnterHandler(domElement))
+      .on("leave", () => this.sceneLeaveHandler(domElement))
 
-    if (settings.progress) scene.on('progress', (e) => this.sceneProgressHandler(e.progress, domElement, settings.progressSteps, false, settings.delegatedVar, settings.delegatedSelector))
+    if (settings.progress) scene.on("progress", (e) => this.sceneProgressHandler(e.progress, domElement, settings.progressSteps, false, settings.delegatedVar, settings.delegatedSelector))
     if (settings.pin && document.querySelector(settings.pin)) scene.setPin(settings.pin, {
-      pushFollowers: false
+      pushFollowers: false,
     })
 
     if (settings.triggers.transitionEnd) {
-      domElement.addEventListener('transitionend', (e) => this.sceneTransitionEndHandler(e, settings.triggers.transitionEnd, domElement))
+      domElement.addEventListener("transitionend", (e) => this.sceneTransitionEndHandler(e, settings.triggers.transitionEnd, domElement))
     }
 
     this.pushInstance({
@@ -495,10 +495,10 @@ export default class ScrollEffects {
     domElement.classList.add(this.stateClasses.init)
 
     if (settings.wait) {
-      const eventClass = (settings.wait.indexOf(this.utils.modules.nameSpace) > -1) ? `${this.utils.modules.classPrefix}--${settings.wait.replace(this.utils.modules.nameSpace, '')}` : false
+      const eventClass = (settings.wait.indexOf(this.utils.modules.nameSpace) > -1) ? `${this.utils.modules.classPrefix}--${settings.wait.replace(this.utils.modules.nameSpace, "")}` : false
       const createSceneAfterBubble = () => {
         scene.addTo(this.controller)
-        if (this.isDebug) console.debug('Scene created after event:', settings.wait, domElement)
+        if (this.isDebug) console.debug("Scene created after event:", settings.wait, domElement)
       }
       if (eventClass) {
         if (document.documentElement.classList.contains(eventClass)) createSceneAfterBubble()

@@ -1,6 +1,6 @@
-import Collection from './generic/collection'
+import Collection from "./generic/collection"
 
-export const instance = '[data-js-example]'
+export const instance = "[data-js-example]"
 
 export class Example {
   els = {

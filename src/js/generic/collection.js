@@ -1,6 +1,6 @@
-import Dispatcher from './dispatcher'
-import Observer from './observer'
-import {isNode} from '../utils/isNode'
+import Dispatcher from "./dispatcher"
+import Observer from "./observer"
+import { isNode } from "../utils/isNode"
 
 export default class Collection {
   /**
@@ -17,19 +17,19 @@ export default class Collection {
    * @param isAutoInit{Boolean=} - автоматический вызов методов init и bindEvents (подходит для большинства обычных коллекций)
    */
   constructor(selector, _class, isAutoInit = true) {
-    if (typeof selector === 'string' && typeof _class === 'function') {
+    if (typeof selector === "string" && typeof _class === "function") {
       this.collectionObserverSelector = selector
       this.collectionObserverClass = _class
       Observer.subscribe = {
         selector,
-        callback: this.collectionObserveCallback.bind(this)
+        callback: this.collectionObserveCallback.bind(this),
       }
       if (isAutoInit) {
         this.init()
         this.bindEvents()
       }
     } else {
-      Collection._error('Selector or class are not defined while extending', this)
+      Collection._error("Selector or class are not defined while extending", this)
     }
   }
 
@@ -48,7 +48,7 @@ export default class Collection {
     Dispatcher.initiator = {
       selector: this.collectionObserverSelector,
       initiator: (context) => this.init(context),
-      getCollection: () => this.collection || []
+      getCollection: () => this.collection || [],
     }
   }
 
@@ -67,16 +67,16 @@ export default class Collection {
    * @param newClass{Function}
    */
   set collection(newClass) {
-    const {instance} = newClass
+    const { instance } = newClass
     if (instance && !instance.isInCollection) {
       const itemInCollection = this.getByDOMElement(instance)
       if (!itemInCollection) {
         this.beforeAddCallback(instance)
-        this._collection = [...this._collection, newClass]
+        this._collection = [ ...this._collection, newClass ]
         this.afterAddCallback(instance)
       }
     } else {
-      Collection._error('Missed instance field for item: ', newClass)
+      Collection._error("Missed instance field for item: ", newClass)
     }
   }
 
@@ -130,7 +130,7 @@ export default class Collection {
    * @param collectionClass{Function}
    */
   removeFromCollection(collectionClass) {
-    const {instance} = collectionClass
+    const { instance } = collectionClass
     if (instance) {
       this.beforeRemoveCallback(instance)
       const collectionItemIndex = this.collection.indexOf(collectionClass)
@@ -187,7 +187,7 @@ export default class Collection {
         return null
       }
     } else {
-      Collection._error('Can\'t find instance of item: ', item)
+      Collection._error("Can't find instance of item: ", item)
       return null
     }
   }
@@ -196,6 +196,6 @@ export default class Collection {
    * Проверка присутствия DOM-элементов коллекции на странице после изменений и добавление новых классов
    */
   collectionObserveAdding() {
-    [...Observer.target.querySelectorAll(this.collectionObserverSelector)].forEach(el => this.addToCollection(el))
+    [ ...Observer.target.querySelectorAll(this.collectionObserverSelector) ].forEach(el => this.addToCollection(el))
   }
 }

@@ -5,6 +5,6 @@
  */
 export const removeClasses = (el, classesArray = []) => {
   classesArray.forEach((className) => {
-    el.classList.remove(className);
-  });
+    el.classList.remove(className)
+  })
 }

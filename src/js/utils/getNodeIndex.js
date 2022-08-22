@@ -1,4 +1,3 @@
-
 /**
  * Получение индекса элемента
  * @param el{Element} - исходный элемент
@@ -6,5 +5,5 @@
  * @return Number
  */
 export const getNodeIndex = (el, closestParent) => {
-  return [...((closestParent) ? el.closest(closestParent) : el.parentNode.children) ].indexOf(el);
+  return [ ...((closestParent) ? el.closest(closestParent) : el.parentNode.children) ].indexOf(el)
 }

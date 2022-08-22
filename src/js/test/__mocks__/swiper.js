@@ -9,4 +9,4 @@ const Autoplay = jest.fn()
 const Pagination = jest.fn()
 const use = jest.fn()
 
-export default {use, Swiper, Navigation, Mousewheel, Keyboard, Autoplay, Pagination}
+export default { use, Swiper, Navigation, Mousewheel, Keyboard, Autoplay, Pagination }

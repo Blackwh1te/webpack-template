@@ -1,31 +1,27 @@
 {
-  "extraClasses": "",
-  "extraAttrs": "",
-  "name": "select-1",
-  "label": {
-    "text": "Select country",
-    "isHidden": false
-  },
-  "required": false,
-  "disabled": false,
-  "form": false,
-  "multiple": false,
-  "isLiveSearch": false,
+  "extraClasses": [],
+  "extraAttrs": [],
+  "id": "",
+  "name": "select-name",
+  "label": "Select variant",
+  "placeholder": "",
+  "isLabelHidden": false,
+  "isRequired": false,
+  "isDisabled": false,
+  "isMultiple": false,
   "options": [
     {
-      "text": "Россия",
-      "value": "Russia",
+      "label": "First variant",
+      "value": "variant-1",
       "isSelected": true
     },
     {
-      "text": "Казахстан",
-      "value": "Kazakhstan",
-      "isSelected": false
+      "label": "Second variant",
+      "value": "variant-2"
     },
     {
-      "text": "Зимбабве",
-      "value": "Zimbabwe",
-      "isSelected": false
+      "label": "Third variant",
+      "value": "variant-3"
     }
   ]
 }

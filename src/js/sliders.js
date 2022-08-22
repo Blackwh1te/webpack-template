@@ -1,36 +1,36 @@
-import Collection from './generic/collection'
-import {Swiper, Navigation} from 'swiper'
-import 'swiper/css/bundle'
-import {mq} from '../app'
-import {getCopyOfObj} from './utils/getCopyOfObj'
-import {isMedia} from './utils/isMedia'
-import {bubble} from './utils/bubble'
-import {getMapFromObj} from './utils/getMapFromObj'
+import Collection from "./generic/collection"
+import { Swiper, Navigation } from "swiper"
+import "swiper/css/bundle"
+import { mq } from "../app"
+import { getCopyOfObj } from "./utils/getCopyOfObj"
+import { isMedia } from "./utils/isMedia"
+import { bubble } from "./utils/bubble"
+import { getMapFromObj } from "./utils/getMapFromObj"
 
-Swiper.use([Navigation])
+Swiper.use([ Navigation ])
 
-export const instance = '[data-js-slider]'
+export const instance = "[data-js-slider]"
 
 export const els = {
   instance,
-  container: '.swiper',
-  slide: '.swiper-slide',
+  container: ".swiper",
+  slide: ".swiper-slide",
 }
 
 const classStates = {
-  transition: 'is-transition',
-  disabled: 'is-disabled',
+  transition: "is-transition",
+  disabled: "is-disabled",
 }
 
 export const bubbles = {
-  sliderInit: 'slider::init',
-  sliderChange: 'slider::change',
+  sliderInit: "slider::init",
+  sliderChange: "slider::change",
 }
 
 const autoplayMouseControl = (instance) => {
   if (instance.params.autoplay?.enabled) {
-    instance.el.addEventListener('mouseover', () => instance.autoplay.stop())
-    instance.el.addEventListener('mouseout', () => instance.autoplay.start())
+    instance.el.addEventListener("mouseover", () => instance.autoplay.stop())
+    instance.el.addEventListener("mouseout", () => instance.autoplay.start())
   }
 }
 
@@ -52,7 +52,7 @@ const defaultFns = {
 }
 
 const defaultParams = {
-  slidesPerView: 'auto',
+  slidesPerView: "auto",
   speed: 500,
   watchSlidesProgress: true,
   waitForTransition: true,
@@ -72,15 +72,15 @@ const defaultParams = {
 }
 
 export const attrs = {
-  slideNumber: 'data-js-slider-current-slide',
-  multipleInstance: 'data-js-slider-instance'
+  slideNumber: "data-js-slider-current-slide",
+  multipleInstance: "data-js-slider-instance",
 }
 
 const paginationCfg = {
-  type: 'bullets',
-  bulletElement: 'button',
-  bulletClass: 'slider-pagination__button',
-  bulletActiveClass: 'is-active',
+  type: "bullets",
+  bulletElement: "button",
+  bulletClass: "slider-pagination__button",
+  bulletActiveClass: "is-active",
   clickable: true,
 }
 
@@ -92,7 +92,7 @@ export class Slider {
     this.sliderDOMElem = sliderDOMElem
     if (this.parentContainer) {
       if (this.parentContainer.hasAttribute(attrs.multipleInstance)) {
-        const {pagination, navigation, scrollbar} = this.params
+        const { pagination, navigation, scrollbar } = this.params
         if (pagination) {
           this.params.pagination = {
             ...pagination,
@@ -103,7 +103,7 @@ export class Slider {
           this.params.navigation = {
             ...navigation,
             prevEl: this.getUniqueInstanceNode(navigation.prevEl),
-            nextEl: this.getUniqueInstanceNode(navigation.nextEl)
+            nextEl: this.getUniqueInstanceNode(navigation.nextEl),
           }
         }
         if (scrollbar) {
@@ -130,7 +130,7 @@ export class Slider {
 
   manageSliderInitialization() {
     if (isMedia(this.params.requiredMediaQuery)) {
-      if (!this.instance.classList.contains('swiper-initialized')) {
+      if (!this.instance.classList.contains("swiper-initialized")) {
         this.createSlider()
       }
     } else if (this.swiperInstance) {
@@ -141,7 +141,7 @@ export class Slider {
   createDynamicSliderInitialization() {
     const mediaQuery = window.matchMedia(this.params.requiredMediaQuery)
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', () => this.manageSliderInitialization())
+      mediaQuery.addEventListener("change", () => this.manageSliderInitialization())
     } else {
       // Deprecated "MediaQueryList" API, <Safari 14, IE, <Edge 16
       mediaQuery.addListener(() => this.manageSliderInitialization())
@@ -151,7 +151,7 @@ export class Slider {
   getUniqueInstanceNode(paginationSelector) {
     let selector = paginationSelector.trim()
     const parent = `[${attrs.multipleInstance}="${this.parentContainer.getAttribute(attrs.multipleInstance)}"]`
-    const splitSelector = selector.split(' ')
+    const splitSelector = selector.split(" ")
     if (splitSelector.length > 1) {
       selector = splitSelector.pop()
     }
@@ -161,17 +161,17 @@ export class Slider {
 
 export class SlidersCollection extends Collection {
   static slidersCfg = getMapFromObj({
-    '.slider .swiper': {
+    ".slider .swiper": {
       ...defaultParams, // use this to add default params and overwrite it
       slidesPerView: 1,
       spaceBetween: 10,
       navigation: {
-        prevEl: '.slider .slider-buttons__button--prev',
-        nextEl: '.slider .slider-buttons__button--next'
+        prevEl: ".slider .slider-buttons__button--prev",
+        nextEl: ".slider .slider-buttons__button--next",
       },
       pagination: {
         ...paginationCfg,
-        el: '.slider .slider-pagination',
+        el: ".slider .slider-pagination",
       },
       speed: 500,
       breakpoints: {
@@ -180,24 +180,24 @@ export class SlidersCollection extends Collection {
         },
       },
     },
-    '.product-preview__main-slider .swiper': {
+    ".product-preview__main-slider .swiper": {
       ...defaultParams,
       slidesPerView: 1,
-      effect: 'fade',
+      effect: "fade",
       fadeEffect: {
-        crossFade: true
+        crossFade: true,
       },
       thumbs: {
         swiper: {
           ...defaultParams,
-          el: '.product-preview__secondary-slider .swiper',
+          el: ".product-preview__secondary-slider .swiper",
           slidesPerView: 4,
           spaceBetween: 10,
           navigation: {
-            prevEl: '.product-preview__secondary-slider .slider-buttons__button--prev',
-            nextEl: '.product-preview__secondary-slider .slider-buttons__button--next'
+            prevEl: ".product-preview__secondary-slider .slider-buttons__button--prev",
+            nextEl: ".product-preview__secondary-slider .slider-buttons__button--next",
           },
-        }
+        },
       },
       allowTouchMove: false,
     },
@@ -208,9 +208,9 @@ export class SlidersCollection extends Collection {
   }
 
   init(context = document) {
-    [...SlidersCollection.slidersCfg.entries()].forEach(([selector, options], i, array) => {
+    [ ...SlidersCollection.slidersCfg.entries() ].forEach(([ selector, options ], i, array) => {
       context.querySelectorAll(selector).forEach((sliderDOMElem, i) => {
-        if (typeof sliderDOMElem.swiper === 'undefined') {
+        if (typeof sliderDOMElem.swiper === "undefined") {
           if (array.length > 1) {
             sliderDOMElem.setAttribute(attrs.multipleInstance, i.toString())
           }

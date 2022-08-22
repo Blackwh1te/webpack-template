@@ -1,23 +1,23 @@
 <% const data = {
-	title: 'Типографика',
-	flowContainerClass: '',
+	title: "Типографика",
+	flowContainerClass: "",
 	crumbs: [
 		{
-			name: 'Главная',
-			link: '/'
+			name: "Главная",
+			link: "/",
 		},
 		{
-			name: 'Типографика'
+			name: "Типографика",
 		},
-	]
+	],
 } %>
 
-<%- require('../layouts/head.ejs')(data) %>
+<%- require("../layouts/head.ejs")(data) %>
 
 <div class="content__sections">
 	<div class="page-header container">
 		<div class="page-header__breadcrumbs">
-			<%- require('../components/breadcrumbs/template.ejs')(data.crumbs) %>
+			<%- require("../components/breadcrumbs/template.ejs")(data.crumbs) %>
 		</div>
 		<h1 class="page-header__title">
 			<%= data.title %>
@@ -225,48 +225,48 @@
 		</header>
 		<div class="section__body">
 			<div class="flow mb50">
-				<%- require('../components/button/template.ejs')() %>
-				<%- require('../components/button/template.ejs')({
+				<%- require("../components/button/template.ejs")() %>
+				<%- require("../components/button/template.ejs")({
 					caption: {
-						text: 'Default button'
-					}
+						text: "Default button",
+					},
 				}) %>
-				<%- require('../components/button/template.ejs')({
-					href: '/',
+				<%- require("../components/button/template.ejs")({
+					href: "/",
 					caption: {
-						text: 'Default button-link'
-					}
+						text: "Default button-link",
+					},
 				}) %>
-				<%- require('../components/button/template.ejs')({
+				<%- require("../components/button/template.ejs")({
 					icon: {
-						name: 'arrow-right',
-						position: 'after'
+						name: "arrow-right",
+						position: "after",
 					},
 					caption: {
-						text: 'With icon after'
-					}
+						text: "With icon after",
+					},
 				}) %>
-				<%- require('../components/button/template.ejs')({
+				<%- require("../components/button/template.ejs")({
 					icon: {
-						name: 'arrow-left',
-						position: 'before'
+						name: "arrow-left",
+						position: "before",
 					},
 					caption: {
-						text: 'With icon before'
-					}
+						text: "With icon before",
+					},
 				}) %>
 			</div>
 			<div class="flow">
 				<div>
 					<span>With icon only:&nbsp;&nbsp;</span>
-					<%- require('../components/button/template.ejs')({
+					<%- require("../components/button/template.ejs")({
 						icon: {
-							name: 'search'
+							name: "search",
 						},
 						caption: {
-							text: 'With icon only',
-							isHidden: true
-						}
+							text: "With icon only",
+							isHidden: true,
+						},
 					}) %>
 				</div>
 			</div>
@@ -282,134 +282,134 @@
 		<div class="section__body">
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-input-1',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-input-1",
+						type: "text",
 						label: {
-							text: 'Simple',
-							isHidden: false
+							text: "Simple",
+							isHidden: false,
 						},
 						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-input-2',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-input-2",
+						type: "text",
 						label: {
-							text: 'With placeholder',
-							isHidden: false
+							text: "With placeholder",
+							isHidden: false,
 						},
-						placeholder: 'Enter value',
+						placeholder: "Enter value",
 						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-input-3',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-input-3",
+						type: "text",
 						label: {
-							text: 'With value',
-							isHidden: false
+							text: "With value",
+							isHidden: false,
 						},
-						value: 'Lorem ipsum',
+						value: "Lorem ipsum",
 						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-input-4',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-input-4",
+						type: "text",
 						label: {
-							text: 'Disabled',
-							isHidden: false
+							text: "Disabled",
+							isHidden: false,
 						},
 						disabled: true,
 						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-input-5',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-input-5",
+						type: "text",
 						label: {
-							text: 'Readonly',
-							isHidden: false
+							text: "Readonly",
+							isHidden: false,
 						},
-						value: 'Just look at me',
+						value: "Just look at me",
 						readonly: true,
 						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						extraClasses: 'is-invalid',
-						extraAttrs: '',
-						wrapperExtraClasses: 'is-invalid',
-						name: 'test-input-6',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						extraClasses: "is-invalid",
+						extraAttrs: "",
+						wrapperExtraClasses: "is-invalid",
+						name: "test-input-6",
+						type: "text",
 						label: {
-							text: 'Has error',
-							isHidden: false
+							text: "Has error",
+							isHidden: false,
 						},
-						value: '123123123',
+						value: "123123123",
 						readonly: false,
 						required: false,
-						isShowError: 'Некорректные данные',
+						isShowError: "Некорректные данные",
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						name: 'test-input-7',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						name: "test-input-7",
+						type: "text",
 						label: {
-							text: 'Hidden label',
-							isHidden: true
+							text: "Hidden label",
+							isHidden: true,
 						},
 						required: false,
-						placeholder: 'Hidden label',
-						extraClasses: '',
-						extraAttrs: ''
+						placeholder: "Hidden label",
+						extraClasses: "",
+						extraAttrs: "",
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						name: 'test-input-8',
-						type: 'textarea',
+					<%- require("../components/input/template.ejs")({
+						name: "test-input-8",
+						type: "textarea",
 						label: {
-							text: 'Textarea',
-							isHidden: false
+							text: "Textarea",
+							isHidden: false,
 						},
 						required: false,
-						extraClasses: '',
-						extraAttrs: ''
+						extraClasses: "",
+						extraAttrs: "",
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						name: 'test-input-9',
-						type: 'password',
+					<%- require("../components/input/template.ejs")({
+						name: "test-input-9",
+						type: "password",
 						label: {
-							text: 'Password',
-							isHidden: false
+							text: "Password",
+							isHidden: false,
 						},
 						required: false,
-						extraClasses: '',
-						extraAttrs: '',
+						extraClasses: "",
+						extraAttrs: "",
 						hasPasswordEye: true,
 					}) %>
 				</li>
@@ -426,164 +426,113 @@
 		<div class="section__body">
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-checkbox-1',
-						id: 'test-checkbox-1',
-						type: 'checkbox',
-						label: 'Checkbox',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-checkbox-1",
+						id: "test-checkbox-1",
+						type: "checkbox",
+						label: "Checkbox",
 						disabled: false,
 						checked: false,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-checkbox-2',
-						id: 'test-checkbox-2',
-						type: 'checkbox',
-						label: 'Checkbox checked',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-checkbox-2",
+						id: "test-checkbox-2",
+						type: "checkbox",
+						label: "Checkbox checked",
 						disabled: false,
 						checked: true,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-checkbox-3',
-						id: 'test-checkbox-3',
-						type: 'checkbox',
-						label: 'Checkbox checked disabled',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-checkbox-3",
+						id: "test-checkbox-3",
+						type: "checkbox",
+						label: "Checkbox checked disabled",
 						disabled: true,
 						checked: true,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: 'is-invalid',
-						extraAttrs: '',
-						name: 'test-checkbox-11',
-						id: 'test-checkbox-11',
-						type: 'checkbox',
-						label: 'Checkbox',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "is-invalid",
+						extraAttrs: "",
+						name: "test-checkbox-11",
+						id: "test-checkbox-11",
+						type: "checkbox",
+						label: "Checkbox",
 						disabled: false,
 						checked: false,
-						isShowError: 'Необходимо поставить галочку',
-						required: false
+						isShowError: "Необходимо поставить галочку",
+						required: false,
 					}) %>
 				</li>
 			</ul>
 			<ul class="grid grid--4 mb50">
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-radio',
-						id: 'test-radio-1',
-						type: 'radio',
-						label: 'Radio',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-radio",
+						id: "test-radio-1",
+						type: "radio",
+						label: "Radio",
 						disabled: false,
 						checked: false,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-radio',
-						id: 'test-radio-2',
-						type: 'radio',
-						label: 'Radio checked',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-radio",
+						id: "test-radio-2",
+						type: "radio",
+						label: "Radio checked",
 						disabled: false,
 						checked: true,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/checkbox/template.ejs')({
-						extraClasses: '',
-						extraAttrs: '',
-						name: 'test-radio',
-						id: 'test-radio-3',
-						type: 'radio',
-						label: 'Radio disabled',
+					<%- require("../components/checkbox/template.ejs")({
+						extraClasses: "",
+						extraAttrs: "",
+						name: "test-radio",
+						id: "test-radio-3",
+						type: "radio",
+						label: "Radio disabled",
 						disabled: true,
 						checked: false,
 						isShowError: true,
-						required: false
+						required: false,
 					}) %>
 				</li>
 			</ul>
 		</div>
 	</section>
 
-	<section class="section container">
-		<header class="section__header">
-			<h2 class="section__title">
-				Selects
-			</h2>
-		</header>
-		<div class="section__body">
-			<ul class="grid grid--4">
-				<li class="grid__item">
-					<%- require('../components/select/template.ejs')() %>
-				</li>
-				<li class="grid__item">
-					<%- require('../components/select/template.ejs')({
-						name: 'select[]',
-						label: {
-							text: 'Select a few country',
-							isHidden: false
-						},
-						multiple: true,
-						options: [
-							{
-								text: 'Россия',
-								value: 'Russia',
-								isSelected: false
-							},
-							{
-								text: 'Казахстан',
-								value: 'Kazakhstan',
-								isSelected: false
-							},
-							{
-								text: 'Зимбабве',
-								value: 'Zimbabwe',
-								isSelected: false
-							},
-							{
-								text: 'Китай',
-								value: 'China',
-								isSelected: false
-							},
-						]
-					}) %>
-				</li>
-				<li class="grid__item">
-					<%- require('../components/select/template.ejs')({
-						label: {
-							text: 'Select (with live search)'
-						},
-						name: 'select-with-live-search',
-						isLiveSearch: true
-					}) %>
-				</li>
-			</ul>
-		</div>
-	</section>
+	<%- require("../components/section/template.ejs")({
+		title: "Selects",
+		body: require("../layouts/typo/selects.ejs")(),
+	}) %>
 
 	<section class="section container">
 		<header class="section__header">
@@ -594,16 +543,16 @@
 		<div class="section__body">
 			<ul class="grid grid--4">
 				<li class="grid__item">
-					<%- require('../components/file-attach/template.ejs')({
-						name: 'attachment-1',
-						label: 'Attach file',
+					<%- require("../components/file-attach/template.ejs")({
+						name: "attachment-1",
+						label: "Attach file",
 					}) %>
 				</li>
 				<li class="grid__item">
-					<%- require('../components/file-attach/template.ejs')({
-						name: 'attachment-2',
-						label: 'Attach files',
-						multiple: true
+					<%- require("../components/file-attach/template.ejs")({
+						name: "attachment-2",
+						label: "Attach files",
+						multiple: true,
 					}) %>
 				</li>
 			</ul>
@@ -618,32 +567,32 @@
 		</header>
 		<div class="section__body">
 			<% const formCfg = {
-				url: './json/form/successWithStaticModalExample.json',
-				method: 'post',
+				url: "./json/form/successWithStaticModalExample.json",
+				method: "post",
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg) %>">
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
-						<%- require('../components/input/template.ejs')({
-							name: 'name',
-							type: 'text',
+						<%- require("../components/input/template.ejs")({
+							name: "name",
+							type: "text",
 							label: {
-								text: 'Name',
-								isHidden: false
+								text: "Name",
+								isHidden: false,
 							},
 							isShowError: true,
 							required: true,
-							extraClasses: '',
-							extraAttrs: ''
+							extraClasses: "",
+							extraAttrs: "",
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/button/template.ejs')({
-							type: 'submit',
+						<%- require("../components/button/template.ejs")({
+							type: "submit",
 							icon: false,
 							caption: {
-								text: 'Send'
-							}
+								text: "Send",
+							},
 						}) %>
 					</div>
 				</div>
@@ -659,33 +608,33 @@
 		</header>
 		<div class="section__body">
 			<% const formCfg2 = {
-				url: './json/form/successWithDynamicModalExample.json',
-				method: 'post',
-				type: 'json'
+				url: "./json/form/successWithDynamicModalExample.json",
+				method: "post",
+				type: "json",
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg2) %>">
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
-						<%- require('../components/input/template.ejs')({
-							name: 'name-2',
-							type: 'text',
+						<%- require("../components/input/template.ejs")({
+							name: "name-2",
+							type: "text",
 							label: {
-								text: 'Name',
-								isHidden: false
+								text: "Name",
+								isHidden: false,
 							},
 							required: true,
 							isShowError: true,
-							extraClasses: '',
-							extraAttrs: ''
+							extraClasses: "",
+							extraAttrs: "",
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/button/template.ejs')({
-							type: 'submit',
+						<%- require("../components/button/template.ejs")({
+							type: "submit",
 							icon: false,
 							caption: {
-								text: 'Send'
-							}
+								text: "Send",
+							},
 						}) %>
 					</div>
 				</div>
@@ -701,33 +650,33 @@
 		</header>
 		<div class="section__body">
 			<% const formCfg3 = {
-				url: './json/form/successWithRedirectExample.json',
-				method: 'post',
-				type: 'json'
+				url: "./json/form/successWithRedirectExample.json",
+				method: "post",
+				type: "json",
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg3) %>">
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
-						<%- require('../components/input/template.ejs')({
-							name: 'name-3',
-							type: 'text',
+						<%- require("../components/input/template.ejs")({
+							name: "name-3",
+							type: "text",
 							label: {
-								text: 'Name',
-								isHidden: false
+								text: "Name",
+								isHidden: false,
 							},
 							required: true,
 							isShowError: true,
-							extraClasses: '',
-							extraAttrs: ''
+							extraClasses: "",
+							extraAttrs: "",
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/button/template.ejs')({
-							type: 'submit',
+						<%- require("../components/button/template.ejs")({
+							type: "submit",
 							icon: false,
 							caption: {
-								text: 'Send'
-							}
+								text: "Send",
+							},
 						}) %>
 					</div>
 				</div>
@@ -743,32 +692,32 @@
 		</header>
 		<div class="section__body">
 			<% const formCfg4 = {
-				url: './json/form/successFalseWithStaticModalExample.json',
-				method: 'post',
+				url: "./json/form/successFalseWithStaticModalExample.json",
+				method: "post",
 			} %>
 			<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg4) %>">
 				<div class="form__body grid grid--4">
 					<div class="grid__item">
-						<%- require('../components/input/template.ejs')({
-							name: 'name-4',
-							type: 'text',
+						<%- require("../components/input/template.ejs")({
+							name: "name-4",
+							type: "text",
 							label: {
-								text: 'Name',
-								isHidden: false
+								text: "Name",
+								isHidden: false,
 							},
 							required: true,
 							isShowError: true,
-							extraClasses: '',
-							extraAttrs: ''
+							extraClasses: "",
+							extraAttrs: "",
 						}) %>
 					</div>
 					<div class="grid__item">
-						<%- require('../components/button/template.ejs')({
-							type: 'submit',
+						<%- require("../components/button/template.ejs")({
+							type: "submit",
 							icon: false,
 							caption: {
-								text: 'Send'
-							}
+								text: "Send",
+							},
 						}) %>
 					</div>
 				</div>
@@ -783,36 +732,36 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/table/template.ejs')({
-				extraClasses: '',
-				extraAttrs: '',
+			<%- require("../components/table/template.ejs")({
+				extraClasses: "",
+				extraAttrs: "",
 				headCells: [
-					'Регион<br><small>Страна</small>',
-					'Институт<br><small>Проект</small>',
-					'Отрасль<br><small>Тип товара (услуги)</small>',
+					"Регион<br><small>Страна</small>",
+					"Институт<br><small>Проект</small>",
+					"Отрасль<br><small>Тип товара (услуги)</small>",
 				],
 				bodyRows: [
 					[
-						'Европа и Центральная Азия<br><br><small>Босния и Герцеговина</small>',
-						'Европейский банк реконструкции и развития',
-						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						"Европа и Центральная Азия<br><br><small>Босния и Герцеговина</small>",
+						"Европейский банк реконструкции и развития",
+						"<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>",
 					],
 					[
-						'Европа и Центральная Азия<br><br><small>Турция</small>',
-						'ООН',
-						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						"Европа и Центральная Азия<br><br><small>Турция</small>",
+						"ООН",
+						"<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>",
 					],
 					[
-						'Европа и Центральная Азия<br><br><small>Турция</small>',
-						'ООН',
-						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						"Европа и Центральная Азия<br><br><small>Турция</small>",
+						"ООН",
+						"<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>",
 					],
 					[
-						'Европа и Центральная Азия<br><br><small>Турция</small>',
-						'ООН',
-						'<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>',
+						"Европа и Центральная Азия<br><br><small>Турция</small>",
+						"ООН",
+						"<p>Энергетика</p><ul><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li><li>Оборудование для выработки и передачи электроэнергии</li></ul>",
 					],
-				]
+				],
 			}) %>
 		</div>
 	</section>
@@ -824,16 +773,16 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/map/template.ejs')({
-				extraClasses: '',
+			<%- require("../components/map/template.ejs")({
+				extraClasses: "",
 				mapCfg: {
-					center: ['55.754481', '37.556244'],
+					center: [ "55.754481", "37.556244" ],
 					zoom: 16,
-					placemark: [{
-						coords: ['55.754481', '37.556244'],
-						iconContent: 'Краснопресненская наб. 12, п. 9',
-					}]
-				}
+					placemark: [ {
+						coords: [ "55.754481", "37.556244" ],
+						iconContent: "Краснопресненская наб. 12, п. 9",
+					} ],
+				},
 			}) %>
 		</div>
 	</section>
@@ -845,21 +794,21 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/accordion/template.ejs')({
+			<%- require("../components/accordion/template.ejs")({
 				items: [
 					{
-						title: 'Accordion title 1',
+						title: "Accordion title 1",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
 					},
 					{
-						title: 'Accordion title 2',
+						title: "Accordion title 2",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
 					},
 					{
-						title: 'Accordion title 3',
+						title: "Accordion title 3",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
-					}
-				]
+					},
+				],
 			}) %>
 		</div>
 	</section>
@@ -871,23 +820,23 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/accordion/template.ejs')({
+			<%- require("../components/accordion/template.ejs")({
 				isAutoClosing: false,
 				wholeSummaryClickable: false,
 				items: [
 					{
-						title: '<a href="#">Accordion link-title</a>',
+						title: "<a href=\"#\">Accordion link-title</a>",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
 					},
 					{
-						title: '<a href="#">Accordion link-title</a>',
+						title: "<a href=\"#\">Accordion link-title</a>",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
 					},
 					{
-						title: '<a href="#">Accordion link-title</a>',
+						title: "<a href=\"#\">Accordion link-title</a>",
 						content: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos earum excepturi explicabo explicabo minima modi numquam quam quia ratione, rem soluta vitae?</p>`,
-					}
-				]
+					},
+				],
 			}) %>
 		</div>
 	</section>
@@ -953,17 +902,17 @@
 				<div class="slider__container swiper">
 					<ul class="slider__list swiper-wrapper">
 						<li class="slider__item swiper-slide">
-							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt="" />
 						</li>
 						<li class="slider__item swiper-slide">
-							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt="" />
 						</li>
 						<li class="slider__item swiper-slide">
-							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt=""/>
+							<img src="https://placekitten.com/1600/400" width="1600" height="400" alt="" />
 						</li>
 					</ul>
-					<%- require('../components/slider-buttons/template.ejs')() %>
-					<%- require('../components/slider-pagination/template.ejs')() %>
+					<%- require("../components/slider-buttons/template.ejs")() %>
+					<%- require("../components/slider-pagination/template.ejs")() %>
 				</div>
 			</div>
 		</div>
@@ -976,7 +925,7 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../layouts/product-preview.ejs')() %>
+			<%- require("../layouts/product-preview.ejs")() %>
 		</div>
 	</section>
 
@@ -987,13 +936,13 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/button/template.ejs')({
-				type: 'button',
+			<%- require("../components/button/template.ejs")({
+				type: "button",
 				icon: false,
 				caption: {
-					text: 'Contact us'
+					text: "Contact us",
 				},
-				extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`
+				extraAttrs: `data-js-modal-open='{"src": "#modal-feedback"}'`,
 			}) %>
 		</div>
 	</section>
@@ -1005,7 +954,7 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/product-card/template.ejs')() %>
+			<%- require("../components/product-card/template.ejs")() %>
 		</div>
 	</section>
 
@@ -1037,9 +986,9 @@
 			</h2>
 		</header>
 		<div class="section__body">
-			<%- require('../components/progress/template.ejs')() %>
+			<%- require("../components/progress/template.ejs")() %>
 		</div>
 	</section>
 </div>
 
-<%- require('../layouts/foot.ejs')() %>
+<%- require("../layouts/foot.ejs")() %>

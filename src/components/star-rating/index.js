@@ -1,25 +1,25 @@
-import './style.pcss'
-import Collection from '../../js/generic/collection'
-import {onAjaxContentLoaded} from '../../js/generic/eventing'
-import {setCSSVar} from '../../js/utils/setCSSVar'
-import {wait} from '../../js/utils/wait'
+import "./style.pcss"
+import Collection from "../../js/generic/collection"
+import { onAjaxContentLoaded } from "../../js/generic/eventing"
+import { setCSSVar } from "../../js/utils/setCSSVar"
+import { wait } from "../../js/utils/wait"
 
-export const instance = '[data-js-star-rating]'
+export const instance = "[data-js-star-rating]"
 
 export class StarRating {
   els = {
-    body: '[data-js-star-rating-body]',
-    star: '[data-js-star-rating-star]',
-    input: '[data-js-star-rating-input]',
+    body: "[data-js-star-rating-body]",
+    star: "[data-js-star-rating-star]",
+    input: "[data-js-star-rating-input]",
   }
 
   CSSVars = {
-    value: 'value',
-    valueOnHover: 'valueOnHover',
+    value: "value",
+    valueOnHover: "valueOnHover",
   }
 
   stateClasses = {
-    isClicked: 'is-clicked',
+    isClicked: "is-clicked",
   }
 
   constructor(instance) {
@@ -40,7 +40,7 @@ export class StarRating {
   }
 
   removeValueOnHover() {
-    this.body.removeAttribute('style')
+    this.body.removeAttribute("style")
   }
 
   starsVisualization(starsCount) {
@@ -71,11 +71,11 @@ export class StarRating {
   }
 
   bindEvents() {
-    this.instance.addEventListener('mouseleave', () => this.handleInstanceMouseLeave())
+    this.instance.addEventListener("mouseleave", () => this.handleInstanceMouseLeave())
     this.stars.forEach((star, index) => {
-      star.addEventListener('mouseenter', (e) => this.handleStarMouseEnter(e, index))
+      star.addEventListener("mouseenter", (e) => this.handleStarMouseEnter(e, index))
       if (this.input) {
-        star.addEventListener('click', (e) => this.handleStarClick(e, index))
+        star.addEventListener("click", (e) => this.handleStarClick(e, index))
       }
     })
   }

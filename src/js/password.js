@@ -1,17 +1,17 @@
-import Collection from './generic/collection'
-import {locales} from '../js/locales/index'
+import Collection from "./generic/collection"
+import { locales } from "../js/locales/index"
 
-export const instance = '[data-js-password]'
+export const instance = "[data-js-password]"
 
 export class Password {
   els = {
     instance,
-    input: '[data-js-password-input]',
-    button: '[data-js-password-button]',
+    input: "[data-js-password-input]",
+    button: "[data-js-password-button]",
   }
 
   stateClasses = {
-    isActive: 'is-active',
+    isActive: "is-active",
   }
 
   constructor(instance) {
@@ -19,7 +19,7 @@ export class Password {
     this.input = this.instance.querySelector(this.els.input)
     this.button = this.instance.querySelector(this.els.button)
     this.state = {
-      isShown: false
+      isShown: false,
     }
     this.bindEvents()
   }
@@ -32,18 +32,18 @@ export class Password {
 
   show() {
     this.state.isShown = true
-    this.input.setAttribute('type', 'text')
+    this.input.setAttribute("type", "text")
     this.button.classList.add(this.stateClasses.isActive)
-    this.button.setAttribute('title', locales.form('HIDE_PASSWORD'))
-    this.button.setAttribute('aria-label', locales.form('HIDE_PASSWORD'))
+    this.button.setAttribute("title", locales.form("HIDE_PASSWORD"))
+    this.button.setAttribute("aria-label", locales.form("HIDE_PASSWORD"))
   }
 
   hide() {
     this.state.isShown = false
-    this.input.setAttribute('type', 'password')
+    this.input.setAttribute("type", "password")
     this.button.classList.remove(this.stateClasses.isActive)
-    this.button.setAttribute('title', locales.form('SHOW_PASSWORD'))
-    this.button.setAttribute('aria-label', locales.form('SHOW_PASSWORD'))
+    this.button.setAttribute("title", locales.form("SHOW_PASSWORD"))
+    this.button.setAttribute("aria-label", locales.form("SHOW_PASSWORD"))
   }
 
   handleButtonClick(e) {
@@ -52,7 +52,7 @@ export class Password {
   }
 
   bindEvents() {
-    this.button.addEventListener('click', (e) => this.handleButtonClick(e))
+    this.button.addEventListener("click", (e) => this.handleButtonClick(e))
   }
 }
 

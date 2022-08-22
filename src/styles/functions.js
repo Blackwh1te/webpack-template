@@ -15,9 +15,9 @@ const ratio = (a, b, fixed = 3) => {
  * @param fixed{Number=} - максимальное число знаков после запятой
  */
 const percent = (a, b, fixed = 3) => {
-  return (a / b * 100).toFixed(fixed) + '%'
+  return (a / b * 100).toFixed(fixed) + "%"
 }
 
 module.exports = {
-  ratio, percent
+  ratio, percent,
 }

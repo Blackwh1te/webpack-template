@@ -1,38 +1,38 @@
 <% const data = {
-	title: 'Список страниц вёрстки',
-	flowContainerClass: '',
+	title: "Список страниц вёрстки",
+	flowContainerClass: "",
 	crumbs: [
 		{
-			name: 'Главная',
-			link: '/'
+			name: "Главная",
+			link: "/",
 		},
 		{
-			name: 'Список страниц вёрстки'
+			name: "Список страниц вёрстки",
 		},
-	]
+	],
 } %>
 
-<%- require('../layouts/head.ejs')(data) %>
+<%- require("../layouts/head.ejs")(data) %>
 
 <% const pages = [
 	{
-		title: 'Главная страница',
-		code: 'main',
+		title: "Главная страница",
+		code: "main",
 	},
 	{
-		title: 'Типографика',
-		code: 'typo',
+		title: "Типографика",
+		code: "typo",
 	},
 	{
-		title: 'Модальные окна',
-		code: 'modals',
+		title: "Модальные окна",
+		code: "modals",
 	},
 ] %>
 
 <div class="content__sections">
 	<div class="page-header container">
 		<div class="page-header__breadcrumbs">
-			<%- require('../components/breadcrumbs/template.ejs')(data.crumbs) %>
+			<%- require("../components/breadcrumbs/template.ejs")(data.crumbs) %>
 		</div>
 		<h1 class="page-header__title">
 			<%= data.title %>
@@ -52,7 +52,7 @@
 		<div class="section__body">
 			<ul>
 				<% pages.forEach((page) => { %>
-					<% const {code, title, items} = page %>
+					<% const { code, title, items } = page %>
 					<li>
 						<% if (page.code) { %>
 							<a href="./<%= code %>.html">
@@ -79,4 +79,4 @@
 	</section>
 </div>
 
-<%- require('../layouts/foot.ejs')() %>
+<%- require("../layouts/foot.ejs")() %>

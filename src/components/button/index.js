@@ -1,8 +1,8 @@
-import './style.pcss'
-import {setCSSVar} from '../../js/utils/setCSSVar'
-import {wait} from '../../js/utils/wait'
+import "./style.pcss"
+import { setCSSVar } from "../../js/utils/setCSSVar"
+import { wait } from "../../js/utils/wait"
 
-export const instance = '[data-js-button]'
+export const instance = "[data-js-button]"
 
 export default class Button {
   els = {
@@ -10,8 +10,8 @@ export default class Button {
   }
 
   stateClasses = {
-    isRipple: 'is-ripple',
-    isAnimationEnd: 'is-animation-end',
+    isRipple: "is-ripple",
+    isAnimationEnd: "is-animation-end",
   }
 
   constructor() {
@@ -24,22 +24,22 @@ export default class Button {
       layerX,
       layerY,
       offsetX,
-      offsetY
+      offsetY,
     } = e
 
     let x = `${layerX}px`
     let y = `${layerY}px`
 
     if (!offsetX && !offsetY) {
-      x = '40%'
-      y = '45%'
+      x = "40%"
+      y = "45%"
     }
 
     this.disableAnimationEndState(target)
     target.classList.remove(this.stateClasses.isRipple)
     wait(10).then(() => {
-      setCSSVar(target, 'rippleOffsetX', x)
-      setCSSVar(target, 'rippleOffsetY', y)
+      setCSSVar(target, "rippleOffsetX", x)
+      setCSSVar(target, "rippleOffsetY", y)
       target.classList.add(this.stateClasses.isRipple)
     })
   }
@@ -65,7 +65,7 @@ export default class Button {
   }
 
   bindEvents() {
-    document.addEventListener('click', (e) => this.handleClick(e))
-    document.addEventListener('animationend', (e) => this.handleAnimationEnd(e))
+    document.addEventListener("click", (e) => this.handleClick(e))
+    document.addEventListener("animationend", (e) => this.handleAnimationEnd(e))
   }
 }

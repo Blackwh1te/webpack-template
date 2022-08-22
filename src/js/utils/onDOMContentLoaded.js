@@ -1,3 +1,4 @@
-export const onDOMContentLoaded = (callback = () => {}) => {
-  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', () => callback()) : callback()
+export const onDOMContentLoaded = (callback = () => {
+}) => {
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", () => callback()) : callback()
 }

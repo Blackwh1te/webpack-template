@@ -1,4 +1,4 @@
-export const ajaxContentLoadedEvent = 'contentLoaded'
+export const ajaxContentLoadedEvent = "contentLoaded"
 
 /**
  * Класс для событий
@@ -13,7 +13,7 @@ export default class Eventing {
   loaded = false
 
   constructor(eventName) {
-    this.event = document.createEvent('Event')
+    this.event = document.createEvent("Event")
     this.event.initEvent(`${eventName}ModuleLoaded`, true, true)
   }
 
@@ -35,7 +35,7 @@ export default class Eventing {
  */
 export const dispatchContentLoaded = (detail) => {
   document.dispatchEvent(
-    new CustomEvent(ajaxContentLoadedEvent, {detail})
+    new CustomEvent(ajaxContentLoadedEvent, { detail }),
   )
 }
 

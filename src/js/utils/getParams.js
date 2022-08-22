@@ -1,5 +1,5 @@
-import { parseJSON } from './parseJSON';
-import { getAttr } from './getAttr';
+import { parseJSON } from "./parseJSON"
+import { getAttr } from "./getAttr"
 
 /**
  * Получение конфига элемента
@@ -8,9 +8,9 @@ import { getAttr } from './getAttr';
  * @param defaultCfg{Object=} - объект с конфигурацией по умолчанию
  * @return Object
  */
-export const getCfg = (instance, selector, defaultCfg = {}) => {
+export const getParams = (instance, selector, defaultCfg = {}) => {
   return {
     ...defaultCfg,
-    ...parseJSON(instance.getAttribute(getAttr(selector)))
+    ...parseJSON(instance.getAttribute(getAttr(selector))),
   }
 }

@@ -1,204 +1,152 @@
-import './style.pcss'
-import Collection from '../../js/generic/collection'
-import { getRandomString } from '../../js/utils/getRandomString'
-import { render } from '../../js/utils/render'
-import { bubble } from '../../js/utils/bubble'
-import { isMobileDevice } from '../../js/utils/isMobileDevice'
-import { locales } from '../../js/locales'
-import { getCfg } from '../../js/utils/getCfg'
-import { wait } from '../../js/utils/wait'
+import "./style.pcss"
+import Collection from "../../js/generic/collection"
+import { getLocaleMsg } from "../../js/utils/getLocaleMsg"
+import { render } from "../../js/utils/render"
+import { classNames } from "../../js/utils/classNames"
+import { getRandomString } from "../../js/utils/getRandomString"
+import { getParams } from "../../js/utils/getParams"
+import { bubble } from "../../js/utils/bubble"
 
-export const instance = '[data-js-select]'
+export const instance = "[data-js-select]"
 
 export const bubbles = {
-  open: 'select::open',
-  close: 'select::close',
-  change: 'select::change',
+  open: "select-old::open",
+  close: "select-old::close",
+  change: "select-old::change",
 }
 
 export class Select {
   els = {
     instance,
-    control: '[data-js-select-control]',
-    body: '[data-js-select-body]',
-    openButton: '[data-js-select-open-button]',
-    currentVariantEl: '[data-js-select-current-variant]',
-    dropdown: '[data-js-select-dropdown]',
-    list: '[data-js-select-list]',
-    item: '[data-js-select-dropdown-item]',
-    optionButton: '[data-js-select-option-button]',
-    liveSearchInput: '[data-js-select-live-search-input]',
-    liveSearchClearButton: '[data-js-select-live-search-clear-button]'
-  }
-
-  defaultCfg = {
-    isLiveSearch: false,
+    control: "[data-js-select-control]",
+    option: "[data-js-select-option]",
+    body: "[data-js-select-body]",
+    toggleButton: "[data-js-select-toggle-button]",
+    currentVariant: "[data-js-select-current-variant]",
+    dropdown: "[data-js-select-dropdown]",
+    dropdownList: "[data-js-select-dropdown-list]",
+    dropdownItem: "[data-js-select-dropdown-item]",
+    dropdownOption: "[data-js-select-dropdown-option]",
   }
 
   stateClasses = {
-    isOpen: 'is-open',
-    isSelected: 'is-selected',
-    isHidden: 'is-hidden',
-    isNotEmpty: 'is-not-empty',
-    isResultEmpty: 'is-result-empty'
+    isOpen: "is-open",
+    isSelected: "is-selected",
+    isDisabled: "is-disabled",
   }
 
   messages = {
-    notSelected: locales.select['NOT_SELECTED'],
-    severalOptionsSelected: locales.select['SEVERAL_OPTIONS_SELECTED'],
-    startTyping: locales.input['START_TYPING'],
-    clearInput: locales.input['CLEAR_INPUT'],
+    notSelected: getLocaleMsg("SELECT_NOT_SELECTED"),
+    severalOptionsSelected: getLocaleMsg("SELECT_SEVERAL_OPTIONS_SELECTED"),
+    open: getLocaleMsg("SELECT_OPEN"),
+    close: getLocaleMsg("SELECT_CLOSE"),
   }
 
   constructor(instance) {
     this.instance = instance
-    if (this.instance.querySelector(this.els.body)) return
-    this.control = this.instance.querySelector(this.els.control)
-    this.label = this.control.labels[0]
-    this.openButton = null
-    this.dropdown = null
-    this.currentVariantEl = null
-    this.list = null
-    this.optionButtons = []
-    this.isMultiple = this.control.multiple
-    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+    this.controlNode = this.instance.querySelector(this.els.control)
+    this.labelNode = this.controlNode.labels?.[0]
+    this.bodyNode = null
+    this.toggleButtonNode = null
+    this.currentVariantNode = null
+    this.dropdownListNode = null
+    this.dropdownOptionNodes = []
     this.state = {
-      isOpen: false
+      isOpen: false,
     }
     this.init()
-    this.bindEvents()
-  }
-
-  get isOpen() {
-    return this.state.isOpen
-  }
-
-  set isOpen(value) {
-    this.state.isOpen = value
-  }
-
-  get isDisabled() {
-    return this.control.disabled
-  }
-
-  set isDisabled(value) {
-    this.control.disabled = value
-  }
-
-  get value() {
-    return this.control.value
-  }
-
-  set value(newValue) {
-    this.control.value = newValue
-    this.updateOptionButtons()
   }
 
   get options() {
-    return [ ...this.control.options ]
+    return [ ...this.controlNode.options ]
   }
 
   get selectedOptions() {
-    return [ ...this.control.selectedOptions ]
+    return [ ...this.controlNode.selectedOptions ]
+  }
+  
+  get selectedDropdownOptions() {
+    return [ ...this.dropdownOptionNodes ].filter((dropdownOptionNode) => dropdownOptionNode.classList.contains(this.stateClasses.isSelected))
   }
 
-  get selectedOptionButtons() {
-    return [ ...this.optionButtons ].filter(optionButton => optionButton.classList.contains(this.stateClasses.isSelected))
+  get isRequired() {
+    return this.controlNode.required
   }
 
-  get selectedOptionButtonIndex() {
-    return [ ...this.optionButtons ].indexOf(this.selectedOptionButtons[0])
+  set isRequired(isRequired) {
+    isRequired ?
+      this.controlNode.setAttribute("required", "") :
+      this.controlNode.removeAttribute("required")
+  }
+
+  get isDisabled() {
+    return this.controlNode.disabled
+  }
+
+  get isMultiple() {
+    return this.controlNode.multiple
+  }
+
+  set isDisabled(isDisabled) {
+    isDisabled ?
+      this.controlNode.setAttribute("disabled", "") :
+      this.controlNode.removeAttribute("disabled")
   }
 
   get isEmpty() {
     return !this.options.length
   }
 
-  appendOption(text, value, isSelected = false) {
-    const newOption = new Option(text, value, isSelected, isSelected)
-    const newItem = this.getDropdownItemMarkup(newOption)
-    this.control.appendChild(newOption)
-    render(this.list, newItem)
-    bubble(this.control, 'change')
-    bubble(this.instance, bubbles.change)
-    this.updateOptionButtonsEls()
-    this.updateOptionButtons()
+  get currentVariantLabel() {
+    const selectedOptionsLength = this.selectedOptions.length
+
+    return selectedOptionsLength > 1 ? this.messages.severalOptionsSelected :
+      selectedOptionsLength === 0 ? this.messages.notSelected : this.selectedOptions[0].textContent
   }
 
-  removeOption(removedOption) {
-    this.options.forEach((option, i) => {
-      if (option === removedOption) {
-        this.optionButtons[i].closest(this.els.item).remove()
-        option.remove()
-      }
-    })
-    bubble(this.control, 'change')
-    bubble(this.instance, bubbles.change)
-    this.updateOptionButtonsEls()
-    this.updateOptionButtons()
+  getDropdownOptionIndex(dropdownOptionNode) {
+    return [ ...this.dropdownOptionNodes ].indexOf(dropdownOptionNode)
   }
 
-  empty() {
-    this.options.forEach(option => {
-      this.removeOption(option)
-    })
-  }
-
-  toggleVisibility() {
-    this.isOpen ?
-      this.close() :
-      this.open()
-  }
-
-  close() {
-    this.isOpen = false
-    this.instance.classList.remove(this.stateClasses.isOpen)
-    bubble(this.instance, bubbles.close)
+  updateCurrentVariantLabel() {
+    this.currentVariantNode.textContent = this.currentVariantLabel
   }
 
   open() {
     if (this.isDisabled || this.isEmpty) return
-    if (this.liveSearchInput) this.clearLiveSearchInput()
-    this.isOpen = true
+    this.state.isOpen = true
     this.instance.classList.add(this.stateClasses.isOpen)
     bubble(this.instance, bubbles.open)
-    if (this.liveSearchInput) {
-      this.instance.classList.remove(this.stateClasses.isResultEmpty)
-      wait(100).then(() => {
-        this.liveSearchInput.focus()
-      })
-    }
   }
 
-  updateTabIndex() {
-    isMobileDevice() ?
-      this.control.removeAttribute('tabindex') :
-      this.openButton.setAttribute('tabindex', '0')
+  close() {
+    this.state.isOpen = false
+    this.instance.classList.remove(this.stateClasses.isOpen)
+    bubble(this.instance, bubbles.close)
   }
 
-  setAttrs() {
-    const id = getRandomString()
-    const dropdownID = `select-dropdown-${id}`
-    const labelID = `select-label-${id}`
-    this.openButton.setAttribute('aria-labelledby', labelID)
-    this.openButton.setAttribute('aria-owns', dropdownID)
-    this.label.setAttribute('id', labelID)
-    this.dropdown.setAttribute('id', dropdownID)
-    this.updateOpenButtonAttr()
+  toggle() {
+    this.state.isOpen ? this.close() : this.open()
   }
 
-  updateOpenButtonAttr() {
-    const firstSelectedOptionButton = this.selectedOptionButtons[0]
-    if (firstSelectedOptionButton) {
-      this.openButton.setAttribute('aria-activedescendant', firstSelectedOptionButton.id)
-    }
+  updateDropdownOptionNodes() {
+    this.dropdownOptionNodes = this.instance.querySelectorAll(this.els.dropdownOption)
   }
 
-  getDropdownItemMarkup(option) {
-    const { selected, value, textContent } = option
-    const id = `select-option-${getRandomString()}`
-    let optionClasses = 'select__option'
-    if (selected) optionClasses += ' is-selected'
+  getDropdownItemMarkup(optionNode) {
+    const {
+      disabled: isDisabled,
+      selected: isSelected,
+      textContent: label,
+      value,
+    } = optionNode
+
+    const optionClassNames = classNames("select__dropdown-option", {
+      [this.stateClasses.isSelected]: isSelected,
+      [this.stateClasses.isDisabled]: isDisabled,
+    })
+    const optionID = `select-option-option-${getRandomString()}`
+    const optionParams = { value }
 
     return `
       <li
@@ -207,350 +155,176 @@ export class Select {
         role="presentation"
       >
         <button
-          class="${optionClasses}"
-          id="${id}"
+          class="${optionClassNames}"
+          id="${optionID}"
           type="button"
-          data-js-select-option-button='{"value": "${value}"}'
+          data-js-select-dropdown-option='${JSON.stringify(optionParams)}'
           role="option"
         >
-          ${textContent}
+          ${label}
         </button>
       </li>
     `
   }
 
-  getLiveSearchMarkup() {
-    return `
-      <input
-        class="select__live-search-input form-input"
-        type="text"
-        autocomplete="off"
-        placeholder="${window.App.lang === 'ru' ? this.messages.startTyping.ru : this.messages.startTyping.en}"
-        data-js-select-live-search-input
-      />
-      <button
-        class="select__live-search-clear-button"
-        type="button"
-        title="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
-        aria-label="${window.App.lang === 'ru' ? this.messages.clearInput.ru : this.messages.clearInput.en}"
-        data-js-select-live-search-clear-button
-      >
-        <svg class="i-icon">
-          <use href="#icon-close"></use>
-        </svg>
-      </button>
-    `
-  }
-
   generateMarkup() {
-    let dropdownItems = ''
-    this.options.forEach((option) => {
-      dropdownItems += this.getDropdownItemMarkup(option)
-    })
-    const liveSearchMarkup = this.cfg.isLiveSearch ? this.getLiveSearchMarkup() : ''
+    const iconMarkup = require("../icon/template.ejs")({ name: "arrow-down" })
+    const dropdownItemsMarkup = this.options.map((optionNode) => this.getDropdownItemMarkup(optionNode)).join("")
 
     const markup = `
       <div
         class="select__body"
         data-js-select-body
       >
-        ${liveSearchMarkup}
         <div
-          class="select__input form-input"
-          data-js-select-open-button
+          class="select__toggle-button"
           role="combobox"
           aria-autocomplete="list"
           aria-expanded="false"
-          ${this.isDisabled && 'disabled'}
+          title="${this.messages.open}"
+          ${this.isDisabled && "disabled"}
+          data-js-select-toggle-button
         >
           <span
             class="select__current-variant"
             data-js-select-current-variant
           >
+            ${this.currentVariantLabel}
           </span>
-          <svg class="select__arrow-icon i-icon">
-            <use href="#icon-arrow-down"></use>
-          </svg>
+          ${iconMarkup}
         </div>
-        <div
-          class="select__dropdown"
-          data-js-select-dropdown
-        >
+        <div class="select__dropdown" data-js-select-dropdown>
           <ul
             class="select__dropdown-list"
-            data-js-select-list
             role="listbox"
+            data-js-select-dropdown-list
           >
-            ${dropdownItems}
+            ${dropdownItemsMarkup}
           </ul>
         </div>
       </div>
     `
-    render(this.control, markup, 'afterend')
+
+    render(this.controlNode, markup, "afterend")
   }
 
-  updateCurrentVariantCaption() {
-    const selectedOptionsLength = this.selectedOptions.length
-    let variantCaption
-    switch (true) {
-      case (selectedOptionsLength > 1): {
-        variantCaption = window.App.lang === 'ru' ? this.messages.severalOptionsSelected.ru : this.messages.severalOptionsSelected.en
-        break
-      }
-      case (selectedOptionsLength === 0): {
-        variantCaption = window.App.lang === 'ru' ? this.messages.notSelected.ru : this.messages.notSelected.en
-        break
-      }
-      default: {
-        variantCaption = this.selectedOptions[0].textContent
-        break
-      }
+  defineNodes() {
+    this.bodyNode = this.instance.querySelector(this.els.body)
+    this.toggleButtonNode = this.instance.querySelector(this.els.toggleButton)
+    this.currentVariantNode = this.instance.querySelector(this.els.currentVariant)
+    this.dropdownNode = this.instance.querySelector(this.els.dropdown)
+    this.dropdownListNode = this.instance.querySelector(this.els.dropdownList)
+    this.updateDropdownOptionNodes()
+  }
+
+  updateToggleButtonAttributes() {
+    const firstSelectedDropdownOptionNode = this.selectedDropdownOptions?.[0]
+
+    if (firstSelectedDropdownOptionNode) {
+      this.toggleButtonNode.setAttribute("aria-activedescendant", firstSelectedDropdownOptionNode.id)
     }
-    this.currentVariantEl.textContent = variantCaption ?? ''
   }
 
-  updateOptionButtons() {
-    this.options.forEach((option, i) => {
-      option.selected ?
-        this.selectOptionButton(this.optionButtons[i]) :
-        this.unselectOptionButton(this.optionButtons[i])
-    })
-    this.updateMarkup()
-  }
-
-  toggleSelectOptionButton(button) {
-    button.classList.contains(this.stateClasses.isSelected) ?
-      this.unselectOptionButton(button) :
-      this.selectOptionButton(button)
-  }
-
-  selectOptionButton(button) {
-    button.classList.add(this.stateClasses.isSelected)
-    this.control.options[this.getButtonIndex(button)].setAttribute('selected', true)
-  }
-
-  unselectOptionButton(button) {
-    button.classList.remove(this.stateClasses.isSelected)
-    this.control.options[this.getButtonIndex(button)].removeAttribute('selected')
-  }
-
-  getButtonIndex(button) {
-    return [ ...this.optionButtons ].indexOf(button)
-  }
-
-  selectPrevOption() {
-    const index = this.selectedOptionButtonIndex
-
-    this.unselectOptionButton(this.optionButtons[index])
-    index > 0 ?
-      this.selectOptionButton(this.optionButtons[index - 1]) :
-      this.selectOptionButton(this.optionButtons[this.optionButtons.length - 1])
-    bubble(this.control, 'change')
-    bubble(this.instance, bubbles.change)
-    this.updateMarkup()
-  }
-
-  selectNextOption() {
-    const index = this.selectedOptionButtonIndex
-
-    this.unselectOptionButton(this.optionButtons[index])
-    index < this.optionButtons.length - 1 ?
-      this.selectOptionButton(this.optionButtons[index + 1]) :
-      this.selectOptionButton(this.optionButtons[0])
-    bubble(this.control, 'change')
-    bubble(this.instance, bubbles.change)
-    this.updateMarkup()
+  setAttributes() {
+    const id = getRandomString()
+    const dropdownID = `select-dropdown-${id}`
+    const labelID = `select-label-${id}`
+    
+    this.toggleButtonNode.setAttribute("aria-labelledby", labelID)
+    this.toggleButtonNode.setAttribute("aria-owns", dropdownID)
+    this.label?.setAttribute("id", labelID)
+    this.dropdownNode.setAttribute("id", dropdownID)
+    this.updateToggleButtonAttributes()
   }
 
   updateMarkup() {
-    this.updateOpenButtonAttr()
-    this.updateCurrentVariantCaption()
+    this.updateToggleButtonAttributes()
+    this.updateCurrentVariantLabel()
   }
 
-  updateOptionButtonsEls() {
-    this.optionButtons = this.instance.querySelectorAll(this.els.optionButton)
+  toggleOptionState(optionNode, isSelected = true) {
+    isSelected ?
+      optionNode.setAttribute("selected", "") :
+      optionNode.removeAttribute("selected")
   }
 
-  filterResult(searchQuery) {
-    this.optionButtons.forEach((optionButton) => {
-      const textContent = optionButton.textContent.trim().toLowerCase()
+  toggleDropdownOption(dropdownOptionNode) {
+    const isSelected = dropdownOptionNode.classList.contains(this.stateClasses.isSelected)
+    const relativeOptionNode = this.options[this.getDropdownOptionIndex(dropdownOptionNode)]
 
-      if (textContent.includes(searchQuery)) {
-        optionButton.classList.remove(this.stateClasses.isHidden)
-      } else {
-        optionButton.classList.add(this.stateClasses.isHidden)
-      }
-    })
-
-    const hiddenOptionsButtons = [ ...this.optionButtons ].filter((optionButton) => optionButton.classList.contains(this.stateClasses.isHidden))
-
-    if (this.optionButtons.length === hiddenOptionsButtons.length) {
-      this.instance.classList.add(this.stateClasses.isResultEmpty)
-    } else {
-      this.instance.classList.remove(this.stateClasses.isResultEmpty)
-    }
+    dropdownOptionNode.classList.toggle(this.stateClasses.isSelected, !isSelected)
+    this.toggleOptionState(relativeOptionNode, !isSelected)
   }
 
-  showAllOptionButtons() {
-    this.optionButtons.forEach((optionButton) => {
-      optionButton.classList.remove(this.stateClasses.isHidden)
+  selectDropdownOption(selectedDropdownOptionNode) {
+    this.dropdownOptionNodes.forEach((dropdownOptionNode, index) => {
+      const isSelected = selectedDropdownOptionNode === dropdownOptionNode
+      const relativeOptionNode = this.options[index]
+
+      dropdownOptionNode.classList.toggle(this.stateClasses.isSelected, isSelected)
+      this.toggleOptionState(relativeOptionNode, isSelected)
     })
   }
 
-  setLiveSearchInputState() {
-    if (this.liveSearchInput.value.length) {
-      this.liveSearchInput.classList.add(this.stateClasses.isNotEmpty)
-    } else {
-      this.liveSearchInput.classList.remove(this.stateClasses.isNotEmpty)
-    }
-  }
+  updateDropdownOptions() {
+    this.options.forEach((optionNode, index) => {
+      const isSelected = optionNode.selected
+      const relatedDropdownOptionNode = this.dropdownOptionNodes[index]
 
-  clearLiveSearchInput() {
-    this.liveSearchInput.value = ''
-    this.liveSearchInput.classList.remove(this.stateClasses.isNotEmpty)
-    this.showAllOptionButtons()
-  }
-
-  reset() {
-    this.value = this.options[0].value
-    this.updateOptionButtons()
-  }
-
-  handleOptionButtonClick(button) {
-    if (this.liveSearchInput) {
-      this.clearLiveSearchInput()
-      this.showAllOptionButtons()
-      this.instance.classList.remove(this.stateClasses.isResultEmpty)
-    }
-    if (this.isMultiple) {
-      this.toggleSelectOptionButton(button)
-    } else {
-      this.optionButtons.forEach((optionButton) => {
-        if (optionButton !== button) {
-          this.unselectOptionButton(optionButton)
-        }
-      })
-      this.selectOptionButton(button)
-      this.close()
-    }
-    bubble(this.control, 'change')
-    bubble(this.instance, bubbles.change)
+      relatedDropdownOptionNode.classList.toggle(this.stateClasses.isSelected, isSelected)
+    })
     this.updateMarkup()
   }
 
-  handleOpenButtonClick() {
-    this.toggleVisibility()
-  }
-
   handleClick(event) {
-    const isClickOutside = ![ ...event.path ].includes(this.instance)
+    const isClickOutside = !event.path.includes(this.instance)
 
     if (isClickOutside) {
       this.close()
     }
   }
 
-  handleFormReset() {
-    this.reset()
-  }
-
-  handleInstanceClick(e) {
-    const { target } = e
-
-    if (target.matches(this.els.optionButton)) {
-      this.handleOptionButtonClick(target)
-    }
-  }
-
-  handleInstanceKeyPress(e) {
-    if (e.target.matches(this.els.openButton) && e.key === 'Enter') {
-      this.toggleVisibility()
-    }
-  }
-
-  handleInstanceKeyDown(e) {
-    if (this.isMultiple) return
-    switch (e.key) {
-      case 'ArrowUp': {
-        e.preventDefault()
-        this.selectPrevOption()
-        break
-      }
-      case 'ArrowDown': {
-        e.preventDefault()
-        this.selectNextOption()
-        break
-      }
-      default: {
-        break
-      }
-    }
-  }
-
-  handleControlChange(e) {
-    if (e.isTrusted) {
-      this.updateOptionButtons()
-    }
-  }
-
-  handleLabelClick(e) {
-    this.isEmpty && e.preventDefault()
-    this.open()
-  }
-
-  handleLiveSearchInput(event) {
-    const searchQuery = event.target.value.trim().toLowerCase()
-
-    if (searchQuery.length > 0) {
-      this.filterResult(searchQuery)
+  handleDropdownOptionClick(dropdownOptionNode) {
+    if (this.isMultiple) {
+      this.toggleDropdownOption(dropdownOptionNode)
     } else {
-      this.showAllOptionButtons()
+      this.selectDropdownOption(dropdownOptionNode)
+      this.close()
     }
-
-    this.setLiveSearchInputState()
+    this.updateMarkup()
+    bubble(this.control, bubbles.change)
   }
 
-  handleLiveSearchClearButtonClick() {
-    this.clearLiveSearchInput()
-    this.showAllOptionButtons()
-    this.liveSearchInput.focus()
-    this.instance.classList.remove(this.stateClasses.isResultEmpty)
+  handleInstanceClick(event) {
+    const { target } = event
+
+    if (target.matches(this.els.dropdownOption)) {
+      this.handleDropdownOptionClick(target)
+    }
+  }
+
+  handleToggleButtonClick() {
+    this.toggle()
+  }
+
+  handleControlChange({ isTrusted }) {
+    if (isTrusted) {
+      this.updateDropdownOptions()
+    }
   }
 
   init() {
     this.generateMarkup()
-    this.body = this.instance.querySelector(this.els.body)
-    this.openButton = this.instance.querySelector(this.els.openButton)
-    this.currentVariantEl = this.instance.querySelector(this.els.currentVariantEl)
-    this.dropdown = this.instance.querySelector(this.els.dropdown)
-    this.list = this.instance.querySelector(this.els.list)
-    this.liveSearchInput = this.instance.querySelector(this.els.liveSearchInput)
-    this.liveSearchClearButton = this.instance.querySelector(this.els.liveSearchClearButton)
-    this.updateOptionButtonsEls()
-    this.updateCurrentVariantCaption()
-    this.updateTabIndex()
-    this.setAttrs()
-  }
-
-  destroy() {
-    this.body.remove()
+    this.defineNodes()
+    this.setAttributes()
+    this.bindEvents()
   }
 
   bindEvents() {
-    this.openButton.addEventListener('click', () => this.handleOpenButtonClick())
-    document.addEventListener('click', (event) => this.handleClick(event))
-    this.instance.addEventListener('click', (e) => this.handleInstanceClick(e))
-    this.instance.addEventListener('keypress', (e) => this.handleInstanceKeyPress(e))
-    this.instance.addEventListener('keydown', (e) => this.handleInstanceKeyDown(e))
-    this.control.addEventListener('change', (e) => this.handleControlChange(e))
-    this.label.addEventListener('click', (e) => this.handleLabelClick(e))
-    if (this.liveSearchInput) {
-      this.liveSearchInput.addEventListener('input', (event) => this.handleLiveSearchInput(event))
-      this.liveSearchClearButton.addEventListener('click', () => this.handleLiveSearchClearButtonClick())
-    }
-    if (this.control.form) {
-      this.control.form.addEventListener('reset', () => this.handleFormReset())
-    }
+    document.addEventListener("click", (event) => this.handleClick(event))
+    this.instance.addEventListener("click", (event) => this.handleInstanceClick(event))
+    this.toggleButtonNode.addEventListener("click", () => this.handleToggleButtonClick())
+    this.controlNode.addEventListener("change", (event) => this.handleControlChange(event))
   }
 }
 

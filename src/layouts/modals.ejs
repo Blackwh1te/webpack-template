@@ -46,32 +46,32 @@
 	</header>
 	<div class="modal__body">
 		<% const formCfg = {
-			url: './json/form/successWithStaticModalExample.json',
-			method: 'post',
+			url: "./json/form/successWithStaticModalExample.json",
+			method: "post",
 		} %>
 		<form class="form" novalidate data-js-form="<%= JSON.stringify(formCfg) %>">
 			<div class="form__body grid grid--2">
 				<div class="grid__item">
-					<%- require('../components/input/template.ejs')({
-						name: 'name-10',
-						type: 'text',
+					<%- require("../components/input/template.ejs")({
+						name: "name-10",
+						type: "text",
 						label: {
-							text: 'Name',
-							isHidden: false
+							text: "Name",
+							isHidden: false,
 						},
 						isShowError: true,
 						required: true,
-						extraClasses: '',
-						extraAttrs: ''
+						extraClasses: "",
+						extraAttrs: "",
 					}) %>
 				</div>
 				<div class="grid__item">
-					<%- require('../components/button/template.ejs')({
-						type: 'submit',
+					<%- require("../components/button/template.ejs")({
+						type: "submit",
 						icon: false,
 						caption: {
-							text: 'Send'
-						}
+							text: "Send",
+						},
 					}) %>
 				</div>
 			</div>

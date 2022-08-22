@@ -5,8 +5,8 @@
  * @return node{Element}
  */
 export const getDOMFromHTML = (htmlString, onlyFirstChild = true) => {
-  const template = document.createElement('div')
+  const template = document.createElement("div")
 
   template.innerHTML = htmlString
-  return onlyFirstChild ? template.firstElementChild : [...template.children]
+  return onlyFirstChild ? template.firstElementChild : [ ...template.children ]
 }

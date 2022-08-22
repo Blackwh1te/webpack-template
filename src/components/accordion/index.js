@@ -1,22 +1,22 @@
-import './style.pcss';
-import {getCfg} from '../../js/utils/getCfg'
-import {clearAnimationsArray} from '../../js/utils/clearAnimationsArray'
-import Collection from '../../js/generic/collection'
+import "./style.pcss"
+import { getParams } from "../../js/utils/getParams"
+import { clearAnimationsArray } from "../../js/utils/clearAnimationsArray"
+import Collection from "../../js/generic/collection"
 
-export const instance = '[data-js-accordion]'
+export const instance = "[data-js-accordion]"
 
 export class Accordion {
   els = {
     instance,
-    item: '[data-js-accordion-item]',
-    summary: '[data-js-accordion-summary]',
-    content: '[data-js-accordion-content]',
-    button: '[data-js-accordion-button]',
+    item: "[data-js-accordion-item]",
+    summary: "[data-js-accordion-summary]",
+    content: "[data-js-accordion-content]",
+    button: "[data-js-accordion-button]",
   }
 
   stateClasses = {
-    isOpen: 'is-open',
-    isFullyExpanded: 'is-fully-expanded',
+    isOpen: "is-open",
+    isFullyExpanded: "is-fully-expanded",
   }
 
   defaultCfg = {
@@ -24,7 +24,7 @@ export class Accordion {
     wholeSummaryClickable: true,
     animationParams: {
       duration: 500,
-      easing: 'ease',
+      easing: "ease",
     },
   }
 
@@ -32,7 +32,7 @@ export class Accordion {
     this.instance = instance
     this.items = this.instance.querySelectorAll(`:scope > ${this.els.item}`)
     this.summaryEls = this.instance.querySelectorAll(`:scope > ${this.els.item} > ${this.els.summary}`)
-    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+    this.cfg = getParams(this.instance, this.els.instance, this.defaultCfg)
     this.clickableEls = this.getClickableEls()
     this.init()
     this.bindEvents()
@@ -56,8 +56,8 @@ export class Accordion {
     item.classList.add(this.stateClasses.isOpen)
 
     content.animate([
-      {height: '0'},
-      {height: `${content.scrollHeight}px`},
+      { height: "0" },
+      { height: `${content.scrollHeight}px` },
     ], this.cfg.animationParams).onfinish = () => {
       item.classList.add(this.stateClasses.isFullyExpanded)
     }
@@ -74,8 +74,8 @@ export class Accordion {
     item.classList.remove(this.stateClasses.isOpen)
     item.classList.remove(this.stateClasses.isFullyExpanded)
     content.animate([
-      {height: `${content.scrollHeight}px`},
-      {height: '0'},
+      { height: `${content.scrollHeight}px` },
+      { height: "0" },
     ], this.cfg.animationParams).onfinish = () => {
       item.open = false
     }
@@ -118,10 +118,10 @@ export class Accordion {
 
   bindEvents() {
     this.summaryEls.forEach((summary) => {
-      summary.addEventListener('click', (e) => this.handleSummaryClick(e))
+      summary.addEventListener("click", (e) => this.handleSummaryClick(e))
     })
     this.clickableEls.forEach((clickableEl) => {
-      clickableEl.addEventListener('click', (e) => this.handleClickableElClick(e))
+      clickableEl.addEventListener("click", (e) => this.handleClickableElClick(e))
     })
   }
 }

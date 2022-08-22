@@ -1,0 +1,17 @@
+<ul class="grid grid--4">
+	<li class="grid__item">
+		<%- require("../../components/select/template.ejs")({
+			label: "Select one variant:",
+			name: "single-select",
+		}) %>
+	</li>
+
+	<li class="grid__item">
+		<%- require("../../components/select/template.ejs")({
+			label: "Select several variants:",
+			id: "multiple-select",
+			name: "multiple-select[]",
+			isMultiple: true,
+		}) %>
+	</li>
+</ul>

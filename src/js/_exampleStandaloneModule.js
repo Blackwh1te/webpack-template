@@ -1,4 +1,4 @@
-export const instance = '[data-js-example-module]'
+export const instance = "[data-js-example-module]"
 
 export default class ExampleModule {
   els = {

@@ -1,6 +1,6 @@
 <%
-const { classNames } = require('../../js/utils/classNames')
-const props = { ...require('./data.json'), ...arguments?.[0] }
+const { classNames } = require("../../js/utils/classNames")
+const props = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
@@ -11,10 +11,9 @@ const {
 	disabled,
 } = props
 %>
-
 <%
 const getIconMarkup = () => {
-	if (!icon) return ''
+	if (!icon) return ""
 	return `
 		<svg class="button__icon i-icon">
 			<use href="#icon-${icon.name}"></use>
@@ -23,23 +22,23 @@ const getIconMarkup = () => {
 }
 
 const getButtonBodyMarkup = () => {
-	const classes = classNames('button__caption', {
-		'visually-hidden': caption.isHidden,
+	const classes = classNames("button__caption", {
+		"visually-hidden": caption.isHidden,
 	})
 	return `
-		${icon.position !== 'after' ? getIconMarkup() : ''}
+		${icon.position !== "after" ? getIconMarkup() : ""}
 		<span class="${classes}">${caption.text}</span>
-		${icon.position === 'after' ? getIconMarkup() : ''}
+		${icon.position === "after" ? getIconMarkup() : ""}
 	`
 }
 
-const classes = classNames('button', extraClasses, {
-	'button--icon-only': icon && caption.isHidden,
+const classes = classNames("button", extraClasses, {
+	"button--icon-only": icon && caption.isHidden,
 })
 
-let dataAttrs = ''
+let dataAttrs = ""
 if (!caption.isHidden) {
-	dataAttrs += ' data-js-button'
+	dataAttrs += " data-js-button"
 }
 %>
 
@@ -47,9 +46,9 @@ if (!caption.isHidden) {
 	<a
 		class="<%= classes %>"
 		href="<%= href %>"
-		<% if (caption.isHidden) { %>
-			title="<%= caption.text %>"
-			aria-label="<%= caption.text %>"
+	<% if (caption.isHidden) { %>
+		title="<%= caption.text %>"
+		aria-label="<%= caption.text %>"
 		<% } %>
 		<%- dataAttrs %>
 		<%- extraAttrs %>
@@ -60,12 +59,12 @@ if (!caption.isHidden) {
 	<button
 		class="<%= classes %>"
 		type="<%= type %>"
-		<% if (caption.isHidden) { %>
-			title="<%= caption.text %>"
-			aria-label="<%= caption.text %>"
+	<% if (caption.isHidden) { %>
+		title="<%= caption.text %>"
+		aria-label="<%= caption.text %>"
 		<% } %>
-		<% if (disabled) { %>
-			disabled
+	<% if (disabled) { %>
+		disabled
 		<% } %>
 		<%- dataAttrs %>
 		<%- extraAttrs %>

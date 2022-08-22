@@ -5,5 +5,5 @@
  * @return String
  */
 export const getCSSValue = (node, prop) => {
-  return window.getComputedStyle(node).getPropertyValue(prop);
+  return window.getComputedStyle(node).getPropertyValue(prop)
 }

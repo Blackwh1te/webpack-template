@@ -1,47 +1,47 @@
-import './style.pcss'
-import Collection from '../../js/generic/collection'
-import {bubble} from '../../js/utils/bubble'
-import {getJS} from '../../js/utils/getJS'
-import {getCfg} from '../../js/utils/getCfg'
-import {stateClasses as inputStateClasses} from '../../js/forms'
-import Dispatcher from '../../js/generic/dispatcher'
+import "./style.pcss"
+import Collection from "../../js/generic/collection"
+import { bubble } from "../../js/utils/bubble"
+import { getJS } from "../../js/utils/getJS"
+import { getParams } from "../../js/utils/getParams"
+import { stateClasses as inputStateClasses } from "../../js/forms"
+import Dispatcher from "../../js/generic/dispatcher"
 
 export let state = {
   isScriptLoaded: false,
   isScriptLoading: false,
-  isAPIReady: false
+  isAPIReady: false,
 }
 
-export const instance = '[data-js-google-captcha]'
-export const name = 'g-recaptcha-response'
+export const instance = "[data-js-google-captcha]"
+export const name = "g-recaptcha-response"
 export const bubbles = {
-  ready: 'googleCaptchaReady',
-  render: 'googleCaptchaRender',
-  reset: 'googleCaptchaReset',
-  verify: 'googleCaptchaVerify',
-  expire: 'googleCaptchaExpire',
-  error: 'googleCaptchaError'
+  ready: "googleCaptchaReady",
+  render: "googleCaptchaRender",
+  reset: "googleCaptchaReset",
+  verify: "googleCaptchaVerify",
+  expire: "googleCaptchaExpire",
+  error: "googleCaptchaError",
 }
 
 export class GoogleCaptcha {
   els = {
-    instance
+    instance,
   }
 
   stateClasses = {
-    rendered: 'is-rendered',
-    expired: 'is-expired',
-    error: 'is-error',
-    verify: 'is-verify'
+    rendered: "is-rendered",
+    expired: "is-expired",
+    error: "is-error",
+    verify: "is-verify",
   }
 
   defaultCfg = {
-    'sitekey': window.App.googleCaptchaKey || '0',
-    'theme': 'light',
-    'callback': (response) => this.handleVerify(response),
-    'size': 'normal',
-    'error-callback': () => this.handleError(),
-    'expired-callback': () => this.handleExpired()
+    "sitekey": window.App.googleCaptchaKey || "0",
+    "theme": "light",
+    "callback": (response) => this.handleVerify(response),
+    "size": "normal",
+    "error-callback": () => this.handleError(),
+    "expired-callback": () => this.handleExpired(),
   }
 
   constructor(instance) {
@@ -52,14 +52,14 @@ export class GoogleCaptcha {
       ready: false,
       expired: false,
       error: false,
-      verify: false
+      verify: false,
     }
     if (state.isAPIReady) {
       if (!this.state.render) {
-        this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+        this.cfg = getParams(this.instance, this.els.instance, this.defaultCfg)
         this.bindEvents()
       } else if (App.debug) {
-        console.debug('Google Captcha object are not defined or already rendered: ', instance)
+        console.debug("Google Captcha object are not defined or already rendered: ", instance)
       }
     }
   }
@@ -77,7 +77,7 @@ export class GoogleCaptcha {
     this.updateState({
       error: true,
       ready: false,
-      verify: false
+      verify: false,
     })
     bubble(document, bubbles.error, this.getBubbleData())
   }
@@ -88,7 +88,7 @@ export class GoogleCaptcha {
     this.updateState({
       ready: false,
       verify: false,
-      expired: true
+      expired: true,
     })
     bubble(document, bubbles.expire, this.getBubbleData())
   }
@@ -97,7 +97,7 @@ export class GoogleCaptcha {
     this.instance.classList.add(this.stateClasses.verify, inputStateClasses.valid)
     this.instance.classList.remove(inputStateClasses.invalid)
     this.updateState({
-      verify: true
+      verify: true,
     })
     bubble(document, bubbles.verify, this.getBubbleData(response))
   }
@@ -106,7 +106,7 @@ export class GoogleCaptcha {
     this.id = window.grecaptcha.render(this.instance, this.cfg)
     this.instance.classList.add(this.stateClasses.rendered)
     this.updateState({
-      render: true
+      render: true,
     })
     window.grecaptcha.ready(() => bubble(document, bubbles.render, this.getBubbleData()))
   }
@@ -116,7 +116,7 @@ export class GoogleCaptcha {
       el: this.instance,
       state: this.state,
       id: this.id,
-      ...data
+      ...data,
     }
   }
 
@@ -131,7 +131,7 @@ export class GoogleCaptcha {
       console.debug(e)
     }
     this.updateState({
-      verify: false
+      verify: false,
     })
     this.instance.classList.remove(this.stateClasses.verify)
     bubble(document, bubbles.reset, this.getBubbleData())
@@ -139,7 +139,7 @@ export class GoogleCaptcha {
 
   handleReady() {
     this.updateState({
-      ready: true
+      ready: true,
     })
     if (this.instance.children.length) {
       this.reset()
@@ -155,7 +155,7 @@ export class GoogleCaptcha {
 }
 
 class GoogleCaptchaApiManager {
-  static apiUrl = 'https://www.google.com/recaptcha/api.js?render=explicit&onload=bubbleCaptchaAPIReady'
+  static apiUrl = "https://www.google.com/recaptcha/api.js?render=explicit&onload=bubbleCaptchaAPIReady"
 
   static instance = null
 
@@ -171,7 +171,7 @@ class GoogleCaptchaApiManager {
     state.isAPIReady = true
     bubble(document, bubbles.ready)
     if (window.App.isDebug) {
-      console.debug('Google Captcha API are ready')
+      console.debug("Google Captcha API are ready")
     }
   }
 
@@ -183,20 +183,20 @@ class GoogleCaptchaApiManager {
       return await getJS({
         defer: true,
         includeToObserver: true,
-        src: GoogleCaptchaApiManager.apiUrl
+        src: GoogleCaptchaApiManager.apiUrl,
       })
     }
   }
 
   static handleScriptError(script) {
-    console.error('Google Captcha API are not loaded: ', script)
+    console.error("Google Captcha API are not loaded: ", script)
   }
 
   static handleScriptLoad() {
     state = {
       ...state,
       isScriptLoaded: true,
-      isScriptLoading: false
+      isScriptLoading: false,
     }
   }
 }
@@ -229,7 +229,7 @@ export class GoogleCaptchaCollection extends Collection {
     Dispatcher.initiator = {
       selector: instance,
       initiator: (context) => this.init(context),
-      getCollection: () => this.collection
+      getCollection: () => this.collection,
     }
   }
 }

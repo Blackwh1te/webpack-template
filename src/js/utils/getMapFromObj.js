@@ -5,7 +5,7 @@
  */
 export const getMapFromObj = (obj) => {
   const map = new Map()
-  Object.entries(obj).forEach(([key, value]) => {
+  Object.entries(obj).forEach(([ key, value ]) => {
     map.set(key, value)
   })
   return map

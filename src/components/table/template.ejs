@@ -2,35 +2,35 @@
 const { classNames } = require("../../js/utils/classNames")
 const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
-  extraClasses,
-  extraAttrs,
-  headCells,
-  bodyRows
+	extraClasses,
+	extraAttrs,
+	headCells,
+	bodyRows,
 } = cfg
 %>
 
 <table
-  class="<%= classNames("table", extraClasses) %>"
-  <%- extraAttrs %>
+	class="<%= classNames("table", extraClasses) %>"
+	<%- extraAttrs %>
 >
-  <% if (headCells.length) { %>
-    <thead>
-      <tr>
-        <% headCells.forEach((cell) => { %>
-          <th><%- cell %></th>
-        <% }) %>
-      </tr>
-    </thead>
-  <% } %>
-  <% if (bodyRows.length) { %>
-    <tbody>
-      <% bodyRows.forEach((row) => { %>
-        <tr>
-          <% row.forEach((cell) => { %>
-            <td><%- cell %></td>
-          <% }) %>
-        </tr>
-      <% }) %>
-    </tbody>
-  <% } %>
+	<% if (headCells.length) { %>
+		<thead>
+		<tr>
+			<% headCells.forEach((cell) => { %>
+				<th><%- cell %></th>
+			<% }) %>
+		</tr>
+		</thead>
+	<% } %>
+	<% if (bodyRows.length) { %>
+		<tbody>
+		<% bodyRows.forEach((row) => { %>
+			<tr>
+				<% row.forEach((cell) => { %>
+					<td><%- cell %></td>
+				<% }) %>
+			</tr>
+		<% }) %>
+		</tbody>
+	<% } %>
 </table>

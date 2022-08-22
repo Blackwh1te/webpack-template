@@ -1,14 +1,14 @@
-import '@fancyapps/ui/dist/carousel.css'
-import {Fancybox} from '@fancyapps/ui'
-import {parseJSON} from './utils/parseJSON'
-import {getAttr} from './utils/getAttr'
-import {els as sliderEls} from './sliders'
-import {getNodeIndex} from './utils/getNodeIndex'
-import {modalOptions} from './modals'
+import "@fancyapps/ui/dist/carousel.css"
+import { Fancybox } from "@fancyapps/ui"
+import { parseJSON } from "./utils/parseJSON"
+import { getAttr } from "./utils/getAttr"
+import { els as sliderEls } from "./sliders"
+import { getNodeIndex } from "./utils/getNodeIndex"
+import { modalOptions } from "./modals"
 
 const els = {
-  items: '[data-js-gallery-item]',
-  gallery: '[data-js-gallery-container]',
+  items: "[data-js-gallery-item]",
+  gallery: "[data-js-gallery-container]",
 }
 
 const defaultCfg = {
@@ -18,13 +18,13 @@ const defaultCfg = {
   Image: {
     animateThumbnail: false,
   },
-  closeButton: 'outside',
+  closeButton: "outside",
   on: false,
   trapFocus: true,
   autoFocus: false,
   placeFocusBack: false,
   infinite: false,
-  defaultType: 'image'
+  defaultType: "image",
 }
 
 export default class Gallery {
@@ -34,14 +34,14 @@ export default class Gallery {
   }
 
   bindEvents() {
-    document.addEventListener('click', (e) => this.handleClick(e))
+    document.addEventListener("click", (e) => this.handleClick(e))
   }
 
-  static getCfg(container, extraParams = {}) {
+  static getParams(container, extraParams = {}) {
     return {
       ...defaultCfg,
       ...parseJSON(container.getAttribute(getAttr(els.gallery))),
-      ...extraParams
+      ...extraParams,
     }
   }
 
@@ -56,9 +56,9 @@ export default class Gallery {
     const items = []
     container.querySelectorAll(els.items).forEach((node) => {
       items.push({
-        src: node.getAttribute('href'),
+        src: node.getAttribute("href"),
         type: defaultCfg.defaultType,
-        ...parseJSON(node.getAttribute(getAttr(els.items)))
+        ...parseJSON(node.getAttribute(getAttr(els.items))),
       })
     })
     return items
@@ -70,14 +70,14 @@ export default class Gallery {
   }
 
   handleClick(e) {
-    const {target} = e
-    if (target.matches(els.items) && target.hasAttribute('href')) {
+    const { target } = e
+    if (target.matches(els.items) && target.hasAttribute("href")) {
       e.preventDefault()
       const container = target.closest(els.gallery)
       if (container) {
         const itemsArray = Gallery.getItems(container)
-        const cfg = Gallery.getCfg(container, {
-          startIndex: Gallery.getStartIndex(target)
+        const cfg = Gallery.getParams(container, {
+          startIndex: Gallery.getStartIndex(target),
         })
         Gallery.open(itemsArray, cfg)
       } else {

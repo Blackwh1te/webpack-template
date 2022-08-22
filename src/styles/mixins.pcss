@@ -9,7 +9,18 @@
   }
 }
 
-@define-mixin transition $prop: var(--baseTransitionDuration) {
+@define-mixin flex-center $display: flex {
+  display: $display;
+  justify-content: center;
+  align-items: center;
+}
+
+@define-mixin square $size: 100% {
+  width: $size;
+  height: $size;
+}
+
+@define-mixin transition $prop: var(--base-transition-duration) {
   .dom-is-ready & {
     transition: $prop;
   }
@@ -47,11 +58,11 @@
 }
 
 @define-mixin abs-cover {
+  @mixin square;
+
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
 }
 
 @define-mixin reset-link {

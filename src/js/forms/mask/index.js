@@ -1,32 +1,32 @@
-import IMask from 'imask'
-import {getAttr} from '../../utils/getAttr'
-import {parseJSON} from '../../utils/parseJSON'
-import {isEmptyObj} from '../../utils/isEmptyObj'
-import {getMapFromObj} from '../../utils/getMapFromObj'
-import Dispatcher from '../../generic/dispatcher'
+import IMask from "imask"
+import { getAttr } from "../../utils/getAttr"
+import { parseJSON } from "../../utils/parseJSON"
+import { isEmptyObj } from "../../utils/isEmptyObj"
+import { getMapFromObj } from "../../utils/getMapFromObj"
+import Dispatcher from "../../generic/dispatcher"
 
-export const instance = '[data-js-input-mask]'
+export const instance = "[data-js-input-mask]"
 
 export default class FormMask {
 
   static patterns = getMapFromObj({
-    'phone': {
-      mask: '+{7} (000) 000-00-00'
+    "phone": {
+      mask: "+{7} (000) 000-00-00",
     },
-    'date': {
-      mask: Date
+    "date": {
+      mask: Date,
     },
-    'date-period': {
-      mask: 'from - to',
+    "date-period": {
+      mask: "from - to",
       blocks: {
         from: {
           mask: Date,
         },
         to: {
           mask: Date,
-        }
-      }
-    }
+        },
+      },
+    },
   })
 
   constructor() {
@@ -38,12 +38,12 @@ export default class FormMask {
     Dispatcher.initiator = {
       selector: instance,
       initiator: (context) => FormMask.init(context),
-      getCollection: () => []
+      getCollection: () => [],
     }
   }
 
   static getPattern(type) {
-    return FormMask.isPatternExist(type) ? {...FormMask.patterns.get(type), type} : null
+    return FormMask.isPatternExist(type) ? { ...FormMask.patterns.get(type), type } : null
   }
 
   static isPatternExist(type) {
@@ -55,7 +55,7 @@ export default class FormMask {
     if (FormMask.isPatternExist(attrContent)) {
       return {
         ...FormMask.getPattern(attrContent),
-        ...customCfg
+        ...customCfg,
       }
     } else {
       const userCfg = parseJSON(attrContent)
@@ -63,10 +63,10 @@ export default class FormMask {
         return {
           ...FormMask.getPattern(userCfg.type),
           ...userCfg,
-          ...customCfg
+          ...customCfg,
         }
       } else {
-        console.debug('Missing \'type\' prop in custom mask params or type are not defined in \'patterns\': ', input, {...userCfg, ...customCfg})
+        console.debug("Missing 'type' prop in custom mask params or type are not defined in 'patterns': ", input, { ...userCfg, ...customCfg })
         return {}
       }
     }
@@ -90,18 +90,18 @@ export default class FormMask {
   }
 
   static getInstance(input) {
-    return (typeof input.iMask === 'undefined') ? null : input.iMask
+    return (typeof input.iMask === "undefined") ? null : input.iMask
   }
 
   static createInstance(input, options) {
     options = options || FormMask.getMaskCfg(input)
     if (isEmptyObj(options)) {
-      console.debug('Missing options for mask input', input)
+      console.debug("Missing options for mask input", input)
     } else {
       if (FormMask.getInstance(input) === null) {
         input.iMask = new IMask(input, options)
         if (options.on) {
-          Object.entries(options.on).forEach(([event, callback]) => {
+          Object.entries(options.on).forEach(([ event, callback ]) => {
             input.addEventListener(event, (e) => callback(e, input.iMask))
           })
         }
@@ -121,9 +121,9 @@ export default class FormMask {
   static updateValue(input, value) {
     const maskInstance = FormMask.getInstance(input)
     if (maskInstance) {
-      if (value === '') {
+      if (value === "") {
         maskInstance.masked.reset()
-        maskInstance.typedValue = ''
+        maskInstance.typedValue = ""
       } else if (!value) {
         maskInstance.updateValue()
         maskInstance.value = input.value

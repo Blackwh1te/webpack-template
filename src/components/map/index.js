@@ -1,33 +1,33 @@
-import './style.pcss'
-import ymaps from 'ymaps'
-import {getCfg} from '../../js/utils/getCfg'
-import Collection from '../../js/generic/collection'
+import "./style.pcss"
+import ymaps from "ymaps"
+import { getParams } from "../../js/utils/getParams"
+import Collection from "../../js/generic/collection"
 
-export const instance = '[data-js-map]'
+export const instance = "[data-js-map]"
 
 export class Map {
   els = {
-    instance
+    instance,
   }
 
   stateClasses = {
-    isUnlocked: 'is-unlocked',
+    isUnlocked: "is-unlocked",
   }
 
   defaultCfg = {
     zoom: 15,
     controls: [
-      'zoomControl',
-    ]
+      "zoomControl",
+    ],
   }
 
   constructor(instance) {
     this.instance = instance
     if (!this.instance) return
-    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+    this.cfg = getParams(this.instance, this.els.instance, this.defaultCfg)
     this.map = {}
     this.apiKey = App.yandexMapKey
-    this.lang = App.lang.toLowerCase() === 'ru' ? 'ru_RU' : 'en_US'
+    this.lang = App.lang.toLowerCase() === "ru" ? "ru_RU" : "en_US"
     this.init()
     this.bindEvents()
   }
@@ -40,11 +40,11 @@ export class Map {
     this.myPlacemark = new this.yMap.Placemark(
       item.coords,
       {
-        balloonContent: item.iconContent
+        balloonContent: item.iconContent,
       },
       {
-        iconColor: '#ed1c24'
-      }
+        iconColor: "#ed1c24",
+      },
     )
     this.map.geoObjects.add(this.myPlacemark)
   }
@@ -70,8 +70,8 @@ export class Map {
   }
 
   bindEvents() {
-    this.instance.addEventListener('click', () => this.handleClick())
-    this.instance.addEventListener('mouseleave', () => this.handleMouseLeave())
+    this.instance.addEventListener("click", () => this.handleClick())
+    this.instance.addEventListener("mouseleave", () => this.handleMouseLeave())
   }
 }
 

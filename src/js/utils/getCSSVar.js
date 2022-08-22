@@ -1,4 +1,3 @@
-
 /**
  * Получение значения CSS3-переменной
  * @param node{Element} - DOM-узел с необходимой переменной
@@ -7,9 +6,9 @@
  * @return String||Number
  */
 export const getCSSVar = (node, variable, isNumber = false) => {
-  if(!variable.startsWith('--')) {
-    variable = `--${variable}`;
+  if (!variable.startsWith("--")) {
+    variable = `--${variable}`
   }
-  const value = window.getComputedStyle(node).getPropertyValue(variable);
-  return (isNumber) ? parseFloat(value) : value;
+  const value = window.getComputedStyle(node).getPropertyValue(variable)
+  return (isNumber) ? parseFloat(value) : value
 }

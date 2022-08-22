@@ -1,6 +1,6 @@
-import {getCurrentLang} from './getCurrentLang'
-import {getByPropFromObj} from './getByPropFromObj'
-import {locales} from '../locales'
+import { getCurrentLang } from "./getCurrentLang"
+import { getByPropFromObj } from "./getByPropFromObj"
+import { locales } from "../locales"
 
 /**
  * Получение сообщения в зависимости от языка сайта
@@ -14,6 +14,6 @@ export const getLocaleMsg = (key, lang = getCurrentLang()) => {
     return msg[0][lang]
   } else {
     console.debug(`Locale key "${key}" not found for lang "${lang}"`)
-    return ''
+    return ""
   }
 }

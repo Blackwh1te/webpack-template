@@ -5,10 +5,10 @@
 				<% for (let i = 0; i < 8; i++) { %>
 					<li class="product-preview__main-slider-item swiper-slide">
 						<a class="product-preview__main-slider-link"
-						   href="https://placekitten.com/500/<%= 500 - i %>"
-						   data-js-gallery-item='{"caption": "Описание изображения"}'
-						   title="Открыть изображение в полном размере"
-						   aria-label="Открыть изображение в полном размере"
+							 href="https://placekitten.com/500/<%= 500 - i %>"
+							 data-js-gallery-item='{"caption": "Описание изображения"}'
+							 title="Открыть изображение в полном размере"
+							 aria-label="Открыть изображение в полном размере"
 						>
 							<img
 								class="product-preview__main-slider-image"
@@ -34,7 +34,7 @@
 					</li>
 				<% } %>
 			</ul>
-			<%- require('../components/slider-buttons/template.ejs')({data:{}}) %>
+			<%- require("../components/slider-buttons/template.ejs")({ data: {} }) %>
 		</div>
 	</div>
 </div>

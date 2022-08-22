@@ -5,7 +5,7 @@
  * @param isReturn{Boolean} - возвращение нового узла
  */
 export const wrap = (el, wrap, isReturn = false) => {
-  const temp = document.createElement('div')
+  const temp = document.createElement("div")
   const parent = el.parentNode
   const insertWhere = el.previousSibling
   let target

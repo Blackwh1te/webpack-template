@@ -1,26 +1,26 @@
-import Collection from './generic/collection'
-import {getNodeIndex} from './utils/getNodeIndex'
-import {getCfg} from './utils/getCfg'
-import {els as sliderEls} from './sliders'
-import {wait} from './utils/wait'
+import Collection from "./generic/collection"
+import { getNodeIndex } from "./utils/getNodeIndex"
+import { getParams } from "./utils/getParams"
+import { els as sliderEls } from "./sliders"
+import { wait } from "./utils/wait"
 
-export const instance = '[data-js-tabs]'
+export const instance = "[data-js-tabs]"
 
 export class Tabs {
   els = {
     instance,
-    navItem: '[data-js-tabs-nav-item]',
-    tabItem: '[data-js-tabs-content-item]',
+    navItem: "[data-js-tabs-nav-item]",
+    tabItem: "[data-js-tabs-content-item]",
   }
 
   stateClasses = {
-    isActive: 'is-active',
+    isActive: "is-active",
   }
 
   defaultCfg = {
     animationParams: {
       duration: 1000,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
     },
   }
 
@@ -28,7 +28,7 @@ export class Tabs {
     this.instance = instance
     this.navItems = this.instance.querySelectorAll(this.els.navItem)
     this.tabItems = this.instance.querySelectorAll(this.els.tabItem)
-    this.cfg = getCfg(this.instance, this.els.instance, this.defaultCfg)
+    this.cfg = getParams(this.instance, this.els.instance, this.defaultCfg)
     this.init()
     this.bindEvents()
   }
@@ -64,8 +64,8 @@ export class Tabs {
       this.updateInnerSliders(tab)
     })
     tab.animate([
-      {opacity: '0'},
-      {opacity: '1'},
+      { opacity: "0" },
+      { opacity: "1" },
     ], this.cfg.animationParams)
   }
 
@@ -114,7 +114,7 @@ export class Tabs {
 
   bindEvents() {
     this.navItems.forEach(navItem => {
-      navItem.addEventListener('click', (e) => this.handleNavItemClick(e))
+      navItem.addEventListener("click", (e) => this.handleNavItemClick(e))
     })
   }
 }

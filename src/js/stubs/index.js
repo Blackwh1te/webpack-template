@@ -1,16 +1,16 @@
 module.exports = {
   success: {
-    url: '/api/success',
+    url: "/api/success",
     resp: {
       success: true,
-      modals: []
-    }
+      modals: [],
+    },
   },
   error: {
-    url: '/api/error',
+    url: "/api/error",
     resp: {
       success: false,
-      errors: []
-    }
-  }
+      errors: [],
+    },
+  },
 }

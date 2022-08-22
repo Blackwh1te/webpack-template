@@ -1,4 +1,4 @@
-import {onContentLoaded} from './eventing'
+import { onContentLoaded } from "./eventing"
 
 /**
  * Единый слушатель обновления контента документа
@@ -18,7 +18,7 @@ export default class Dispatcher {
    * Прослушивание событий изменения контента
    */
   bindEvents() {
-    onContentLoaded((e) => Dispatcher.initiators.forEach(({initiator}) => initiator(e.detail.content)))
+    onContentLoaded((e) => Dispatcher.initiators.forEach(({ initiator }) => initiator(e.detail.content)))
   }
 
   /**
@@ -36,9 +36,9 @@ export default class Dispatcher {
    * @param initiator{Function} - callback-функция
    * @param getCollection{Function=} - функция доступа к коллекции элементов
    */
-  static set initiator({selector, initiator, getCollection = () => []}) {
+  static set initiator({ selector, initiator, getCollection = () => [] }) {
     if (!Dispatcher.isInitiatorExist(selector)) {
-      Dispatcher.initiators.set(selector, {initiator, getCollection})
+      Dispatcher.initiators.set(selector, { initiator, getCollection })
     }
   }
 
@@ -48,9 +48,9 @@ export default class Dispatcher {
    * @param action{String} - вызываемый метод класса
    */
   static dispatchAction(el = document.body, action) {
-    Dispatcher.initiators.forEach(({getCollection = () => []}) => {
+    Dispatcher.initiators.forEach(({ getCollection = () => [] }) => {
       getCollection().forEach(instance => {
-        if (el.contains(instance.instance) && typeof instance[action] === 'function') {
+        if (el.contains(instance.instance) && typeof instance[action] === "function") {
           instance[action]()
         }
       })

@@ -1,31 +1,31 @@
-import '@fancyapps/ui/dist/fancybox.css'
-import {Fancybox} from '@fancyapps/ui'
-import {locales} from './locales'
-import {getLocaleMsg} from './utils/getLocaleMsg'
-import {dispatchContentLoaded} from './generic/eventing'
-import {isUrl} from './utils/isUrl'
-import {parseJSON} from './utils/parseJSON'
-import {getAttr} from './utils/getAttr'
-import {bubble} from './utils/bubble'
-import {isEmptyObj} from './utils/isEmptyObj'
-import {getLastFromNodeList} from './utils/getLastFromNodeList'
-import {getFormDataFromObj} from './utils/getFormDataFromObj'
-import {makeRequest} from './utils/makeRequest'
-import {getCurrentLang} from './utils/getCurrentLang'
-import {wait} from './utils/wait'
-import {stateClasses as formStateClasses} from './forms'
+import "@fancyapps/ui/dist/fancybox.css"
+import { Fancybox } from "@fancyapps/ui"
+import { locales } from "./locales"
+import { getLocaleMsg } from "./utils/getLocaleMsg"
+import { dispatchContentLoaded } from "./generic/eventing"
+import { isUrl } from "./utils/isUrl"
+import { parseJSON } from "./utils/parseJSON"
+import { getAttr } from "./utils/getAttr"
+import { bubble } from "./utils/bubble"
+import { isEmptyObj } from "./utils/isEmptyObj"
+import { getLastFromNodeList } from "./utils/getLastFromNodeList"
+import { getFormDataFromObj } from "./utils/getFormDataFromObj"
+import { makeRequest } from "./utils/makeRequest"
+import { getCurrentLang } from "./utils/getCurrentLang"
+import { wait } from "./utils/wait"
+import { stateClasses as formStateClasses } from "./forms"
 
 export const els = {
-  modal: '[data-js-modal]',
-  errorText: '[data-js-modal-error-text]',
-  open: '[data-js-modal-open]',
-  close: '[data-js-modal-close]',
-  submit: '[data-js-modal-submit]',
-  cancel: '[data-js-modal-cancel]',
+  modal: "[data-js-modal]",
+  errorText: "[data-js-modal-error-text]",
+  open: "[data-js-modal-open]",
+  close: "[data-js-modal-close]",
+  submit: "[data-js-modal-submit]",
+  cancel: "[data-js-modal-cancel]",
   defaultAnchors: {
-    success: '#modal-success',
-    error: '#modal-error'
-  }
+    success: "#modal-success",
+    error: "#modal-error",
+  },
 }
 
 export const layouts = {
@@ -43,11 +43,11 @@ export const layouts = {
     <svg class="i-icon i-icon--large">
       <use href="#icon-page-prev"></use>
     </svg>
-  `
+  `,
 }
 
 const l10n = Object.entries(locales.modals).map((pair) => {
-  return {[pair[0]]: pair[1][getCurrentLang()]}
+  return { [pair[0]]: pair[1][getCurrentLang()] }
 }).reduce((a, b) => Object.assign(a, b), {})
 
 export const modalOptions = {
@@ -62,11 +62,11 @@ export const modalOptions = {
     },
     closing: (instance) => {
       Modals.handleModalClose(instance)
-    }
+    },
   },
   l10n,
   template: {
-    closeButton: layouts.closeButton
+    closeButton: layouts.closeButton,
   },
   trapFocus: true,
   autoFocus: false,
@@ -84,14 +84,14 @@ export const modalOptions = {
     },
     afterCancel: (instance, event) => {
       Modals.handleModalCancel(instance, event)
-    }
+    },
   },
   draggable: false,
   lockAxis: true,
-  method: 'GET',
+  method: "GET",
   data: {},
-  showClass: 'modal-show',
-  hideClass: 'modal-hide'
+  showClass: "modal-show",
+  hideClass: "modal-hide",
 }
 
 export default class Modals {
@@ -103,17 +103,17 @@ export default class Modals {
   static getActionCfg(modal) {
     return {
       ...modalOptions.defaultActionCfg,
-      ...parseJSON(modal.getAttribute(getAttr(els.modal)))
+      ...parseJSON(modal.getAttribute(getAttr(els.modal))),
     }
   }
 
-  static getCfg(handler) {
+  static getParams(handler) {
     return {
       handler,
-      src: handler.hasAttribute('href') ? handler.getAttribute('href') : '',
+      src: handler.hasAttribute("href") ? handler.getAttribute("href") : "",
       isLockHandler: true,
       ...modalOptions,
-      ...parseJSON(handler.getAttribute(getAttr(els.open)))
+      ...parseJSON(handler.getAttribute(getAttr(els.open))),
     }
   }
 
@@ -131,14 +131,14 @@ export default class Modals {
     const modal = slide.$el.querySelector(els.modal)
     if (modal) {
       const slideContent = modal.parentNode
-      if (slide.type !== 'inline') {
+      if (slide.type !== "inline") {
         const attr = getAttr(els.modal)
-        slideContent.setAttribute(attr, (modal.hasAttribute(attr)) ? modal.getAttribute(attr) : '')
+        slideContent.setAttribute(attr, (modal.hasAttribute(attr)) ? modal.getAttribute(attr) : "")
         slideContent.classList.add(...modal.classList)
         slideContent.id = modal.id
         modal.replaceWith(...modal.childNodes)
       }
-      dispatchContentLoaded({content: slideContent})
+      dispatchContentLoaded({ content: slideContent })
     }
   }
 
@@ -149,16 +149,16 @@ export default class Modals {
   static handleModalClose(instance) {
     const modal = Modals.getModalContent(instance)
     if (modal) {
-      const {bubbleAfterClose, redirectAfterClose, reloadAfterClose} = Modals.getActionCfg(modal)
+      const { bubbleAfterClose, redirectAfterClose, reloadAfterClose } = Modals.getActionCfg(modal)
       if (bubbleAfterClose) {
         bubble(document, bubbleAfterClose.toString(), modal)
       }
-      if (typeof redirectAfterClose === 'string') {
+      if (typeof redirectAfterClose === "string") {
         window.location.href = redirectAfterClose
       } else if (reloadAfterClose) {
         window.location.reload()
       } else {
-        const {isLockHandler, handler} = instance.options
+        const { isLockHandler, handler } = instance.options
         if (isLockHandler && handler) {
           Modals.setModalHandlerLock(handler, false)
         }
@@ -177,8 +177,8 @@ export default class Modals {
   }
 
   static openInlineModal(cfg) {
-    const {src} = cfg
-    Fancybox.show([{src, type: 'inline'}], {
+    const { src } = cfg
+    Fancybox.show([ { src, type: "inline" } ], {
       ...modalOptions,
       ...cfg,
     })
@@ -186,12 +186,12 @@ export default class Modals {
 
   static openConfirmModal(cfg, confirmFn, cancelFn) {
     Modals.openInlineModal({
-      src: '#modal-confirm',
+      src: "#modal-confirm",
       defaultActionCfg: {
         ...modalOptions.defaultActionCfg,
         afterConfirm: (instance, e) => {
           e.preventDefault()
-          if (typeof confirmFn === 'function') {
+          if (typeof confirmFn === "function") {
             confirmFn(instance, e)
           } else {
             Modals.handleModalConfirm(instance, e)
@@ -199,54 +199,54 @@ export default class Modals {
         },
         afterCancel: (instance, e) => {
           e.preventDefault()
-          if (typeof cancelFn === 'function') {
+          if (typeof cancelFn === "function") {
             cancelFn(instance, e)
           } else {
             Modals.handleModalCancel(instance, e)
           }
-        }
+        },
       },
-      ...cfg
+      ...cfg,
     })
   }
 
   static openHTMLModal(cfg) {
-    const {src} = cfg
-    Fancybox.show([{src, type: 'html'}], {
+    const { src } = cfg
+    Fancybox.show([ { src, type: "html" } ], {
       ...modalOptions,
       ...cfg,
     })
   }
 
   static handleRequestError(status = 404, callback) {
-    let msg = getLocaleMsg('ERROR')
+    let msg = getLocaleMsg("ERROR")
     switch (status) {
       case 408:
-        msg = getLocaleMsg('TIMEOUT')
+        msg = getLocaleMsg("TIMEOUT")
         break
       case 404:
-        msg = getLocaleMsg('AJAX_NOT_FOUND')
+        msg = getLocaleMsg("AJAX_NOT_FOUND")
         break
       case 403:
-        msg = getLocaleMsg('AJAX_FORBIDDEN')
+        msg = getLocaleMsg("AJAX_FORBIDDEN")
         break
     }
     Modals.openErrorModal(msg)
-    if (typeof callback === 'function') {
+    if (typeof callback === "function") {
       callback()
     }
   }
 
   static openAjaxModal(cfg) {
-    const {src = '', method = 'GET', data = {}, on} = cfg
+    const { src = "", method = "GET", data = {}, on } = cfg
     if (src) {
       const body = getFormDataFromObj(data)
       const handleError = () => {
-        if (typeof on.error === 'function') {
+        if (typeof on.error === "function") {
           on.error()
         }
       }
-      makeRequest({url: src, type: 'text', method, body}).then((data) => {
+      makeRequest({ url: src, type: "text", method, body }).then((data) => {
         if (cfg.data) {
           delete cfg.data
         }
@@ -254,7 +254,7 @@ export default class Modals {
         if (isEmptyObj(json)) {
           Modals.openHTMLModal({
             ...cfg,
-            src: data
+            src: data,
           })
         } else if (json.errors) {
           Modals.openErrorModal(json.errors)
@@ -262,19 +262,19 @@ export default class Modals {
         }
       }, (errorCode) => Modals.handleRequestError(errorCode, handleError))
     } else {
-      console.error('Can\'t open ajax modal with invalid cfg:', cfg)
+      console.error("Can't open ajax modal with invalid cfg:", cfg)
     }
   }
 
   static setErrorText(errorText, slide, isReset = false) {
-    const context = (typeof slide.$content === 'undefined') ? slide : slide.$content
+    const context = (typeof slide.$content === "undefined") ? slide : slide.$content
     const errorBlock = context.querySelector(els.errorText)
     if (errorBlock && errorText) {
-      errorBlock.innerHTML = (isReset) ? getLocaleMsg('ERROR') : (Array.isArray(errorText) ? errorText.join('<br />') : errorText)
+      errorBlock.innerHTML = (isReset) ? getLocaleMsg("ERROR") : (Array.isArray(errorText) ? errorText.join("<br />") : errorText)
     }
   }
 
-  static openErrorModal(errorText = getLocaleMsg('ERROR'), isCloseOthers = true, debugInfo) {
+  static openErrorModal(errorText = getLocaleMsg("ERROR"), isCloseOthers = true, debugInfo) {
     if (isCloseOthers) {
       Modals.closeAllModals()
     }
@@ -290,8 +290,8 @@ export default class Modals {
         },
         closing: (instance) => {
           Modals.handleModalClose(instance)
-        }
-      }
+        },
+      },
     })
     if (debugInfo) {
       console.debug(debugInfo)
@@ -300,7 +300,7 @@ export default class Modals {
 
   static getActiveInstance() {
     let instance = Fancybox.getInstance()
-    const modals = document.querySelectorAll('[id^="fancybox-"][aria-modal]')
+    const modals = document.querySelectorAll("[id^=\"fancybox-\"][aria-modal]")
     if (modals.length && !instance) {
       const lastModal = getLastFromNodeList(modals)
       instance = lastModal.Fancybox || null
@@ -311,7 +311,7 @@ export default class Modals {
   static setModalHandlerLock(handler, isLock = true) {
     if (handler) {
       (isLock) ? handler.classList.add(formStateClasses.disabled) : handler.classList.remove(formStateClasses.disabled)
-      if (handler.matches('button')) {
+      if (handler.matches("button")) {
         handler.disabled = isLock
       }
     }
@@ -319,23 +319,23 @@ export default class Modals {
 
   handleOpenClick(e) {
     e.preventDefault()
-    const cfg = Modals.getCfg(e.target)
-    const {src, isLockHandler, handler, on} = cfg
+    const cfg = Modals.getParams(e.target)
+    const { src, isLockHandler, handler, on } = cfg
     const setLock = (isLock = true) => {
       if (handler && isLockHandler) {
         Modals.setModalHandlerLock(handler, isLock)
       }
     }
-    if (typeof on.error === 'undefined') {
+    if (typeof on.error === "undefined") {
       on.error = () => setLock(false)
     }
     if (src) {
       setLock()
       switch (true) {
-        case isUrl(src) || src.startsWith('/') || src.startsWith('.'):
+        case isUrl(src) || src.startsWith("/") || src.startsWith("."):
           Modals.openAjaxModal(cfg)
           break
-        case src.startsWith('#'):
+        case src.startsWith("#"):
           Modals.openInlineModal(cfg)
           break
         default:
@@ -343,7 +343,7 @@ export default class Modals {
           break
       }
     } else {
-      throw new Error('No src for modal')
+      throw new Error("No src for modal")
     }
   }
 
@@ -356,7 +356,7 @@ export default class Modals {
   handleConfirmClick(e) {
     e.preventDefault()
     const instance = Modals.getActiveInstance()
-    if (typeof instance.options.defaultActionCfg.afterConfirm === 'function') {
+    if (typeof instance.options.defaultActionCfg.afterConfirm === "function") {
       instance.options.defaultActionCfg.afterConfirm(instance, e)
     }
   }
@@ -364,7 +364,7 @@ export default class Modals {
   handleCancelClick(e) {
     e.preventDefault()
     const instance = Modals.getActiveInstance()
-    if (typeof instance.options.defaultActionCfg.afterCancel === 'function') {
+    if (typeof instance.options.defaultActionCfg.afterCancel === "function") {
       instance.options.defaultActionCfg.afterCancel(instance, e)
     }
   }
@@ -402,7 +402,7 @@ export default class Modals {
   }
 
   bindEvents() {
-    document.addEventListener('mousedown', (e) => {
+    document.addEventListener("mousedown", (e) => {
       this.handleMouseDown(e)
     })
   }

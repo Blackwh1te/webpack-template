@@ -1,68 +1,68 @@
 <%
 const { classNames } = require("../../js/utils/classNames")
-const cfg = { ...require("./data.json"), ...arguments?.[0] }
+const props = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
+	id = name,
 	name,
 	label,
-	required,
-	disabled,
-	multiple,
-	form,
+	placeholder,
+	isLabelHidden,
+	isRequired,
+	isDisabled,
+	isMultiple,
 	options,
-	isLiveSearch,
-} = cfg
+} = props
+%>
+<%
+const classes = classNames(extraClasses, "select form-item")
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(" ") : extraAttrs
 %>
 
-<% const selectCfg = {
-	isLiveSearch
-} %>
-
 <div
-	class="<%= classNames('select form-item', extraClasses) %>"
-	data-js-select='<%- JSON.stringify(selectCfg) %>'
-	<%- extraAttrs %>
+	class="<%= classes %>"
+	data-js-select
+	<%- attrs %>
 >
 	<select
 		class="select__control"
-		id="<%= name %>"
+		id="<%= id %>"
 		name="<%= name %>"
-		data-js-select-control
-		tabindex="-1"
-
-		<% if (disabled) { %>
-			disabled
-		<% } %>
-
-		<% if (multiple) { %>
+		<% if (isMultiple) { %>
 			multiple
 		<% } %>
-
-		<% if (form) { %>
-			form="<%= form %>"
+		<% if (isDisabled) { %>
+			disabled
 		<% } %>
+		<% if (isRequired) { %>
+			required
+		<% } %>
+		data-js-select-control
 	>
-		<% options.forEach(({text, value, isSelected}) => { %>
+		<% options.forEach(({ label, value, isSelected, isDisabled }) => { %>
 			<option
 				value="<%= value %>"
 				<% if (isSelected) { %>
 					selected
 				<% } %>
+				<% if (isDisabled) { %>
+					disabled
+				<% } %>
+				data-js-select-option
 			>
-				<%= text %>
+				<%= label %>
 			</option>
 		<% }) %>
 	</select>
-
 	<label
-		class="<%= classNames('select__label form-label', {
-      'visually-hidden': label.isHidden
+		class="<%= classNames("select__label form-label", {
+			"visually-hidden": isLabelHidden,
 		}) %>"
-		for="<%= name %>"
+		for="<%= id %>"
 	>
-		<span><%= label.text %></span>
-		<% if (required) { %>
+		<span><%= label %></span>
+		<% if (isRequired) { %>
 			<span class="form-star-required">*</span>
 		<% } %>
 	</label>

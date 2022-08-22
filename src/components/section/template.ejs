@@ -1,6 +1,6 @@
 <%
 const { classNames } = require("../../js/utils/classNames")
-const props = { ...require("./data.json"), ...arguments?.[0] };
+const props = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
 	extraAttrs,
@@ -10,28 +10,26 @@ const {
 	body,
 } = props
 %>
-
 <%
-const classes = classNames(extraClasses, 'section')
-const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(' ') : extraAttrs
+const classes = classNames(extraClasses, "section")
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(" ") : extraAttrs
 %>
-
 <%
 const getLinkMarkup = () => {
-	if (!hasLink) return ''
+	if (!hasLink) return ""
 
-	return require('../button/template.ejs')({
-		extraClasses: 'section__link',
-		href: '/',
+	return require("../button/template.ejs")({
+		extraClasses: "section__link",
+		href: "/",
 		label: linkTitle,
 		isLabelHidden: true,
-		iconName: 'arrow-right-up',
+		iconName: "arrow-right-up",
 		isTransparent: true,
 	})
 }
 
 const getHeaderMarkup = () => {
-	if (!title) return ''
+	if (!title) return ""
 
 	return `
     <header class="section__header">

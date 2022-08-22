@@ -1,4 +1,3 @@
-
 /**
  * Удаляет множество атрибутов у элемента
  * @param el{Element} - элемент
@@ -6,6 +5,6 @@
  */
 export const removeAttrs = (el, attrsArray = []) => {
   attrsArray.forEach((attr) => {
-    el.removeAttribute(attr);
-  });
+    el.removeAttribute(attr)
+  })
 }

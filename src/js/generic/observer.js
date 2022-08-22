@@ -1,4 +1,4 @@
-import {getAttr} from '../utils/getAttr'
+import { getAttr } from "../utils/getAttr"
 
 /**
  * Единый наблюдатель для изменений документа для динамического добавления или удаления элементов коллекций
@@ -8,19 +8,19 @@ export default class Observer {
    * Селектор элементов, исключаемых из наблюдения
    * @type {string}
    */
-  static excludedSelector = '[data-js-no-observe]'
+  static excludedSelector = "[data-js-no-observe]"
 
   /**
    * Массив наименований тегов, исключаемых из наблюдения
    * @type {Array}
    */
-  static excludedTags = ['iframe', 'script', 'svg', 'ymaps', 'object', 'img']
+  static excludedTags = [ "iframe", "script", "svg", "ymaps", "object", "img" ]
 
   /**
    * Селектор элементов, включаемых в наблюдение (вне зависимости от попадания в excludedTags)
    * @type {string}
    */
-  static includedSelector = '[data-js-force-observe]'
+  static includedSelector = "[data-js-force-observe]"
 
   /**
    * Целевой элемент для наблюдения
@@ -38,7 +38,7 @@ export default class Observer {
     subtree: true,
     characterData: false,
     attributeOldValue: false,
-    characterDataOldValue: false
+    characterDataOldValue: false,
   }
 
   /**
@@ -63,7 +63,7 @@ export default class Observer {
    * Включение наблюдателя
    */
   static connect() {
-    const {target, observerCfg} = Observer
+    const { target, observerCfg } = Observer
     Observer.collectionObserver.observe(target, observerCfg)
   }
 
@@ -73,10 +73,10 @@ export default class Observer {
    * @param isObservable{Boolean=} - состояние
    */
   static setElObservableState(el, isObservable = true) {
-    const {includedSelector, excludedSelector} = Observer
+    const { includedSelector, excludedSelector } = Observer
     const included = getAttr(includedSelector)
     const excluded = getAttr(excludedSelector)
-    el.setAttribute(isObservable ? included : excluded, '')
+    el.setAttribute(isObservable ? included : excluded, "")
     el.removeAttribute(isObservable ? excluded : included)
   }
 
@@ -87,12 +87,12 @@ export default class Observer {
    */
   static isExcludedMutationRecord(mutationList) {
     const isExcludedTag = (tagName) => Observer.excludedTags.includes(tagName.toLowerCase())
-    const isExcludedEls = (nodes = []) => nodes.length && [...nodes].every(el => {
-      const {nodeType, tagName} = el
+    const isExcludedEls = (nodes = []) => nodes.length && [ ...nodes ].every(el => {
+      const { nodeType, tagName } = el
       return nodeType === 1 && !el.closest(Observer.includedSelector) && isExcludedTag(tagName)
     })
-    return [...mutationList].some(({target, addedNodes = [], removedNodes = []}) => {
-      const {nodeType, tagName} = target
+    return [ ...mutationList ].some(({ target, addedNodes = [], removedNodes = [] }) => {
+      const { nodeType, tagName } = target
       return isExcludedEls(addedNodes) || isExcludedEls(removedNodes) || (nodeType === 1 && (target.closest(Observer.excludedSelector) || isExcludedTag(tagName)))
     })
   }
@@ -124,8 +124,8 @@ export default class Observer {
    * @param selector{string} - селектор класса
    * @param callback{function} - callback-функция - как правило, инициатор класса this.init()
    */
-  static set subscribe({selector, callback}) {
-    if (typeof selector === 'string' && typeof callback === 'function' && !Observer.isCallbackExist(selector)) {
+  static set subscribe({ selector, callback }) {
+    if (typeof selector === "string" && typeof callback === "function" && !Observer.isCallbackExist(selector)) {
       Observer.callbacks.set(selector, callback)
     }
   }
@@ -135,7 +135,7 @@ export default class Observer {
    * @param selector{String} - селектор класса
    */
   static set unsubscribe(selector) {
-    if (typeof selector === 'string' && Observer.isCallbackExist(selector)) {
+    if (typeof selector === "string" && Observer.isCallbackExist(selector)) {
       Observer.callbacks.delete(selector)
     }
   }

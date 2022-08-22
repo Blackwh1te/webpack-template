@@ -7,7 +7,7 @@ export function classNames() {
 
     const argType = typeof arg
 
-    if (argType === 'string' || argType === 'number') {
+    if (argType === "string" || argType === "number") {
       classes.push(arg)
     } else if (Array.isArray(arg)) {
       if (arg.length) {
@@ -16,7 +16,7 @@ export function classNames() {
           classes.push(inner)
         }
       }
-    } else if (argType === 'object') {
+    } else if (argType === "object") {
       if (arg.toString === Object.prototype.toString) {
         for (let key in arg) {
           if (hasOwnProperty.call(arg, key) && arg[key]) {
@@ -29,5 +29,5 @@ export function classNames() {
     }
   }
 
-  return classes.join(' ')
+  return classes.join(" ")
 }

@@ -3,13 +3,12 @@ const { classNames } = require("../../js/utils/classNames")
 const props = { ...require("./data.json"), ...arguments?.[0] }
 const {
 	extraClasses,
-	extraAttrs
+	extraAttrs,
 } = props
 %>
-
 <%
-const classes = classNames(extraClasses, 'example-component')
-const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(' ') : extraAttrs
+const classes = classNames(extraClasses, "example-component")
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(" ") : extraAttrs
 %>
 
 <div

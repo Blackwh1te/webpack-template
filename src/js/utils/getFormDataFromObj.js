@@ -1,4 +1,3 @@
-
 /**
  * Преобразование объекта в интерфейс FormData
  * @param obj{Object} - исходный объект
@@ -9,9 +8,9 @@
 
 export const getFormDataFromObj = (obj = {}, fd = new FormData(), excludedNames = []) => {
   Object.entries(obj).forEach((pair) => {
-    if(!excludedNames.includes(pair[0])) {
+    if (!excludedNames.includes(pair[0])) {
       fd.set(pair[0], pair[1].toString())
     }
-  });
-  return fd;
+  })
+  return fd
 }

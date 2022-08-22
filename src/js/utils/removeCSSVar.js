@@ -1,4 +1,3 @@
-
 /**
  * Удаляет CSS3-переменную у элемента
  * @param name{String} - название переменной
@@ -6,5 +5,5 @@
  * @return Object
  */
 export const removeCSSVar = (name, el = document.documentElement) => {
-  el.style.removeProperty(name);
+  el.style.removeProperty(name)
 }

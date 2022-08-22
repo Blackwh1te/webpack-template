@@ -2,35 +2,35 @@
 const { classNames } = require("../../js/utils/classNames")
 const cfg = { ...require("./data.json"), ...arguments?.[0] }
 const {
-  extraClasses,
-  extraAttrs,
-  iconPrev,
-  iconNext
+	extraClasses,
+	extraAttrs,
+	iconPrev,
+	iconNext,
 } = cfg
 %>
 
 <div
-  class="<%= classNames('slider-buttons', extraClasses) %>"
-  <%- extraAttrs %>
+	class="<%= classNames("slider-buttons", extraClasses) %>"
+	<%- extraAttrs %>
 >
-  <button
-    class="slider-buttons__button slider-buttons__button--prev"
-    type="button"
-    title="Предыдущий слайд"
-    aria-label="Показать предыдущий слайд"
-  >
-    <svg class="i-icon">
-      <use href="#<%= iconPrev %>"></use>
-    </svg>
-  </button>
-  <button
-    class="slider-buttons__button slider-buttons__button--next"
-    type="button"
-    title="Следующий слайд"
-    aria-label="Показать следующий слайд"
-  >
-    <svg class="i-icon">
-      <use href="#<%= iconNext %>"></use>
-    </svg>
-  </button>
+	<button
+		class="slider-buttons__button slider-buttons__button--prev"
+		type="button"
+		title="Предыдущий слайд"
+		aria-label="Показать предыдущий слайд"
+	>
+		<svg class="i-icon">
+			<use href="#<%= iconPrev %>"></use>
+		</svg>
+	</button>
+	<button
+		class="slider-buttons__button slider-buttons__button--next"
+		type="button"
+		title="Следующий слайд"
+		aria-label="Показать следующий слайд"
+	>
+		<svg class="i-icon">
+			<use href="#<%= iconNext %>"></use>
+		</svg>
+	</button>
 </div>

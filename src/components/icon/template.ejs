@@ -1,0 +1,20 @@
+<%
+const { classNames } = require("../../js/utils/classNames")
+const props = { ...require("./data.json"), ...arguments?.[0] };
+const {
+  extraClasses,
+  extraAttrs,
+  name,
+} = props
+%>
+
+<%
+const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(' ') : extraAttrs
+%>
+
+<svg
+  class="<%= classNames(extraClasses, 'i-icon') %>"
+  <%- attrs %>
+>
+  <use href="#icon-<%= name %>"></use>
+</svg>

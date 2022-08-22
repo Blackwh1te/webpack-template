@@ -7,10 +7,10 @@
  */
 export const bubble = (targetEl = document, name, detail = null, params = {
   cancelable: true,
-  bubbles: true
+  bubbles: true,
 }) => {
   params.detail = detail || null
-  if (typeof targetEl === 'string') {
+  if (typeof targetEl === "string") {
     targetEl = document.querySelector(targetEl)
   }
   const event = new CustomEvent(name, params)
