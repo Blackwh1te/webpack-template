@@ -12,17 +12,20 @@ const {
 	isRequired,
 	isDisabled,
 	isMultiple,
+	hasSearch,
 	options,
 } = props
 %>
+
 <%
 const classes = classNames(extraClasses, "select form-item")
 const attrs = Array.isArray(extraAttrs) ? extraAttrs.join(" ") : extraAttrs
+const selectParams = { hasSearch }
 %>
 
 <div
 	class="<%= classes %>"
-	data-js-select
+	data-js-select="<%= JSON.stringify(selectParams) %>"
 	<%- attrs %>
 >
 	<select

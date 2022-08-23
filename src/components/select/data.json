@@ -9,6 +9,7 @@
   "isRequired": false,
   "isDisabled": false,
   "isMultiple": false,
+  "hasSearch": false,
   "options": [
     {
       "label": "First variant",

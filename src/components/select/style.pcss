@@ -36,6 +36,12 @@
   --optionSelectedTextColor: var(--c-light);
   --optionSelectedBgColor: var(--c-main);
 
+  --searchTextColor: var(--c-dark);
+  --searchPlaceholderColor: var(--c-gray);
+  --clearButtonSize: 1em;
+  --clearButtonColor: var(--c-dark);
+  --clearButtonHoverColor: var(--c-main);
+
   --hoverTextColor: var(--c-light);
   --hoverBgColor: var(--c-main);
   --hoverBorderColor: var(--c-main);
@@ -58,14 +64,27 @@
     }
 
     &:focus {
-      & ~ .select__body .i-icon {
-        transform: rotate(-180deg);
+      & ~ .select__body .select__toggle-button {
+        outline: var(--focusOutline);
+        outline-offset: 2px;
       }
     }
   }
 
+  &__body {
+    position: relative;
+  }
+
+  &__toggle-button,
+  &__search-input {
+    font-size: var(--fontSize);
+    background-color: var(--bgColor);
+    border: var(--border);
+    border-radius: var(--borderRadius);
+  }
+
   &__toggle-button {
-    @mixin transition;
+    @mixin transition color var(--base-transition-duration), background-color var(--base-transition-duration), border-color var(--base-transition-duration);
 
     display: flex;
     justify-content: space-between;
@@ -74,11 +93,7 @@
     min-width: var(--width);
     height: var(--height);
     padding-inline: var(--paddingX);
-    font-size: var(--fontSize);
     color: var(--textColor);
-    background-color: var(--bgColor);
-    border: var(--border);
-    border-radius: var(--borderRadius);
     cursor: pointer;
     user-select: none;
 
@@ -125,9 +140,12 @@
     box-shadow: var(--dropdownShadow);
     transform-origin: 50% 0;
 
-    .select:not(.is-open) & {
+    .select:not(.is-open) &,
+    .select.is-result-empty & {
       @mixin hide;
+    }
 
+    .select:not(.is-open) & {
       transform: translateY(calc(var(--dropdownOffsetY) * -1));
     }
 
@@ -171,12 +189,61 @@
         color: var(--optionSelectedTextColor);
         background-color: var(--optionSelectedBgColor);
       }
+
+      &.is-hidden {
+        display: none;
+      }
     }
   }
-}
 
-.header,
-.footer,
-.content__sections > *:not(:nth-child(9)) {
-  display: none !important;
+  &__search-input,
+  &__search-clear-button {
+    z-index: var(--layerTooltip);
+
+    .select:not(.is-open) & {
+      @mixin hide;
+    }
+  }
+
+  &__search-input {
+    @mixin abs-cover;
+
+    padding-left: var(--paddingX);
+    padding-right: calc(var(--paddingX) * 2 + var(--clearButtonSize) - var(--borderWidth));
+    font-family: inherit;
+    color: var(--searchTextColor);
+
+    &::placeholder {
+      color: var(--searchPlaceholderColor);
+    }
+
+    &:not(.is-not-empty) {
+      & ~ .select__search-clear-button {
+        @mixin hide;
+      }
+    }
+  }
+
+  &__search-clear-button {
+    @mixin abs-center-y;
+    @mixin reset-button;
+    @mixin flex-center;
+    @mixin square var(--clearButtonSize);
+
+    position: absolute;
+    right: var(--paddingX);
+    cursor: pointer;
+
+    &:hover {
+      @media (--hoverable) {
+        .i-icon {
+          --color: var(--clearButtonHoverColor);
+        }
+      }
+    }
+
+    .i-icon {
+      --color: var(--clearButtonColor);
+    }
+  }
 }

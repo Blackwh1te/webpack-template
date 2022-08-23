@@ -4,15 +4,16 @@ import { getLocaleMsg } from "../../js/utils/getLocaleMsg"
 import { render } from "../../js/utils/render"
 import { classNames } from "../../js/utils/classNames"
 import { getRandomString } from "../../js/utils/getRandomString"
-import { getParams } from "../../js/utils/getParams"
 import { bubble } from "../../js/utils/bubble"
+import { getParams } from "../../js/utils/getParams"
+import { wait } from "../../js/utils/wait"
 
 export const instance = "[data-js-select]"
 
 export const bubbles = {
-  open: "select-old::open",
-  close: "select-old::close",
-  change: "select-old::change",
+  open: "select::open",
+  close: "select::close",
+  change: "select::change",
 }
 
 export class Select {
@@ -21,6 +22,8 @@ export class Select {
     control: "[data-js-select-control]",
     option: "[data-js-select-option]",
     body: "[data-js-select-body]",
+    searchInput: "[data-js-select-search-input]",
+    searchClearButton: "[data-js-select-search-clear-button]",
     toggleButton: "[data-js-select-toggle-button]",
     currentVariant: "[data-js-select-current-variant]",
     dropdown: "[data-js-select-dropdown]",
@@ -33,6 +36,9 @@ export class Select {
     isOpen: "is-open",
     isSelected: "is-selected",
     isDisabled: "is-disabled",
+    isNotEmpty: "is-not-empty",
+    isHidden: "is-hidden",
+    isResultEmpty: "is-result-empty",
   }
 
   messages = {
@@ -40,6 +46,12 @@ export class Select {
     severalOptionsSelected: getLocaleMsg("SELECT_SEVERAL_OPTIONS_SELECTED"),
     open: getLocaleMsg("SELECT_OPEN"),
     close: getLocaleMsg("SELECT_CLOSE"),
+    startTyping: getLocaleMsg("START_TYPING"),
+    clearInput: getLocaleMsg("CLEAR_INPUT"),
+  }
+
+  defaultParams = {
+    hasSearch: false,
   }
 
   constructor(instance) {
@@ -47,6 +59,8 @@ export class Select {
     this.controlNode = this.instance.querySelector(this.els.control)
     this.labelNode = this.controlNode.labels?.[0]
     this.bodyNode = null
+    this.searchInputNode = null
+    this.searchClearButtonNode = null
     this.toggleButtonNode = null
     this.currentVariantNode = null
     this.dropdownListNode = null
@@ -54,6 +68,7 @@ export class Select {
     this.state = {
       isOpen: false,
     }
+    this.params = getParams(this.instance, this.els.instance, this.defaultParams)
     this.init()
   }
 
@@ -64,7 +79,7 @@ export class Select {
   get selectedOptions() {
     return [ ...this.controlNode.selectedOptions ]
   }
-  
+
   get selectedDropdownOptions() {
     return [ ...this.dropdownOptionNodes ].filter((dropdownOptionNode) => dropdownOptionNode.classList.contains(this.stateClasses.isSelected))
   }
@@ -74,9 +89,7 @@ export class Select {
   }
 
   set isRequired(isRequired) {
-    isRequired ?
-      this.controlNode.setAttribute("required", "") :
-      this.controlNode.removeAttribute("required")
+    this.controlNode.toggleAttribute("required", isRequired)
   }
 
   get isDisabled() {
@@ -88,9 +101,7 @@ export class Select {
   }
 
   set isDisabled(isDisabled) {
-    isDisabled ?
-      this.controlNode.setAttribute("disabled", "") :
-      this.controlNode.removeAttribute("disabled")
+    this.controlNode.toggleAttribute("disabled", isDisabled)
   }
 
   get isEmpty() {
@@ -112,20 +123,65 @@ export class Select {
     this.currentVariantNode.textContent = this.currentVariantLabel
   }
 
+  showAllOptionButtons() {
+    this.dropdownOptionNodes.forEach((dropdownOptionNode) => {
+      dropdownOptionNode.classList.remove(this.stateClasses.isHidden)
+    })
+  }
+
+  setSearchInputState() {
+    const isNotEmpty = this.searchInputNode.value.length > 0
+
+    this.searchInputNode.classList.toggle(this.stateClasses.isNotEmpty, isNotEmpty)
+  }
+
+  clearSearchInput() {
+    this.instance.classList.remove(this.stateClasses.isResultEmpty)
+    this.searchInputNode.value = ""
+    this.searchInputNode.classList.remove(this.stateClasses.isNotEmpty)
+    this.showAllOptionButtons()
+  }
+
+  filterResult(searchQuery) {
+    this.dropdownOptionNodes.forEach((dropdownOptionNode) => {
+      const textContent = dropdownOptionNode.textContent.trim().toLowerCase()
+      const hasMatches = textContent.includes(searchQuery)
+
+      dropdownOptionNode.classList.toggle(this.stateClasses.isHidden, !hasMatches)
+    })
+
+    const hiddenDropdownOptionNodes = [ ...this.dropdownOptionNodes ].filter((dropdownOptionNode) => dropdownOptionNode.classList.contains(this.stateClasses.isHidden))
+    const isAllDropdownOptionsHidden = this.dropdownOptionNodes.length === hiddenDropdownOptionNodes.length
+
+    this.instance.classList.toggle(this.stateClasses.isResultEmpty, isAllDropdownOptionsHidden)
+  }
+
   open() {
     if (this.isDisabled || this.isEmpty) return
+
     this.state.isOpen = true
     this.instance.classList.add(this.stateClasses.isOpen)
+    this.toggleButtonNode.setAttribute("title", this.messages.close)
     bubble(this.instance, bubbles.open)
+
+    if (this.searchInputNode) {
+      this.clearSearchInput()
+      wait(100).then(() => this.searchInputNode.focus())
+    }
   }
 
   close() {
     this.state.isOpen = false
     this.instance.classList.remove(this.stateClasses.isOpen)
+    this.toggleButtonNode.setAttribute("title", this.messages.open)
     bubble(this.instance, bubbles.close)
+
+    if (this.searchInputNode) {
+      this.clearSearchInput()
+    }
   }
 
-  toggle() {
+  toggleOpenState() {
     this.state.isOpen ? this.close() : this.open()
   }
 
@@ -138,7 +194,6 @@ export class Select {
       disabled: isDisabled,
       selected: isSelected,
       textContent: label,
-      value,
     } = optionNode
 
     const optionClassNames = classNames("select__dropdown-option", {
@@ -146,7 +201,6 @@ export class Select {
       [this.stateClasses.isDisabled]: isDisabled,
     })
     const optionID = `select-option-option-${getRandomString()}`
-    const optionParams = { value }
 
     return `
       <li
@@ -158,7 +212,7 @@ export class Select {
           class="${optionClassNames}"
           id="${optionID}"
           type="button"
-          data-js-select-dropdown-option='${JSON.stringify(optionParams)}'
+          data-js-select-dropdown-option
           role="option"
         >
           ${label}
@@ -167,15 +221,40 @@ export class Select {
     `
   }
 
+  getSearchMarkup() {
+    const clearButtonIconMarkup = require("../icon/template.ejs")({ name: "close" })
+
+    return `
+      <input
+        class="select__search-input"
+        type="text"
+        autocomplete="off"
+        placeholder="${this.messages.startTyping}"
+        data-js-select-search-input
+      />
+      <button
+        class="select__search-clear-button"
+        type="button"
+        title="${this.messages.clearInput}"
+        aria-label="${this.messages.clearInput}"
+        data-js-select-search-clear-button
+      >
+        ${clearButtonIconMarkup}
+      </button>
+    `
+  }
+
   generateMarkup() {
     const iconMarkup = require("../icon/template.ejs")({ name: "arrow-down" })
     const dropdownItemsMarkup = this.options.map((optionNode) => this.getDropdownItemMarkup(optionNode)).join("")
+    const searchMarkup = this.params.hasSearch ? this.getSearchMarkup() : ""
 
     const markup = `
       <div
         class="select__body"
         data-js-select-body
       >
+        ${searchMarkup}
         <div
           class="select__toggle-button"
           role="combobox"
@@ -210,6 +289,8 @@ export class Select {
 
   defineNodes() {
     this.bodyNode = this.instance.querySelector(this.els.body)
+    this.searchInputNode = this.instance.querySelector(this.els.searchInput)
+    this.searchClearButtonNode = this.instance.querySelector(this.els.searchClearButton)
     this.toggleButtonNode = this.instance.querySelector(this.els.toggleButton)
     this.currentVariantNode = this.instance.querySelector(this.els.currentVariant)
     this.dropdownNode = this.instance.querySelector(this.els.dropdown)
@@ -229,7 +310,7 @@ export class Select {
     const id = getRandomString()
     const dropdownID = `select-dropdown-${id}`
     const labelID = `select-label-${id}`
-    
+
     this.toggleButtonNode.setAttribute("aria-labelledby", labelID)
     this.toggleButtonNode.setAttribute("aria-owns", dropdownID)
     this.label?.setAttribute("id", labelID)
@@ -243,9 +324,7 @@ export class Select {
   }
 
   toggleOptionState(optionNode, isSelected = true) {
-    isSelected ?
-      optionNode.setAttribute("selected", "") :
-      optionNode.removeAttribute("selected")
+    optionNode.toggleAttribute("selected", isSelected)
   }
 
   toggleDropdownOption(dropdownOptionNode) {
@@ -276,8 +355,8 @@ export class Select {
     this.updateMarkup()
   }
 
-  handleClick(event) {
-    const isClickOutside = !event.path.includes(this.instance)
+  handleClick({ path }) {
+    const isClickOutside = !path.includes(this.instance)
 
     if (isClickOutside) {
       this.close()
@@ -291,26 +370,59 @@ export class Select {
       this.selectDropdownOption(dropdownOptionNode)
       this.close()
     }
+
     this.updateMarkup()
     bubble(this.control, bubbles.change)
   }
 
-  handleInstanceClick(event) {
-    const { target } = event
-
+  handleInstanceClick({ target }) {
     if (target.matches(this.els.dropdownOption)) {
       this.handleDropdownOptionClick(target)
     }
   }
 
   handleToggleButtonClick() {
-    this.toggle()
+    this.toggleOpenState()
   }
 
   handleControlChange({ isTrusted }) {
     if (isTrusted) {
       this.updateDropdownOptions()
     }
+  }
+
+  handleLabelClick(event) {
+    if (this.isEmpty) {
+      event.preventDefault()
+    }
+
+    this.open()
+  }
+
+  handleInstanceKeyPress({ target, key }) {
+    const isControlNodeFocused = target.matches(this.els.control)
+    const isEnterPressed = key === "Enter"
+
+    if (isControlNodeFocused && isEnterPressed) {
+      this.toggleOpenState()
+    }
+  }
+
+  handleSearchInput({ target }) {
+    const searchQuery = target.value.trim().toLowerCase()
+
+    if (searchQuery.length > 0) {
+      this.filterResult(searchQuery)
+    } else {
+      this.showAllOptionButtons()
+    }
+
+    this.setSearchInputState()
+  }
+
+  handleSearchClearButtonClick() {
+    this.clearSearchInput()
+    this.searchInputNode.focus()
   }
 
   init() {
@@ -323,8 +435,12 @@ export class Select {
   bindEvents() {
     document.addEventListener("click", (event) => this.handleClick(event))
     this.instance.addEventListener("click", (event) => this.handleInstanceClick(event))
+    this.instance.addEventListener("keypress", (event) => this.handleInstanceKeyPress(event))
     this.toggleButtonNode.addEventListener("click", () => this.handleToggleButtonClick())
     this.controlNode.addEventListener("change", (event) => this.handleControlChange(event))
+    this.labelNode.addEventListener("click", (event) => this.handleLabelClick(event))
+    this.searchInputNode?.addEventListener("input", (event) => this.handleSearchInput(event))
+    this.searchClearButtonNode?.addEventListener("click", () => this.handleSearchClearButtonClick())
   }
 }
 

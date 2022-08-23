@@ -2,7 +2,32 @@
 	<li class="grid__item">
 		<%- require("../../components/select/template.ejs")({
 			label: "Select one variant:",
+			id: "single-select",
 			name: "single-select",
+			hasSearch: true,
+			options: [
+				{
+					label: "First variant",
+					value: "variant-1",
+					isSelected: true,
+				},
+				{
+					label: "Second variant",
+					value: "variant-2",
+				},
+				{
+					label: "Third variant",
+					value: "variant-3",
+				},
+				{
+					label: "Third variant 2",
+					value: "variant-32",
+				},
+				{
+					label: "Third variant 3",
+					value: "variant-33",
+				},
+			],
 		}) %>
 	</li>
 
@@ -12,6 +37,37 @@
 			id: "multiple-select",
 			name: "multiple-select[]",
 			isMultiple: true,
+			hasSearch: true,
+			options: [
+				{
+					label: "First variant",
+					value: "variant-1",
+				},
+				{
+					label: "Second variant",
+					value: "variant-2",
+				},
+				{
+					label: "Third variant",
+					value: "variant-3",
+				},
+				{
+					label: "Third variant 2",
+					value: "variant-32",
+				},
+				{
+					label: "Third variant 3",
+					value: "variant-33",
+				},
+				{
+					label: "Third variant 4",
+					value: "variant-34",
+				},
+				{
+					label: "Third variant 5",
+					value: "variant-35",
+				},
+			],
 		}) %>
 	</li>
 </ul>
